@@ -5,5 +5,7 @@ export default {
   authUser: url + 'authenticate/user',
   authRefresh: url + 'authenticate/refresh',
   authInvalidate: url + 'authenticate/invalidate',
-  accountRetrieve: url + 'accounts/retrieve'
+  accountRetrieve: url + 'accounts/retrieve',
+  notificationsRetrieve: url + 'notifications/retrieve',
+  messagesRetrieve: url + 'messenger_groups/retrieve_summary_payhiram'
 }

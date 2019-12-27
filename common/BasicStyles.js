@@ -29,5 +29,11 @@ export default {
   },
   textWhite: {
     color: Color.white
+  },
+  iconSize: 24,
+  iconStyle: {
+    color: Color.white,
+    paddingLeft: 20,
+    paddingRight: 20
   }
 }

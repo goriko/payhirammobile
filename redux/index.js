@@ -5,6 +5,8 @@ import { Helper } from 'common';
 const types = {
   LOGOUT: 'LOGOUT',
   LOGIN: 'LOGIN',
+  SET_NOTIFICATIONS: 'SET_NOTIFICATIONS',
+  SET_MESSAGES: 'SET_MESSAGES',
   nav: null
 }
 
@@ -14,12 +16,20 @@ export const actions = {
   },
   logout() {
     return { type: types.LOGOUT };
+  },
+  setNotifications(unread, notifications){
+    return { type: types.SET_NOTIFICATIONS, unread, notifications};
+  }, 
+  setMessenger(unread, messages){
+    return { type: types.SET_MESSAGES, unread, messages};
   }
 };
 
 const initialState = {
   token: null,
   user: null,
+  notifications: null,
+  messenger: null,
   nav: null
 }
 
@@ -33,6 +43,7 @@ storeData = async (key, value) => {
 
 const reducer = (state = initialState, action) => {
   const { type, user, token } = action;
+  const { messages, unread } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -41,6 +52,26 @@ const reducer = (state = initialState, action) => {
       storeData('token', token);
       Data.setToken(token)
       return { ...state, user, token };
+    case types.SET_NOTIFICATIONS:
+      let notifications = {
+        unread,
+        notifications:action.notifications
+      }
+      console.log('notifications', notifications);
+      return {
+        ...state,
+        notifications
+      }
+    case types.SET_MESSAGES:
+      let messenger = {
+        unread,
+        messages
+      }
+      console.log('messenger', messenger);
+      return {
+        ...state,
+        messenger
+      }
     default:
       return {...state, nav: state.nav};
   }
