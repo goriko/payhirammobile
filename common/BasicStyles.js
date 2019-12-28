@@ -64,5 +64,10 @@ export default {
     paddingLeft: 5,
     paddingRight: 5,
     marginRight: 10
-  }
+  },
+  profileImageSize: {
+    height: 30,
+    width: 30,
+    borderRadius: 15
+  },
 }

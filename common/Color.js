@@ -6,5 +6,7 @@ export default {
   secondary: '#ec3563',
   white: '#ffffff',
   gray: '#cccccc',
-  lightGray: '#eeeeee'
+  lightGray: '#eeeeee',
+  darkGray: '#555555',
+  normalGray: '#999'
 }

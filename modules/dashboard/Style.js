@@ -32,7 +32,6 @@ export default {
   },
   btn: {
     width: '90%',
-    textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
