@@ -5,5 +5,6 @@ export default {
   warning: '#ffc107',
   secondary: '#ec3563',
   white: '#ffffff',
-  gray: '#cccccc'
+  gray: '#cccccc',
+  lightGray: '#eeeeee'
 }

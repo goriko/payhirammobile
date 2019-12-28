@@ -35,5 +35,34 @@ export default {
     color: Color.white,
     paddingLeft: 20,
     paddingRight: 20
+  },
+  titleText: {
+    fontSize: 13,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  normalText: {
+    fontSize: 12,
+    color: Color.gray,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  Separator: {
+    height: 0.5,
+    width: width - 40,
+    backgroundColor: Color.lightGray,
+    marginLeft: 20
+  },
+  badge: {
+    backgroundColor: Color.danger,
+    color: Color.white,
+    borderRadius: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    marginRight: 10
   }
 }
