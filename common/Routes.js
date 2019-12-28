@@ -7,5 +7,6 @@ export default {
   authInvalidate: url + 'authenticate/invalidate',
   accountRetrieve: url + 'accounts/retrieve',
   notificationsRetrieve: url + 'notifications/retrieve',
-  messagesRetrieve: url + 'messenger_groups/retrieve_summary_payhiram'
+  messagesRetrieve: url + 'messenger_groups/retrieve_summary_payhiram',
+  ledgerSummaryRetrieve: url + 'ledgers/summary'
 }

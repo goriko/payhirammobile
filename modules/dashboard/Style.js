@@ -10,48 +10,48 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  LogoContainer: {
-    height: 100,
-    width: width,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 50,
-    marginTop: 100
-  },
-  LogoSize: {
-    height: 100,
-    width: 100
-  },
   TextContainer: {
     flex: 1
   },
-  messageContainer: {
-    height: 50,
-    width: width - 40,
+  Card: {
+    borderRadius: 10,
+    width: width - 20,
+    marginLeft: 10,
+    marginRight: 10,
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  titleText: {
+    color: Color.white,
+    fontSize: 16,
+    fontWeight: 'bold' 
+  },
+  numberText: {
+    color: Color.white,
+    fontSize: 30 
+  },
+  btn: {
+    width: '90%',
+    textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    color: Color.danger
+    height: 40,
+    borderRadius: 5,
+    marginLeft: '5%'
   },
-  messageText: {
-    color: Color.danger
-  },
-  textInput: {
-    height: 50,
-    borderColor: Color.gray,
-    borderWidth: 1,
-    width: width - 40,
+  titleTextSummary: {
+    fontSize: 13,
+    paddingTop: 2,
+    paddingBottom: 2,
     paddingLeft: 10,
-    marginBottom: 20
+    paddingRight: 10
   },
-  btnPrimary: {
-    height: 50,
-    backgroundColor: Color.primary,
-    width: width - 40,
-    marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnText: {
-    color: Color.white
+  normalText: {
+    fontSize: 12,
+    color: Color.gray,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 10
   }
 }

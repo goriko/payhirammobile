@@ -7,6 +7,8 @@ const types = {
   LOGIN: 'LOGIN',
   SET_NOTIFICATIONS: 'SET_NOTIFICATIONS',
   SET_MESSAGES: 'SET_MESSAGES',
+  SET_LEDGER: 'SET_LEDGER',
+  SET_USER_LEDGER: 'SET_USER_LEDGER',
   nav: null
 }
 
@@ -22,6 +24,12 @@ export const actions = {
   }, 
   setMessenger(unread, messages){
     return { type: types.SET_MESSAGES, unread, messages};
+  },
+  setLedger(ledger){
+    return { type: types.SET_LEDGER, ledger};
+  },
+  setUserLedger(userLedger){
+    return { type: types.SET_USER_LEDGER, userLedger};
   }
 };
 
@@ -30,6 +38,8 @@ const initialState = {
   user: null,
   notifications: null,
   messenger: null,
+  ledger: null,
+  userLedger: null,
   nav: null
 }
 
@@ -71,6 +81,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         messenger
+      }
+    case types.SET_USER_LEDGER: 
+      let userLedger = {
+        currency: 'PHP',
+        amount: action.userLedger
+      }
+      return {
+        ...state,
+        userLedger
+      }
+    case types.SET_LEDGER:
+      return {
+        ...state,
+        ledger: action.ledger
       }
     default:
       return {...state, nav: state.nav};
