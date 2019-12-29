@@ -9,6 +9,8 @@ const types = {
   SET_MESSAGES: 'SET_MESSAGES',
   SET_LEDGER: 'SET_LEDGER',
   SET_USER_LEDGER: 'SET_USER_LEDGER',
+  SET_MESSENGER_GROUP: 'SET_MESSENGER_GROUP',
+  SET_MESSAGES_ON_GROUP: 'SET_MESSAGES_ON_GROUP',
   nav: null
 }
 
@@ -30,6 +32,12 @@ export const actions = {
   },
   setUserLedger(userLedger){
     return { type: types.SET_USER_LEDGER, userLedger};
+  },
+  setMessengerGroup(messengerGroup){
+    return { type: types.SET_MESSENGER_GROUP, messengerGroup};
+  },
+  setMessagesOnGroup(messagesOnGroup){
+    return { type: types.SET_MESSAGES_ON_GROUP, messagesOnGroup};
   }
 };
 
@@ -40,6 +48,8 @@ const initialState = {
   messenger: null,
   ledger: null,
   userLedger: null,
+  messengerGroup: null,
+  messagesOnGroup: null,
   nav: null
 }
 
@@ -54,6 +64,7 @@ storeData = async (key, value) => {
 const reducer = (state = initialState, action) => {
   const { type, user, token } = action;
   const { messages, unread } = action;
+  const { messengerGroup, messagesOnGroup } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -95,6 +106,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ledger: action.ledger
+      }
+    case types.SET_MESSENGER_GROUP:
+      return {
+        ...state,
+        messengerGroup
+      }
+    case types.SET_MESSAGES_ON_GROUP:
+      return {
+        ...state,
+        messagesOnGroup
       }
     default:
       return {...state, nav: state.nav};

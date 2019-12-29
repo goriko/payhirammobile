@@ -5,6 +5,8 @@ import ForgotPassword from 'modules/basics/ForgotPassword';
 import Register from 'modules/basics/Register';
 import Drawer from './Drawer';
 import NotificationStack from 'modules/notification/Drawer.js';
+import MessagesStack from 'modules/messenger/MessagesDrawer.js';
+import LedgerStack from 'modules/dashboard/LedgerDrawer.js';
 
 
 
@@ -42,7 +44,9 @@ const PrimaryNav = createStackNavigator({
   forgotPasswordStack: { screen: ForgotPasswordStack},
   registerStack: { screen: RegisterStack},
   drawerStack: { screen: Drawer },
-  notificationStack: { screen: NotificationStack}
+  notificationStack: { screen: NotificationStack},
+  messagesStack: { screen: MessagesStack},
+  ledgerStack: { screen: LedgerStack}
 }, {
   // Default config for all screens
   headerMode: 'none',

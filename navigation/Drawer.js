@@ -8,6 +8,8 @@ import Slider from 'components/Slider';
 import { Color, BasicStyles } from 'common';
 import Requests from 'modules/request';
 import Dashboard from 'modules/dashboard';
+import Messenger from 'modules/messenger';
+import Profile from 'modules/profile';
 import OptionRight from './OptionRight';
 class MenuDrawerStructure extends Component {
   constructor(props){
@@ -64,6 +66,37 @@ const Dashboard_StackNavigator = createStackNavigator({
   },
 });
 
+
+const Messenger_StackNavigator = createStackNavigator({
+  Messenger: {
+    screen: Messenger,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Messages',
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: Color.primary,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const Profile_StackNavigator = createStackNavigator({
+  Profile: {
+    screen: Profile,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Profile',
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: Color.primary,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const Drawer = createDrawerNavigator({
   Requests: {
     screen: Requests_StackNavigator,
@@ -75,6 +108,18 @@ const Drawer = createDrawerNavigator({
     screen: Dashboard_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Dashboard',
+    },
+  },
+  Messenger: {
+    screen: Messenger_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Messages',
+    },
+  },
+  Profile: {
+    screen: Profile_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Profile',
     },
   },
 }, {

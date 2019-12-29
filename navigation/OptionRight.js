@@ -14,12 +14,19 @@ class NavigationDrawerStructureRight extends Component {
   goTo = (screen) => {
     this.props.navigationProps.navigate(screen)
   }
+
+  navigateToScreen = (route) => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigationProps.dispatch(navigateAction);
+  }
   
   render() {
     return (
       <View style={{ flexDirection: 'row' }}>
         <View>
-          <TouchableOpacity onPress={() => this.goTo('threadStack')}>
+          <TouchableOpacity onPress={() => this.navigateToScreen('Messenger')}>
             {/*Donute Button Image */}
             <FontAwesomeIcon icon={ faEnvelope } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
           </TouchableOpacity>

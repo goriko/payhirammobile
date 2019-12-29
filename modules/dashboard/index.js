@@ -16,7 +16,14 @@ class Dashboard extends Component{
   }
 
   componentDidMount(){
-    this.retrieveSummaryLedger();
+    const { user } = this.props.state;
+    if(user != null){
+      this.retrieveSummaryLedger();
+    }
+  }
+
+  redirect = (route) => {
+    this.props.navigation.navigate(route)
   }
 
 
@@ -238,7 +245,6 @@ class Dashboard extends Component{
           extraData={selected}
           ItemSeparatorComponent={this.FlatListItemSeparator}
           style={{
-            marginBottom: 50
           }}
           renderItem={({ item, index }) => (
             <View>
@@ -255,14 +261,14 @@ class Dashboard extends Component{
                     <Text
                       style={[Style.titleTextSummary, {
                         paddingTop: 10,
-                        width: '50%'
+                        width: '60%'
                       }]}>
                       {item.created_at_human}
                     </Text>
                     <Text
                       style={[Style.titleTextSummary, {
                         paddingTop: 10,
-                        width: '50%',
+                        width: '40%',
                         fontWeight: 'bold',
                         color: item.amount > 0 ? Color.primary : Color.danger,
                         textAlign: 'right'
@@ -287,6 +293,27 @@ class Dashboard extends Component{
           )}
           keyExtractor={(item, index) => index.toString()}
         />
+        <View style={{
+          flexDirection: 'row' 
+        }}>
+          <TouchableHighlight
+            style={{
+              height: 50,
+              backgroundColor: Color.primary,
+              width: '60%',
+              marginBottom: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginLeft: '20%'
+            }}
+            onPress={() => this.redirect('ledgerStack')}
+            underlayColor={Color.gray}
+            >
+            <Text style={{
+              color: Color.white
+            }}>View more</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }

@@ -2,6 +2,7 @@ export default {
   company: 'Increment Technologies',
   APP_NAME: '@Payhiram_',
   APP_NAME_BASIC: 'Payhiram',
+  APP_WEBSITE: 'www.payhiram.increment.ltd',
   DrawerMenu: [{
     title: 'Requests',
     route: 'Requests'
@@ -9,8 +10,8 @@ export default {
     title: 'Dashboard',
     route: 'Dashboard'
   }, {
-    title: 'Threads',
-    route: 'Threads'
+    title: 'Messages',
+    route: 'Messenger'
   }, {
     title: 'Profile',
     route: 'Profile'
