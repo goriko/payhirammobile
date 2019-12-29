@@ -15,6 +15,13 @@ export default {
     title: 'Profile',
     route: 'Profile'
   }],
+  currency: [{
+    title: 'Philippine Peso',
+    value: 'PHP'
+  }],
+  payhiramCharges: {
+    percentage: .20
+  },
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

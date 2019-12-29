@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner, Rating } from 'components';
+import { Spinner, Rating, CustomModal } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
-import Config from 'src/config.js'
+import Config from 'src/config.js';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 class Requests extends Component{
 
   constructor(props){
@@ -14,7 +16,9 @@ class Requests extends Component{
     this.state = {
       isLoading: false,
       data: null,
-      selected: null
+      selected: null,
+      connectModal: false,
+      connectSelected: null
     }
   }
 
@@ -51,12 +55,36 @@ class Requests extends Component{
   }
 
   bookmark = (item) => {
-    console.log('bookmark')
+    const { user } = this.props.state;
+    let parameter = {
+      account_id: user.id,
+      request_id: item.id
+    }
+    this.setState({isLoading: true});
+    Api.request(Routes.bookmarkCreate, parameter, response => {
+      this.retrieve()
+    });
   } 
 
   connectRequest = (item) => {
     console.log('connectRequest')
-  } 
+    this.setState({
+      connectSelected: item
+    });
+    setTimeout(() => {
+      this.setState({connectModal: true})
+    }, 500)
+  }
+
+  connectAction = (flag) => {
+    if(flag == false){
+      this.setState({connectModal: false, connectSelected: null})
+    }else{
+      // process charges
+      this.setState({connectModal: false, connectSelected: null})
+      this.retrieve()
+    }
+  }
 
   _footer = (item) => {
     return (
@@ -65,24 +93,41 @@ class Requests extends Component{
           flexDirection: 'row',
           marginBottom: 10}}>
           <View style={{
-            width: '50%',
+            width: '50%'
           }}>
-              <TouchableHighlight
-                onPress={() => {this.bookmark(item)}}
-                style={[Style.btn, {backgroundColor: Color.warning}]}
-                underlayColor={Color.gray}
-                >
-                  <Text style={{
-                    color: Color.white
-                  }}>Bookmark</Text>
-              </TouchableHighlight>
+            <TouchableHighlight
+              onPress={() => {this.bookmark(item)}}
+              style={[Style.btn, {backgroundColor: Color.warning}]}
+              underlayColor={Color.gray}
+              >
+              <View
+                style={{
+                  flexDirection: 'row'
+                }}
+              >
+                {
+                  item.bookmark == true && (
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      style={{
+                        color: Color.white,
+                        marginRight: 10
+                      }}
+                    />
+                  )
+                }
+                <Text style={{
+                  color: Color.white
+                }}>Bookmark</Text>
+              </View>
+            </TouchableHighlight>
           </View>
 
           <View style={{
             width: '50%'
           }}>
               <TouchableHighlight
-                onPress={() => {this.connectRequest()}}
+                onPress={() => {this.connectRequest(item)}}
                 underlayColor={Color.gray}
                 style={[Style.btn, {backgroundColor: Color.primary}]}
               >
@@ -165,37 +210,65 @@ class Requests extends Component{
 
   _flatList = () => {
     const { data, selected } = this.state;
+    const { user } = this.props.state;
     return (
-      <FlatList
-        data={data}
-        extraData={selected}
-        ItemSeparatorComponent={this.FlatListItemSeparator}
-        style={{
-          marginBottom: 50
-        }}
-        renderItem={({ item, index }) => (
-          <View>
-            {this._header(item)}
-            {this._subHeader(item)}
-            {this._body(item)}
-            <View>
-              <Rating ratings={item.rating}></Rating>
-            </View>
-            {this._footer(item)}
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <View>
+        {
+          data != null && user != null && (
+            <FlatList
+              data={data}
+              extraData={selected}
+              ItemSeparatorComponent={this.FlatListItemSeparator}
+              style={{
+                marginBottom: 50
+              }}
+              renderItem={({ item, index }) => (
+                <View>
+                  {this._header(item)}
+                  {this._subHeader(item)}
+                  {this._body(item)}
+                  <View>
+                    <Rating ratings={item.rating}></Rating>
+                  </View>
+                  {item.account_id != user.id && (this._footer(item))}
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )
+        }
+      </View>
     );
   }
+
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, connectModal, connectSelected } = this.state;
     return (
-      <ScrollView style={Style.ScrollView}>
+      <ScrollView 
+        style={Style.ScrollView}
+        onScroll={(event) => {
+          if(event.nativeEvent.contentOffset.y <= 0) {
+            if(this.state.isLoading == false){
+              this.retrieve()
+            }
+          }
+        }}
+        >
         <View style={Style.MainContainer}>
           {this._flatList()}
         </View>
         {isLoading ? <Spinner mode="overlay"/> : null }
+        <CustomModal
+          visible={connectModal}
+          title={'Charges'}
+          payload={'charges'}
+          actionLabel={{
+            yes: 'Continue',
+            no: 'Cancel'
+          }}
+          data={connectSelected}
+          action={(flag) => this.connectAction(flag)}
+        ></CustomModal>
       </ScrollView>
     );
   }

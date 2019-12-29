@@ -10,5 +10,7 @@ export default {
   notificationsRetrieve: apiUrl + 'notifications/retrieve',
   messagesRetrieve: apiUrl + 'messenger_groups/retrieve_summary_payhiram',
   ledgerSummaryRetrieve: apiUrl + 'ledgers/summary',
-  requestRetrieve: apiUrl + 'requests/retrieve'
+  requestRetrieve: apiUrl + 'requests/retrieve',
+  bookmarkCreate: apiUrl + 'bookmarks/create',
+  requestPeerCreate: apiUrl + 'request_peers/create'
 }

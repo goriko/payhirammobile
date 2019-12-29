@@ -295,7 +295,16 @@ class Dashboard extends Component{
     const { isLoading } = this.state;
     const { userLedger, ledger } = this.props.state;
     return (
-      <ScrollView style={Style.ScrollView}>
+      <ScrollView 
+        style={Style.ScrollView}
+        onScroll={(event) => {
+          if(event.nativeEvent.contentOffset.y <= 0) {
+            if(this.state.isLoading == false){
+              this.retrieveSummaryLedger()
+            }
+          }
+        }}
+        >
         <View style={Style.MainContainer}>
           {userLedger != null && (this._accountBalance())}
           {ledger != null && (this._requests())}

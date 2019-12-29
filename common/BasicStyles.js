@@ -10,6 +10,21 @@ export default {
     paddingLeft: 10,
     marginBottom: 20
   },
+  formControlModal: {
+    height: 50,
+    borderColor: Color.gray,
+    borderWidth: 1,
+    width: '90%',
+    marginLeft: '5%',
+    marginBottom: 20
+  },
+  pickerStyle: {
+    height: 50,
+    borderBottomColor: Color.gray,
+    borderBottomWidth: 1,
+    width: '90%',
+    marginLeft: '5%'
+  },
   btn: {
     height: 50,
     backgroundColor: Color.primary,
