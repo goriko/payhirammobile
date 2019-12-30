@@ -18,12 +18,24 @@ export default {
     marginLeft: '5%',
     marginBottom: 20
   },
+  formControlCreate: {
+    height: 50,
+    borderColor: Color.gray,
+    borderWidth: 1,
+    width: '100%',
+    marginBottom: 20
+  },
   pickerStyle: {
     height: 50,
     borderBottomColor: Color.gray,
     borderBottomWidth: 1,
-    width: '90%',
-    marginLeft: '5%'
+    width: '90%'
+  },
+  pickerStyleCreate: {
+    height: 50,
+    borderBottomColor: Color.gray,
+    borderBottomWidth: 1,
+    width: '100%'
   },
   btn: {
     height: 50,

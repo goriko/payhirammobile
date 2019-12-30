@@ -24,4 +24,19 @@ export default {
     width: width,
     backgroundColor: Color.lightGray
   },
+  floatingButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',                                          
+    bottom: 20,                                                    
+    right: 20,
+    height: 70,
+    backgroundColor: Color.secondary,
+    borderRadius: 100,
+    color: Color.white
+  },
+  textFloatingBtn: {
+    color: Color.white
+  }
 }

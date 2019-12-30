@@ -7,8 +7,8 @@ import Drawer from './Drawer';
 import NotificationStack from 'modules/notification/Drawer.js';
 import MessagesStack from 'modules/messenger/MessagesDrawer.js';
 import LedgerStack from 'modules/dashboard/LedgerDrawer.js';
-
-
+import CreateRequestStack from 'modules/request/CreateDrawer.js';
+import LocationStack from 'components/Location/Drawer.js';
 
 // login stack
 const LoginStack = createStackNavigator({
@@ -46,7 +46,9 @@ const PrimaryNav = createStackNavigator({
   drawerStack: { screen: Drawer },
   notificationStack: { screen: NotificationStack},
   messagesStack: { screen: MessagesStack},
-  ledgerStack: { screen: LedgerStack}
+  ledgerStack: { screen: LedgerStack},
+  createRequestStack: { screen: CreateRequestStack},
+  locationStack: { screen: LocationStack}
 }, {
   // Default config for all screens
   headerMode: 'none',

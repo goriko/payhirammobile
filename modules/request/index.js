@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
+import { View, Image, TouchableHighlight, Text, ScrollView, FlatList, TouchableOpacity} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner, Rating, CustomModal } from 'components';
 import Api from 'services/api/index.js';
@@ -8,7 +8,7 @@ import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faPlus } from '@fortawesome/free-solid-svg-icons';
 class Requests extends Component{
 
   constructor(props){
@@ -24,6 +24,10 @@ class Requests extends Component{
 
   componentDidMount(){
     this.retrieve();
+  }
+
+  redirect = (route) => {
+    this.props.navigation.navigate(route);
   }
 
   retrieve = () => {
@@ -244,32 +248,46 @@ class Requests extends Component{
   render() {
     const { isLoading, connectModal, connectSelected } = this.state;
     return (
-      <ScrollView 
-        style={Style.ScrollView}
-        onScroll={(event) => {
-          if(event.nativeEvent.contentOffset.y <= 0) {
-            if(this.state.isLoading == false){
-              this.retrieve()
+      <View>
+        <ScrollView 
+          style={Style.ScrollView}
+          onScroll={(event) => {
+            if(event.nativeEvent.contentOffset.y <= 0) {
+              if(this.state.isLoading == false){
+                this.retrieve()
+              }
             }
-          }
-        }}
-        >
-        <View style={Style.MainContainer}>
-          {this._flatList()}
-        </View>
-        {isLoading ? <Spinner mode="overlay"/> : null }
-        <CustomModal
-          visible={connectModal}
-          title={'Charges'}
-          payload={'charges'}
-          actionLabel={{
-            yes: 'Continue',
-            no: 'Cancel'
           }}
-          data={connectSelected}
-          action={(flag) => this.connectAction(flag)}
-        ></CustomModal>
-      </ScrollView>
+          >
+          <View style={Style.MainContainer}>
+            {this._flatList()}
+          </View>
+        </ScrollView>
+          <TouchableOpacity
+              style={Style.floatingButton}
+              onPress={() => this.redirect('createRequestStack')}
+            >
+            <FontAwesomeIcon
+              icon={faPlus}
+              style={{
+                color: Color.white
+              }}
+              size={BasicStyles.iconSize}
+            />
+          </TouchableOpacity>
+          {isLoading ? <Spinner mode="overlay"/> : null }
+          <CustomModal
+            visible={connectModal}
+            title={'Charges'}
+            payload={'charges'}
+            actionLabel={{
+              yes: 'Continue',
+              no: 'Cancel'
+            }}
+            data={connectSelected}
+            action={(flag) => this.connectAction(flag)}
+          ></CustomModal>
+      </View>
     );
   }
 }

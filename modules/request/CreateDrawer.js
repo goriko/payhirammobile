@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import Ledger from 'modules/dashboard/Ledger.js';
+import CreateRequest from 'modules/request/Create.js';
 import { Color, BasicStyles } from 'common';
 import { connect } from 'react-redux';
 
@@ -37,13 +37,13 @@ const mapDispatchToProps = dispatch => {
 
 
 
-const LedgerStack = createStackNavigator({
-  ledgerScreen: {
-    screen: Ledger, 
+const CreateRequestStack = createStackNavigator({
+  createRequestScreen: {
+    screen: CreateRequest, 
     navigationOptions: ({ navigation }) => ({
-      title: 'Ledger',
+      title: 'Create Request',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
-      drawerLabel: 'Ledger',
+      drawerLabel: 'Create Request',
       headerStyle: {
         backgroundColor: Color.primary,
       },
@@ -55,4 +55,4 @@ const LedgerStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LedgerStack);
+)(CreateRequestStack);
