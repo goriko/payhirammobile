@@ -75,4 +75,19 @@ export default {
     paddingTop: 5,
     paddingBottom: 5
   },
+  templateText: {
+    color: Color.primary,
+    fontSize: 11,
+    textAlign: 'center'
+  },
+  templateBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    borderRadius: 5,
+    color: Color.primary,
+    backgroundColor: Color.white,
+    borderColor: Color.primary,
+    borderWidth: 1
+  }
 }

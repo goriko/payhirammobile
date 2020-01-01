@@ -349,7 +349,8 @@ class CreateRequest extends Component {
               borderColor: Color.gray,
               borderWidth: 1,
               width: '100%',
-              marginBottom: 20
+              marginBottom: 20,
+              textAlignVertical: 'top'
             }}
             onChangeText={(reason) => this.setState({reason})}
             value={this.state.reason}

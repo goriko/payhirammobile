@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faImage, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import Review from './templates/Review.js';
 class Messages extends Component{
   constructor(props){
     super(props);
@@ -142,6 +143,17 @@ class Messages extends Component{
     );
   }
 
+  _templates = () => {
+    const { messengerGroup } = this.props.state;
+    return (
+      <View>
+        {messengerGroup != null && messengerGroup.rating == null && (
+          <Review refresh={() => this.retrieve()}></Review>
+        )}
+      </View>
+    );
+  }
+
   _footer = () => {
     return (
       <View style={{
@@ -220,11 +232,12 @@ class Messages extends Component{
 
   render() {
     const { isLoading } = this.state;
+    const { messengerGroup } = this.props.state;
     return (
       <View style={Style.MainContainer}>
         <ScrollView 
           style={[Style.ScrollView, {
-            marginBottom: 50
+            marginBottom: messengerGroup != null && messengerGroup.request.status < 2 ? 50 : 0
           }]}
           onScroll={(event) => {
             if(event.nativeEvent.contentOffset.y <= 0) {
@@ -237,6 +250,9 @@ class Messages extends Component{
           <View style={Style.MainContainer}>
             {this._flatList()}
           </View>
+          <View>
+            {this._templates()}
+          </View>
           {isLoading ? <Spinner mode="overlay"/> : null }
         </ScrollView>
         <View style={{
@@ -246,7 +262,7 @@ class Messages extends Component{
           borderTopColor: Color.lightGray,
           borderTopWidth: 1
         }}>
-          {this._footer()}
+          {messengerGroup != null && messengerGroup.request.status < 2 && (this._footer())}
         </View>
       </View>
     );
