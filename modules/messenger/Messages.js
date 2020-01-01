@@ -184,7 +184,11 @@ class Messages extends Component{
           )
         }
         {
-          <SendRequirements></SendRequirements>
+          messengerGroup.account_id != user.id &&
+          messengerGroup.request.type == 1 &&
+          messengerGroup.request.status < 2 && (
+            <SendRequirements></SendRequirements>
+          )
         }
       </View>
     );

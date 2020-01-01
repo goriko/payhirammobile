@@ -30,24 +30,36 @@ class SendRequirements extends Component {
           <View style={{
             flexDirection: 'row'
           }}>
-            <View style={{
-                width: (width / 2) - 20,
-                height: 50,
-                marginRight: 10
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({sketchModal: true})
-                }} 
-                style={[Style.templateBtn, {
-                  width: '100%',
-                  height: 50,
-                }]}
-                key={0}
-                >
-                <Text style={Style.templateText}>Send Signature</Text>
-              </TouchableOpacity>
-            </View>
+          {
+            messengerGroup.validations.requirements.map((item, index) => {
+              if(item.validations != null){
+                return (
+                  <View style={{
+                      width: (width / 2) - 20,
+                      height: 50,
+                      marginRight: 10
+                    }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        if(item.payload == 'signature'){
+                          this.setState({sketchModal: true})
+                        }else{
+                          // image only
+                        }
+                      }} 
+                      style={[Style.templateBtn, {
+                        width: '100%',
+                        height: 50,
+                      }]}
+                      key={index}
+                      >
+                      <Text style={Style.templateText}>{item.title}</Text>
+                    </TouchableOpacity>
+                  </View>
+                )
+              }
+            })
+          }
           </View>
         </ScrollView>
         <Sketch
