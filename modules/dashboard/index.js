@@ -5,6 +5,7 @@ import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
+import {NavigationActions} from 'react-navigation';
 import { connect } from 'react-redux';
 class Dashboard extends Component{
   constructor(props){
@@ -24,6 +25,13 @@ class Dashboard extends Component{
 
   redirect = (route) => {
     this.props.navigation.navigate(route)
+  }
+
+  redirectDrawer = (route) => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'Requests'
+    });
+    this.props.navigation.dispatch(navigateAction);
   }
 
 
@@ -153,7 +161,7 @@ class Dashboard extends Component{
             width: '100%',
           }}>
               <TouchableHighlight
-                onPress={() => {this.viewRequest()}}
+                onPress={() => {this.redirectDrawer('Requests')}}
                 style={[Style.btn, {
                   backgroundColor: Color.primary,
                   width: '40%',

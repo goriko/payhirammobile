@@ -17,5 +17,6 @@ export default {
   customMessengerGroupRetrieve: apiUrl + 'custom_messenger_groups/retrieve',
   customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
   messengerMessagesRetrieve: apiUrl + 'messenger_messages/retrieve',
-  ratingsCreate: apiUrl + 'ratings/create'
+  ratingsCreate: apiUrl + 'ratings/create',
+  notificationSettingsRetrieve: apiUrl + 'notification_settings/retrieve'
 }

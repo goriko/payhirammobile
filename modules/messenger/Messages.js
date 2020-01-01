@@ -10,6 +10,9 @@ import Config from 'src/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faImage, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Review from './templates/Review.js';
+import AddRequirements from './templates/AddRequirements.js';
+import Transfer from './templates/Transfer.js';
+import SendRequirements from './templates/SendRequirements.js';
 class Messages extends Component{
   constructor(props){
     super(props);
@@ -59,7 +62,7 @@ class Messages extends Component{
         {
           item.files.map((imageItem, imageIndex) => {
             return (
-              <Image source={{uri: Config.BACKEND_URL  + imageItem.url}} style={Style.messageImage}/>
+              <Image source={{uri: Config.BACKEND_URL  + imageItem.url}} style={Style.messageImage} key={imageIndex}/>
             );
           })
         }
@@ -144,12 +147,45 @@ class Messages extends Component{
   }
 
   _templates = () => {
-    const { messengerGroup } = this.props.state;
+    const { messengerGroup, user } = this.props.state;
     return (
       <View>
-        {messengerGroup != null && messengerGroup.rating == null && (
+        {messengerGroup.rating == null && messengerGroup.request.status == 2 && (
           <Review refresh={() => this.retrieve()}></Review>
         )}
+        { 
+          messengerGroup.account_id == user.id &&
+          messengerGroup.request.type == 1 &&
+          messengerGroup.request.status < 2 && (
+            <AddRequirements></AddRequirements>
+          )
+        }
+        {
+          messengerGroup.account_id == user.id &&
+          messengerGroup.request.type < 3 &&
+          messengerGroup.request.status < 2 &&
+          messengerGroup.validations.transfer_status === 'approved' && (
+            <Transfer
+              text={
+                'Validations are complete, click transfer to proceed:'
+              }
+            ></Transfer>
+          )
+        }
+        {
+          messengerGroup.account_id != user.id &&
+          messengerGroup.request.type == 3 &&
+          messengerGroup.request.status < 2 && (
+            <Transfer
+              text={
+                'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
+              }
+            ></Transfer>
+          )
+        }
+        {
+          <SendRequirements></SendRequirements>
+        }
       </View>
     );
   }
@@ -232,7 +268,7 @@ class Messages extends Component{
 
   render() {
     const { isLoading } = this.state;
-    const { messengerGroup } = this.props.state;
+    const { messengerGroup, user } = this.props.state;
     return (
       <View style={Style.MainContainer}>
         <ScrollView 
@@ -251,7 +287,7 @@ class Messages extends Component{
             {this._flatList()}
           </View>
           <View>
-            {this._templates()}
+            {messengerGroup != null && user !== null && (this._templates())}
           </View>
           {isLoading ? <Spinner mode="overlay"/> : null }
         </ScrollView>
