@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, FlatList, TouchableOpacity} from 'react-native';
+import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, FlatList, TouchableOpacity, Platform} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner } from 'components';
 import Api from 'services/api/index.js';
@@ -13,13 +13,18 @@ import Review from './templates/Review.js';
 import AddRequirements from './templates/AddRequirements.js';
 import Transfer from './templates/Transfer.js';
 import SendRequirements from './templates/SendRequirements.js';
+import ImageModal from 'components/Modal/ImageModal.js';
+import ImagePicker from 'react-native-image-picker';
 class Messages extends Component{
   constructor(props){
     super(props);
     this.state = {
       isLoading: false,
       selected: null,
-      newMessage: null
+      newMessage: null,
+      imageModalUrl: null,
+      isImageModal: false,
+      photo: null
     }
   }
 
@@ -54,18 +59,176 @@ class Messages extends Component{
     });
   }
 
+  sendImageWithoutPayload = (url) => {
+    const { messengerGroup, user } = this.props.state;
+    let parameter = {
+      messenger_group_id: messengerGroup.id,
+      message: null,
+      account_id: user.id,
+      status: 0,
+      payload: 'image',
+      payload_value: null,
+      url: url
+    }
+    console.log('parameter', parameter)
+    Api.request(Routes.mmCreateWithImageWithoutPayload, parameter, response => {
+      this.setState({isLoading: false})
+      this.retrieve()
+    })
+  }
+
+  handleChoosePhoto = () => {
+    const { user } = this.props.state;
+    const options = {
+      noData: true,
+    }
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        this.setState({ photo: response })
+        console.log('photo', response)
+        let formData = new FormData();
+        formData.append("file", {
+          name: response.fileName,
+          type: response.type,
+          uri: Platform.OS == "android" ? response.uri : response.uri.replace("file://", "")
+        });
+        formData.append('file_url', response.fileName);
+        formData.append('account_id', user.id);
+        this.setState({isLoading: true})
+        Api.upload(Routes.imageUploadUnLink, formData, imageResponse => {
+          // add message
+          console.log('response', imageResponse)
+          if(imageResponse.data.data != null){
+            this.sendImageWithoutPayload(imageResponse.data.data)
+          }
+        })
+      }else{
+        this.setState({ photo: null })
+      }
+    })
+  }
+
+  setImage = (url) => {
+    this.setState({imageModalUrl: url})
+    setTimeout(() => {
+      this.setState({isImageModal: true})
+    }, 500)
+  }
+
+
+  updateValidation = (item, status) => {
+    const { messengerGroup, user } = this.props.state;
+    let parameter = {
+      id: item.id,
+      status: status,
+      messages: {
+        messenger_group_id: messengerGroup.id,
+        account_id: user.id
+      }
+    }
+    this.setState({isLoading: true})
+    Api.request(Routes.requestValidationUpdate, parameter, response => {
+      this.setState({isLoading: false})
+      this.retrieve()
+    })
+  }
+
   _image = (item) => {
+    const { messengerGroup, user } = this.props.state;
+    return (
+      <View>
+      {
+        item.payload_value != null && (
+          <Text style={[Style.messageTextRight, {
+            backgroundColor: item.validations.status == 'approved' ? Color.primary : Color.danger
+          }]}>{item.validations.payload} - {item.validations.status}</Text>
+        )
+      }
+        <View style={{
+          flexDirection: 'row',
+          marginTop: 10
+        }}>
+          {
+            item.files.map((imageItem, imageIndex) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => this.setImage(Config.BACKEND_URL  + imageItem.url)} 
+                  style={Style.messageImage}
+                  key={imageIndex}
+                  >
+                  <Image source={{uri: Config.BACKEND_URL  + imageItem.url}} style={Style.messageImage} key={imageIndex}/>
+                </TouchableOpacity>
+              );
+            })
+          }
+        </View>
+        {
+          messengerGroup.account_id == user.id &&
+          item != null && item.validations != null &&
+          item.validations.status != 'approved' &&
+          (
+            <View style={{
+              flexDirection: 'row',
+              marginTop: 10
+            }}>
+              <View style={{
+                  width: '45%',
+                  height: 50,
+                  marginRight: '5%'
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.updateValidation(item.validations, 'declined')
+                  }} 
+                  style={[Style.templateBtn, {
+                    width: '100%',
+                    height: 40,
+                    borderColor: Color.danger
+                  }]}
+                  >
+                  <Text style={[Style.templateText, {
+                    color: Color.danger
+                  }]}>Decline</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{
+                  width: '45%',
+                  height: 50,
+                  marginRight: '5%'
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.updateValidation(item.validations, 'approved')
+                  }} 
+                  style={[Style.templateBtn, {
+                    width: '100%',
+                    height: 40,
+                    borderColor: Color.primary
+                  }]}
+                  >
+                  <Text style={[Style.templateText, {
+                    color: Color.primary
+                  }]}>Approve</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        }
+      </View>
+    );
+  }
+
+  _imageTest = (item) => {
     return (
       <View style={{
         flexDirection: 'row' 
       }}>
-        {
-          item.files.map((imageItem, imageIndex) => {
-            return (
-              <Image source={{uri: Config.BACKEND_URL  + imageItem.url}} style={Style.messageImage} key={imageIndex}/>
-            );
-          })
-        }
+        <TouchableOpacity
+          onPress={() => this.setImage(item.uri)} 
+          style={Style.messageImage}
+          >
+          <Image source={{uri: item.uri}} style={Style.messageImage}/>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -98,7 +261,9 @@ class Messages extends Component{
     return (
       <View>
         {this._headerRight(item)}
-        <Text style={Style.dateText}>{item.created_at_human}</Text>
+        <Text style={[Style.dateText, {
+          textAlign: 'left'
+        }]}>{item.created_at_human}</Text>
         {
           item.message != null && (
             <Text style={Style.messageTextRight}>{item.message}</Text>
@@ -115,7 +280,9 @@ class Messages extends Component{
     return (
       <View>
         {this._headerLeft(item)}
-        <Text style={Style.dateText}>{item.created_at_human}</Text>
+        <Text style={[Style.dateText, {
+          textAlign: 'right'
+        }]}>{item.created_at_human}</Text>
         {
           item.message != null && (
             <Text style={Style.messageTextLeft}>{item.message}</Text>
@@ -156,6 +323,7 @@ class Messages extends Component{
         { 
           messengerGroup.account_id == user.id &&
           messengerGroup.request.type == 1 &&
+          messengerGroup.validations.complete_status == false &&
           messengerGroup.request.status < 2 && (
             <AddRequirements></AddRequirements>
           )
@@ -187,7 +355,14 @@ class Messages extends Component{
           messengerGroup.account_id != user.id &&
           messengerGroup.request.type == 1 &&
           messengerGroup.request.status < 2 && (
-            <SendRequirements></SendRequirements>
+            <SendRequirements 
+              onLoading={(flag) => this.setState({
+                isLoading: flag
+              })}
+              onFinished={() => {
+                this.retrieve()
+              }}
+            ></SendRequirements>
           )
         }
       </View>
@@ -200,7 +375,7 @@ class Messages extends Component{
         flexDirection: 'row' 
       }}>
         <TouchableOpacity
-          onPress={() => console.log('image')} 
+          onPress={() => this.handleChoosePhoto()} 
           style={{
             height: 50,
             justifyContent: 'center',
@@ -271,7 +446,7 @@ class Messages extends Component{
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, isImageModal, imageModalUrl, photo } = this.state;
     const { messengerGroup, user } = this.props.state;
     return (
       <View style={Style.MainContainer}>
@@ -304,6 +479,11 @@ class Messages extends Component{
         }}>
           {messengerGroup != null && messengerGroup.request.status < 2 && (this._footer())}
         </View>
+        <ImageModal
+          visible={isImageModal}
+          url={imageModalUrl}
+          action={() => this.setState({isImageModal: false})}
+        ></ImageModal>
       </View>
     );
   }

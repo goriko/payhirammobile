@@ -17,6 +17,12 @@ export default {
   customMessengerGroupRetrieve: apiUrl + 'custom_messenger_groups/retrieve',
   customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
   messengerMessagesRetrieve: apiUrl + 'messenger_messages/retrieve',
+  mmCreateWithImageWithoutPayload: apiUrl + 'messenger_messages/create_with_image_without_payload',
+  mmCreateWithImage: apiUrl + 'messenger_messages/create_with_images',
   ratingsCreate: apiUrl + 'ratings/create',
-  notificationSettingsRetrieve: apiUrl + 'notification_settings/retrieve'
+  notificationSettingsRetrieve: apiUrl + 'notification_settings/retrieve',
+  imageUploadUnLink: apiUrl + 'images/upload_un_link',
+  imageUploadBase64: apiUrl + 'images/upload_base64',
+  requestValidationUpdate: apiUrl + 'request_validations/update',
+  notificationSettingOtp: apiUrl + 'notification_settings/update_otp'
 }

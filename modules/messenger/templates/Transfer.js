@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
 import Style from 'modules/messenger/Style.js';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import {BasicStyles, Color} from 'common';
+import {BasicStyles, Color, Routes} from 'common';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import OtpModal from 'components/Modal/Otp.js';
+import Api from 'services/api/index.js';
 const width = Math.round(Dimensions.get('window').width);
 class Transfer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOtpModal: false
+      isOtpModal: false,
+      blockedFlag: false,
+      otpData: null,
+      errorMessage: null
     }
   }
 
@@ -20,6 +24,22 @@ class Transfer extends Component {
 
     }
     console.log('transfer here')
+  }
+
+  updateOtp = () => {
+    const { user } = this.props.state;
+    let parameter = {
+      account_id: user.id
+    }
+    Api.request(Routes.notificationSettingOtp, parameter, response => {
+      this.setState({otpData: response})
+      if(response.error == null){
+        this.setState({blockedFlag: false, isOtpModal: true, errorMessage: null})
+      }else{
+        this.setState({blockedFlag: true, isOtpModal: false})
+        this.setState({errorMessage: response.error})
+      }
+    });
   }
 
   render(){
@@ -38,7 +58,7 @@ class Transfer extends Component {
           marginTop: 10
           }}>
           <TouchableOpacity
-            onPress={() => this.setState({isOtpModal: true})} 
+            onPress={() => this.updateOtp()} 
             style={[Style.templateBtn, {
               width: '50%'
             }]}

@@ -1,19 +1,77 @@
 import React, {Component} from 'react';
 import Style from 'modules/messenger/Style.js';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import {BasicStyles, Color} from 'common';
+import {BasicStyles, Color, Routes} from 'common';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import Sketch from 'components/Modal/Sketch.js';
+import ImagePicker from 'react-native-image-picker';
+import Api from 'services/api/index.js';
 const width = Math.round(Dimensions.get('window').width);
 class SendRequirements extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sketchModal: false
+      sketchModal: false,
+      signatureId: 0
     }
   }
 
+  sendImageWithPayload = (url, id) => {
+    const { messengerGroup, user } = this.props.state;
+    let parameter = {
+      messenger_group_id: messengerGroup.id,
+      message: null,
+      account_id: user.id,
+      status: 0,
+      payload: 'image',
+      payload_value: id,
+      url: url
+    }
+    Api.request(Routes.mmCreateWithImage, parameter, response => {
+      this.props.onLoading(false)
+      this.props.onFinished()
+    })
+  }
+
+  uploadBase64 = (result) => {
+    const { user } = this.props.state;
+    let formData = new FormData();
+    formData.append('file_base64', result);
+    formData.append('account_id', user.id);
+    this.props.onLoading(true)
+    Api.upload(Routes.imageUploadBase64, formData, response => {
+      this.sendImageWithPayload(response.data.data, this.state.signatureId)
+    })
+  }
+
+  handleChoosePhoto = (id) => {
+    const { user } = this.props.state;
+    const options = {
+      noData: true,
+    }
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        let formData = new FormData();
+        formData.append("file", {
+          name: response.fileName,
+          type: response.type,
+          uri: Platform.OS == "android" ? response.uri : response.uri.replace("file://", "")
+        });
+        formData.append('file_url', response.fileName);
+        formData.append('account_id', user.id);
+        this.props.onLoading(true)
+        Api.upload(Routes.imageUploadUnLink, formData, imageResponse => {
+          // add message
+          if(imageResponse.data.data != null){
+            this.sendImageWithPayload(imageResponse.data.data, id)
+          }
+        })
+      }else{
+        this.setState({ photo: null })
+      }
+    })
+  }
   render(){
     const { user, messengerGroup } = this.props.state;
     const { sketchModal } = this.state;
@@ -42,9 +100,9 @@ class SendRequirements extends Component {
                     <TouchableOpacity
                       onPress={() => {
                         if(item.payload == 'signature'){
-                          this.setState({sketchModal: true})
+                          this.setState({sketchModal: true, signatureId: item.validations.id})
                         }else{
-                          // image only
+                          this.handleChoosePhoto(item.validations.id)
                         }
                       }} 
                       style={[Style.templateBtn, {
@@ -65,6 +123,7 @@ class SendRequirements extends Component {
         <Sketch
           visible={sketchModal}
           close={() => this.setState({sketchModal: false})}
+          send={(result) => this.uploadBase64(result)}
         ></Sketch>
       </View>
     );

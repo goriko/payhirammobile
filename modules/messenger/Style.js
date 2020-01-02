@@ -62,7 +62,6 @@ export default {
     color: Color.gray,
     fontSize: 11,
     paddingTop: 5,
-    textAlign: 'right',
     paddingBottom: 5
   },
   messageImage: {
