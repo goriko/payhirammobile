@@ -50,12 +50,31 @@ class Messages extends Component{
     }
     this.setState({isLoading: true});
     Api.request(Routes.messengerMessagesRetrieve, parameter, response => {
-      console.log(response.data)
       this.setState({isLoading: false});
       setMessagesOnGroup({
         messages: response.data,
         groupId: messengerGroup.id
       })
+    });
+  }
+
+  retrieveGroup = () => {
+    const { user, messengerGroup } = this.props.state;
+    const { setMessengerGroup } = this.props;
+    let parameter = {
+      condition: [{
+        value: messengerGroup.id,
+        column: 'id',
+        clause: '='
+      }],
+      account_id: user.id
+    }
+    this.setState({isLoading: true});
+    Api.request(Routes.messengerMessagesRetrieve, parameter, response => {
+      this.retrieve();
+      if(response.data != null){
+        setMessengerGroup(response.data);
+      }
     });
   }
 
@@ -97,7 +116,10 @@ class Messages extends Component{
     console.log('parameter', parameter)
     Api.request(Routes.mmCreateWithImageWithoutPayload, parameter, response => {
       this.setState({isLoading: false})
-      this.retrieve()
+      if(response.data != null){
+        const { updateMessagesOnGroup } = this.props;
+        updateMessagesOnGroup(response.data);
+      }
     })
   }
 
@@ -153,7 +175,7 @@ class Messages extends Component{
     this.setState({isLoading: true})
     Api.request(Routes.requestValidationUpdate, parameter, response => {
       this.setState({isLoading: false})
-      this.retrieve()
+      this.retrieveGroup()
     })
   }
 
@@ -342,7 +364,7 @@ class Messages extends Component{
     return (
       <View>
         {messengerGroup.request.status == 2 && (
-          <Review refresh={() => this.retrieve()}></Review>
+          <Review refresh={() => this.retrieveGroup()}></Review>
         )}
         { 
           messengerGroup.account_id == user.id &&
@@ -365,7 +387,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieve()
+                this.retrieveGroup()
               }}
             ></Transfer>
           )
@@ -379,7 +401,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieve()
+                this.retrieveGroup()
               }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
@@ -396,7 +418,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieve()
+                this.retrieveGroup()
               }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
@@ -413,7 +435,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieve()
+                this.retrieveGroup()
               }}
             ></SendRequirements>
           )
@@ -510,7 +532,7 @@ class Messages extends Component{
           onScroll={(event) => {
             if(event.nativeEvent.contentOffset.y <= 0) {
               if(this.state.isLoading == false){
-                this.retrieve()
+                this.retrieveGroup()
               }
             }
           }}

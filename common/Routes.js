@@ -16,6 +16,7 @@ export default {
   requestPeerCreate: apiUrl + 'request_peers/create',
   requestManageByThread: apiUrl + 'requests/manage_request_by_thread',
   customMessengerGroupRetrieve: apiUrl + 'custom_messenger_groups/retrieve',
+  customMessengerGroupRetrieveByParams: apiUrl + 'custom_messenger_groups/retrieve_by_params',
   customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
   messengerMessagesCreate: apiUrl + 'messenger_messages/create',
   messengerMessagesRetrieve: apiUrl + 'messenger_messages/retrieve',
