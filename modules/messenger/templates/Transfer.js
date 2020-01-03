@@ -20,10 +20,17 @@ class Transfer extends Component {
 
   transfer = (flag) => {
     this.setState({isOtpModal: false})
-    if(flag == true){
-
+    const { messengerGroup, user} = this.props.state;
+    let parameter = {
+      code: messengerGroup.thread,
+      account_id: user.id,
+      messenger_group_id: messengerGroup.id
     }
-    console.log('transfer here')
+    this.props.onLoading(true);
+    Api.request(Routes.requestManageByThread,  parameter, response => {
+      this.props.onLoading(false);
+      this.props.onFinished();
+    })
   }
 
   updateOtp = () => {
@@ -31,20 +38,25 @@ class Transfer extends Component {
     let parameter = {
       account_id: user.id
     }
+    this.props.onLoading(true);
     Api.request(Routes.notificationSettingOtp, parameter, response => {
       this.setState({otpData: response})
+      this.props.onLoading(false);
       if(response.error == null){
-        this.setState({blockedFlag: false, isOtpModal: true, errorMessage: null})
+        this.setState({blockedFlag: false, errorMessage: null})
       }else{
-        this.setState({blockedFlag: true, isOtpModal: false})
+        this.setState({blockedFlag: true})
         this.setState({errorMessage: response.error})
       }
+      setTimeout(() => {
+        this.setState({isOtpModal: true})
+      }, 500)
     });
   }
 
   render(){
     const { user, messengerGroup } = this.props.state;
-    const { isOtpModal } = this.state;
+    const { isOtpModal, blockedFlag, errorMessage } = this.state;
     return (
       <View style={{
         marginBottom: 50
@@ -68,12 +80,16 @@ class Transfer extends Component {
         </View>
         <OtpModal
           visible={isOtpModal}
-          title={'Authentication via OTP'}
+          title={blockedFlag == false ? 'Authentication via OTP' : 'Blocked Account'}
           actionLabel={{
             yes: 'Authenticate',
             no: 'Cancel'
           }}
-          action={(flag) => this.transfer(flag)}
+          onCancel={() => this.setState({isOtpModal: false})}
+          onSuccess={() => this.transfer()}
+          onResend={() => this.updateOtp()}
+          error={errorMessage}
+          blockedFlag={blockedFlag}
         ></OtpModal>
       </View>
     );

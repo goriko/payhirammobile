@@ -2,6 +2,7 @@ export default {
   company: 'Increment Technologies',
   APP_NAME: '@Payhiram_',
   APP_NAME_BASIC: 'Payhiram',
+  APP_EMAIL: 'support@payhiram.ph',
   APP_WEBSITE: 'www.payhiram.increment.ltd',
   DrawerMenu: [{
     title: 'Requests',
@@ -42,6 +43,12 @@ export default {
     description: 'Allow other peer to process your deposits.',
     money_type: 'Wallet'
   }],
+  pusher: {
+    channel: 'payhiram',
+    notifications: 'Notifications',
+    messages: 'Message',
+    validation: 'Validation'
+  },
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

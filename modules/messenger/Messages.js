@@ -59,6 +59,30 @@ class Messages extends Component{
     });
   }
 
+  sendNewMessage = () => {
+    const { messengerGroup, user} = this.props.state;
+    if(messengerGroup == null || user == null || this.state.newMessage == null){
+      return
+    }
+    let parameter = {
+      messenger_group_id: messengerGroup.id,
+      message: this.state.newMessage,
+      account_id: user.id,
+      status: 0,
+      payload: 'text',
+      payload_value: null
+    }
+    this.setState({isLoading: true});
+    Api.request(Routes.messengerMessagesCreate, parameter, response => {
+      this.setState({isLoading: false});
+      if(response.data != null){
+        const { updateMessagesOnGroup } = this.props;
+        updateMessagesOnGroup(response.data);
+        this.setState({newMessage: null})
+      }
+    });
+  }
+
   sendImageWithoutPayload = (url) => {
     const { messengerGroup, user } = this.props.state;
     let parameter = {
@@ -317,7 +341,7 @@ class Messages extends Component{
     const { messengerGroup, user } = this.props.state;
     return (
       <View>
-        {messengerGroup.rating == null && messengerGroup.request.status == 2 && (
+        {messengerGroup.request.status == 2 && (
           <Review refresh={() => this.retrieve()}></Review>
         )}
         { 
@@ -330,13 +354,19 @@ class Messages extends Component{
         }
         {
           messengerGroup.account_id == user.id &&
-          messengerGroup.request.type < 3 &&
+          messengerGroup.request.type == 1 &&
           messengerGroup.request.status < 2 &&
           messengerGroup.validations.transfer_status === 'approved' && (
             <Transfer
               text={
                 'Validations are complete, click transfer to proceed:'
               }
+              onLoading={(flag) => this.setState({
+                isLoading: flag
+              })}
+              onFinished={() => {
+                this.retrieve()
+              }}
             ></Transfer>
           )
         }
@@ -345,6 +375,29 @@ class Messages extends Component{
           messengerGroup.request.type == 3 &&
           messengerGroup.request.status < 2 && (
             <Transfer
+              onLoading={(flag) => this.setState({
+                isLoading: flag
+              })}
+              onFinished={() => {
+                this.retrieve()
+              }}
+              text={
+                'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
+              }
+            ></Transfer>
+          )
+        }
+        {
+          messengerGroup.account_id == user.id &&
+          messengerGroup.request.type == 2 &&
+          messengerGroup.request.status < 2 && (
+            <Transfer
+              onLoading={(flag) => this.setState({
+                isLoading: flag
+              })}
+              onFinished={() => {
+                this.retrieve()
+              }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
               }
@@ -398,7 +451,7 @@ class Messages extends Component{
           placeholder={'Type your message here ...'}
         />
         <TouchableOpacity
-          onPress={() => console.log('image')} 
+          onPress={() => this.sendNewMessage()} 
           style={{
             height: 50,
             justifyContent: 'center',
@@ -493,7 +546,8 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
-    setMessagesOnGroup: (messagesOnGroup) => dispatch(actions.setMessagesOnGroup(messagesOnGroup))
+    setMessagesOnGroup: (messagesOnGroup) => dispatch(actions.setMessagesOnGroup(messagesOnGroup)),
+    updateMessagesOnGroup: (message) => dispatch(actions.updateMessagesOnGroup(message)),
   };
 };
 

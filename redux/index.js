@@ -6,11 +6,13 @@ const types = {
   LOGOUT: 'LOGOUT',
   LOGIN: 'LOGIN',
   SET_NOTIFICATIONS: 'SET_NOTIFICATIONS',
+  UPDATE_NOTIFICATIONS: 'UPDATE_NOTIFICATIONS',
   SET_MESSAGES: 'SET_MESSAGES',
   SET_LEDGER: 'SET_LEDGER',
   SET_USER_LEDGER: 'SET_USER_LEDGER',
   SET_MESSENGER_GROUP: 'SET_MESSENGER_GROUP',
   SET_MESSAGES_ON_GROUP: 'SET_MESSAGES_ON_GROUP',
+  UPDATE_MESSAGES_ON_GROUP: 'UPDATE_MESSAGES_ON_GROUP',
   SET_LOCATION: 'SET_LOCATION',
   nav: null
 }
@@ -40,8 +42,14 @@ export const actions = {
   setMessagesOnGroup(messagesOnGroup){
     return { type: types.SET_MESSAGES_ON_GROUP, messagesOnGroup};
   },
+  updateMessagesOnGroup(message){
+    return { type: types.UPDATE_MESSAGES_ON_GROUP, message};
+  },
   setLocation(location){
     return { type: types.SET_LOCATION, location};
+  },
+  updateNotifications(unread, notification){
+    return { type: types.UPDATE_NOTIFICATIONS, unread, notification};
   }
 };
 
@@ -53,7 +61,10 @@ const initialState = {
   ledger: null,
   userLedger: null,
   messengerGroup: null,
-  messagesOnGroup: null,
+  messagesOnGroup: {
+    groupId: null,
+    messages: null
+  },
   location: null,
   nav: null
 }
@@ -68,9 +79,9 @@ storeData = async (key, value) => {
 
 const reducer = (state = initialState, action) => {
   const { type, user, token } = action;
-  const { messages, unread } = action;
+  const { messages, unread, message } = action;
   const { messengerGroup, messagesOnGroup } = action;
-  const { location } = action;
+  const { location, notification } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -82,12 +93,42 @@ const reducer = (state = initialState, action) => {
     case types.SET_NOTIFICATIONS:
       let notifications = {
         unread,
-        notifications:action.notifications
+        notifications: action.notifications
       }
       console.log('notifications', notifications);
       return {
         ...state,
         notifications
+      }
+    case types.UPDATE_NOTIFICATIONS:
+      let updatedNotifications = null
+      if(state.notifications == null){
+        let temp = []
+        temp.push(notification)
+        updatedNotifications = {
+          unread,
+          notifications: temp
+        }
+      }else{
+        let oldNotif = state.notifications
+        if(oldNotif.notifications == null){
+          let temp = []
+          temp.push(notification)
+          updatedNotifications = {
+            unread,
+            notifications: temp
+          }
+        }else{
+          oldNotif.notifications.unshift(notification)
+          updatedNotifications = {
+            unread: oldNotif.unread + unread,
+            notifications: oldNotif.notifications
+          }
+        }
+      }
+      return {
+        ...state,
+        notifications: updatedNotifications
       }
     case types.SET_MESSAGES:
       let messenger = {
@@ -122,6 +163,35 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         messagesOnGroup
+      }
+    case types.UPDATE_MESSAGES_ON_GROUP:
+      let updatedMessagesOnGroup = null
+      if(state.messagesOnGroup != null){
+        let oldMessages = state.messagesOnGroup.messages;
+        if(oldMessages == null){
+          let temp = []
+          temp.push(message)
+          updatedMessagesOnGroup = {
+            ...state.messagesOnGroup,
+            messages: temp
+          } 
+        }else{
+          updatedMessagesOnGroup = {
+            ...state.messagesOnGroup,
+            messages: oldMessages.push(message)
+          }
+        }        
+      }else{
+        let temp = []
+        temp.push(message);
+        updatedMessagesOnGroup = {
+          groupId: parseInt(message.messenger_group_id),
+          messages: temp
+        }
+      }
+      return {
+        ...state,
+        updatedMessagesOnGroup
       }
     case types.SET_LOCATION:
       return {
