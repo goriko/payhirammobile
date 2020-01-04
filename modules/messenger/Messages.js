@@ -38,6 +38,9 @@ class Messages extends Component{
   retrieve = () => {
     const { user, messengerGroup } = this.props.state;
     const { setMessagesOnGroup } = this.props;
+    if(messengerGroup == null){
+      return
+    }
     let parameter = {
       condition: [{
         value: messengerGroup.id,
@@ -70,7 +73,7 @@ class Messages extends Component{
       account_id: user.id
     }
     this.setState({isLoading: true});
-    Api.request(Routes.messengerMessagesRetrieve, parameter, response => {
+    Api.request(Routes.customMessengerGroupRetrieveByParams, parameter, response => {
       this.retrieve();
       if(response.data != null){
         setMessengerGroup(response.data);
@@ -371,7 +374,12 @@ class Messages extends Component{
           messengerGroup.request.type == 1 &&
           messengerGroup.validations.complete_status == false &&
           messengerGroup.request.status < 2 && (
-            <AddRequirements></AddRequirements>
+            <AddRequirements
+              onFinished={() => this.retrieveGroup()}
+              onLoading={(flag) => this.setState({
+                isLoading: flag
+              })}>
+            </AddRequirements>
           )
         }
         {
@@ -569,6 +577,7 @@ const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
     setMessagesOnGroup: (messagesOnGroup) => dispatch(actions.setMessagesOnGroup(messagesOnGroup)),
+    setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup)),
     updateMessagesOnGroup: (message) => dispatch(actions.updateMessagesOnGroup(message)),
   };
 };

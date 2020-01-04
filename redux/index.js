@@ -14,6 +14,7 @@ const types = {
   SET_MESSAGES_ON_GROUP: 'SET_MESSAGES_ON_GROUP',
   UPDATE_MESSAGES_ON_GROUP: 'UPDATE_MESSAGES_ON_GROUP',
   SET_LOCATION: 'SET_LOCATION',
+  SET_SEARCH_PARAMETER: 'SET_SEARCH_PARAMETER',
   nav: null
 }
 
@@ -50,6 +51,9 @@ export const actions = {
   },
   updateNotifications(unread, notification){
     return { type: types.UPDATE_NOTIFICATIONS, unread, notification};
+  },
+  setSearchParameter(searchParameter){
+    return { type: types.SET_SEARCH_PARAMETER, searchParameter};
   }
 };
 
@@ -65,6 +69,7 @@ const initialState = {
     groupId: null,
     messages: null
   },
+  searchParameter: null,
   location: null,
   nav: null
 }
@@ -82,6 +87,7 @@ const reducer = (state = initialState, action) => {
   const { messages, unread, message } = action;
   const { messengerGroup, messagesOnGroup } = action;
   const { location, notification } = action;
+  const { searchParameter } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -197,6 +203,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         location
+      }
+    case types.SET_SEARCH_PARAMETER:
+      return {
+        ...state,
+        searchParameter
       }
     default:
       return {...state, nav: state.nav};

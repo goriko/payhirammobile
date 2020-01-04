@@ -1,13 +1,33 @@
 import React, {Component} from 'react';
 import Style from 'modules/messenger/Style.js';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import {BasicStyles, Color} from 'common';
+import {BasicStyles, Color, Routes} from 'common';
 import { connect } from 'react-redux';
+import Api from 'services/api/index.js';
 import { Dimensions } from 'react-native';
 const width = Math.round(Dimensions.get('window').width);
 class AddRequirements extends Component {
   constructor(props) {
     super(props);
+  }
+
+  addValidation = (payload) => {
+    const { user, messengerGroup } = this.props.state;
+    let parameter = {
+      account_id: user.id,
+      payload: payload,
+      request_id: messengerGroup.payload,
+      status: 'pending',
+      messages: {
+        messenger_group_id: messengerGroup.id,
+        account_id: user.id
+      }
+    }
+    this.props.onLoading(true)
+    Api.request(Routes.requestValidationCreate, parameter, response => {
+      this.props.onLoading(false)
+      this.props.onFinished()
+    });
   }
 
   render(){
@@ -35,7 +55,7 @@ class AddRequirements extends Component {
                       marginRight: 10
                     }}>
                     <TouchableOpacity
-                      onPress={() => console.log('test')} 
+                      onPress={() => this.addValidation(item.payload)} 
                       style={[Style.templateBtn, {
                         width: '100%',
                         height: 50,

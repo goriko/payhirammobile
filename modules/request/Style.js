@@ -29,7 +29,7 @@ export default {
     justifyContent: 'center',
     width: 70,
     position: 'absolute',                                          
-    bottom: 20,                                                    
+    bottom: 70,                                                    
     right: 20,
     height: 70,
     backgroundColor: Color.secondary,

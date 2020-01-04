@@ -7,6 +7,7 @@ export default {
   authRefresh: apiUrl + 'authenticate/refresh',
   authInvalidate: apiUrl + 'authenticate/invalidate',
   accountRetrieve: apiUrl + 'accounts/retrieve',
+  accountCreate: apiUrl + 'accounts/create',
   notificationsRetrieve: apiUrl + 'notifications/retrieve',
   messagesRetrieve: apiUrl + 'messenger_groups/retrieve_summary_payhiram',
   ledgerSummaryRetrieve: apiUrl + 'ledgers/summary',
@@ -16,6 +17,7 @@ export default {
   requestPeerCreate: apiUrl + 'request_peers/create',
   requestManageByThread: apiUrl + 'requests/manage_request_by_thread',
   customMessengerGroupRetrieve: apiUrl + 'custom_messenger_groups/retrieve',
+  customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
   customMessengerGroupRetrieveByParams: apiUrl + 'custom_messenger_groups/retrieve_by_params',
   customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
   messengerMessagesCreate: apiUrl + 'messenger_messages/create',
@@ -26,6 +28,8 @@ export default {
   notificationSettingsRetrieve: apiUrl + 'notification_settings/retrieve',
   imageUploadUnLink: apiUrl + 'images/upload_un_link',
   imageUploadBase64: apiUrl + 'images/upload_base64',
+  requestValidationCreate: apiUrl + 'request_validations/create',
   requestValidationUpdate: apiUrl + 'request_validations/update',
-  notificationSettingOtp: apiUrl + 'notification_settings/update_otp'
+  notificationSettingOtp: apiUrl + 'notification_settings/update_otp',
+  requestPeerUpdate: apiUrl + 'request_peers/update',
 }

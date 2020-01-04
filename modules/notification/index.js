@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Text, ScrollView, FlatList, TouchableHighlight} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { connect } from 'react-redux';
+import { Empty } from 'components';
 class Notifications extends Component{
   constructor(props){
     super(props);
@@ -18,7 +20,34 @@ class Notifications extends Component{
   };
 
   viewNotification = (notification) => {
-    console.log('notification selected', notification)
+    const { setSearchParameter } = this.props;
+    setSearchParameter(null)
+    let route = null;
+    let searchParameter = null
+    switch(notification.payload){
+      case 'request':
+        route = 'Requests';
+        searchParameter = {
+          column: 'id',
+          value: notification.payload_value
+        }
+        break;
+      case 'ledger':
+        route = 'Dashboard'
+        break;
+      case 'thread':
+        route = 'Messenger';
+        searchParameter = {
+          column: 'id',
+          value: notification.payload_value
+        }
+        break;
+    }
+    setSearchParameter(searchParameter)
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigation.dispatch(navigateAction);
   }
 
   render() {
@@ -27,6 +56,7 @@ class Notifications extends Component{
     return (
       <ScrollView style={Style.ScrollView}>
         <View style={Style.MainContainer}>
+          {notifications == null || (notifications != null && notifications.notifications == null) && (<Empty />)}
           <FlatList
             data={notifications.notifications}
             extraData={selected}
@@ -74,7 +104,7 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
-    logout: () => dispatch(actions.logout())
+    setSearchParameter: (searchParameter) => dispatch(actions.setSearchParameter(searchParameter))
   };
 };
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner } from 'components';
+import { Spinner, Empty } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import {NavigationActions} from 'react-navigation';
@@ -38,6 +38,9 @@ class Dashboard extends Component{
   retrieveSummaryLedger = () => {
     const { user } = this.props.state;
     const { setLedger, setUserLedger } = this.props;
+    if(user == null){
+      return
+    }
     let parameter = {
       account_id: user.id,
       offset: 0,
@@ -248,6 +251,9 @@ class Dashboard extends Component{
             paddingBottom: 20
           }}>Ledger Summary</Text>
         </View>
+        {
+          ledger.data == null && (<Empty />)
+        }
         <FlatList
           data={ledger.data}
           extraData={selected}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner } from 'components';
+import { Spinner, Empty } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
@@ -11,7 +11,8 @@ class Ledger extends Component{
     super(props);
     this.state = {
       isLoading: false,
-      selected: null
+      selected: null,
+      data: null
     }
   }
 
@@ -30,6 +31,9 @@ class Ledger extends Component{
   retrieve = () => {
     const { user } = this.props.state;
     const { setLedger, setUserLedger } = this.props;
+    if(user == null){
+      return
+    }
     let parameter = {
       account_id: user.id,
       offset: 0,
@@ -137,6 +141,7 @@ class Ledger extends Component{
         >
         <View style={Style.MainContainer}>
           {data != null && (this._summary())}
+          {data == null && (<Empty />)}
         </View>
         {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>

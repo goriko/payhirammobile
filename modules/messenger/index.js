@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner } from 'components';
+import { Spinner, Empty } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
+
 class Groups extends Component{
   constructor(props){
     super(props);
@@ -26,6 +27,9 @@ class Groups extends Component{
 
   retrieve = () => {
     const { user } = this.props.state;
+    if(user == null){
+      return
+    }
     let parameter = {
       account_id: user.id,
       code: null
@@ -109,7 +113,7 @@ class Groups extends Component{
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, data } = this.state;
     return (
       <ScrollView 
         style={Style.ScrollViewGroup}
@@ -123,6 +127,7 @@ class Groups extends Component{
         >
         <View style={Style.MainContainer}>
           {this._flatList()}
+          {data == null && (<Empty />)}
         </View>
         {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>
