@@ -24,7 +24,9 @@ class Review extends Component {
     const { user, messengerGroup } = this.props.state;
     const { isModal } = this.state;
     return (
-      <View>
+      <View style={{
+        width: '100%'
+      }}>
         {
           messengerGroup.rating == null && (
             <View>
@@ -61,11 +63,12 @@ class Review extends Component {
           )
         }
         <View style={{
-          marginBottom: 50
+          marginBottom: 50,
+          width: '100%'
         }}>
           <Text style={{
             color: Color.normalGray,
-            textAlign: 'center',
+            textAlign: 'center'
           }}>Transaction completed!</Text>
         </View>
       </View>

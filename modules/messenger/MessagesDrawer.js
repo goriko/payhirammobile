@@ -4,9 +4,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import Messages from 'modules/messenger/Messages.js';
-import { Color, BasicStyles } from 'common';
+import { Color, BasicStyles, Helper } from 'common';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
+import Currency from 'services/Currency.js';
 
 class HeaderOptions extends Component {
   constructor(props){
@@ -20,7 +21,7 @@ class HeaderOptions extends Component {
   _card = () => {
     const { messengerGroup } = this.props.state;
     return (
-      <View >
+      <View>
         {
           messengerGroup != null && (
           <View style={{flexDirection: 'row'}}>
@@ -28,8 +29,19 @@ class HeaderOptions extends Component {
             <Text style={{
               color: Color.white,
               lineHeight: 30,
-              paddingLeft: 10
-            }}>{messengerGroup.title.username} - ****{messengerGroup.thread.substring(16, 32)}</Text>
+              paddingLeft: 1,
+              width: '30%'
+            }}>{messengerGroup.title.username}</Text>
+            <Text style={{
+              color: Color.white,
+              lineHeight: 30,
+              textAlign: 'right',
+              width: '60%',
+              marginLeft: -1
+            }}>
+              {Helper.showRequestType(messengerGroup.request.type)} - 
+              {' ' + Currency.display((messengerGroup.request.amount + messengerGroup.peer.charge).toFixed(2), messengerGroup.request.currency)}
+            </Text>
           </View>
         )}
       </View>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Style from './Style.js';
 import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, FlatList, TouchableOpacity, Platform} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner } from 'components';
+import { Spinner, UserImage } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
@@ -15,6 +15,8 @@ import Transfer from './templates/Transfer.js';
 import SendRequirements from './templates/SendRequirements.js';
 import ImageModal from 'components/Modal/ImageModal.js';
 import ImagePicker from 'react-native-image-picker';
+import { Dimensions } from 'react-native';
+const height = Math.round(Dimensions.get('window').height);
 class Messages extends Component{
   constructor(props){
     super(props);
@@ -285,7 +287,7 @@ class Messages extends Component{
   _headerRight = (item) => {
     return (
       <View style={{flexDirection: 'row', marginTop: 10}}>
-        <Image source={{uri: Config.BACKEND_URL  + item.account.profile.url}} style={[BasicStyles.profileImageSize]}/>
+        <UserImage user={item.account}/>
         <Text style={{
           lineHeight: 30,
           paddingLeft: 10
@@ -301,7 +303,7 @@ class Messages extends Component{
           lineHeight: 30,
           paddingRight: 10
         }}>{item.account.username}</Text>
-        <Image source={{uri: Config.BACKEND_URL  + item.account.profile.url}} style={[BasicStyles.profileImageSize]}/>
+        <UserImage user={item.account}/>
       </View>
     );
   }
@@ -347,7 +349,9 @@ class Messages extends Component{
   _conversations = (item) => {
     const { user } = this.props.state;
     return (
-      <View>
+      <View style={{
+        width: '100%'
+      }}>
         <View style={{
           alignItems: 'flex-end'
         }}>
@@ -365,7 +369,9 @@ class Messages extends Component{
   _templates = () => {
     const { messengerGroup, user } = this.props.state;
     return (
-      <View>
+      <View style={{
+        width: '100%'
+      }}>
         {messengerGroup.request.status == 2 && (
           <Review refresh={() => this.retrieveGroup()}></Review>
         )}
@@ -505,7 +511,10 @@ class Messages extends Component{
     const { selected } = this.state;
     const { user, messagesOnGroup } = this.props.state;
     return (
-      <View>
+      <View style={{
+        width: '100%',
+        height: '100%'
+      }}>
         {
           messagesOnGroup != null && user != null && (
             <FlatList
@@ -532,7 +541,7 @@ class Messages extends Component{
     const { isLoading, isImageModal, imageModalUrl, photo } = this.state;
     const { messengerGroup, user } = this.props.state;
     return (
-      <View style={Style.MainContainer}>
+      <View>
         <ScrollView 
           style={[Style.ScrollView, {
             marginBottom: messengerGroup != null && messengerGroup.request.status < 2 ? 50 : 0
@@ -545,10 +554,16 @@ class Messages extends Component{
             }
           }}
           >
-          <View style={Style.MainContainer}>
+          <View style={{
+            flexDirection: 'row',
+            width: '100%'
+          }}>
             {this._flatList()}
           </View>
-          <View>
+          <View style={{
+            flexDirection: 'row',
+            width: '100%'
+          }}>
             {messengerGroup != null && user !== null && (this._templates())}
           </View>
           {isLoading ? <Spinner mode="overlay"/> : null }

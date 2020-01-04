@@ -97,4 +97,5 @@ export default {
     width: 30,
     borderRadius: 15
   },
+  profileIconSize: 30
 }

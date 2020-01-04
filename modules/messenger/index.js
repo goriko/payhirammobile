@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
+import { View, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner, Empty } from 'components';
+import { Spinner, Empty, UserImage } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
@@ -59,19 +59,37 @@ class Groups extends Component{
           >
           <View>
             <View style={{flexDirection: 'row', marginTop: 5, paddingLeft: 10, paddingRight: 10}}>
-              <Image source={{uri: Config.BACKEND_URL  + item.title.profile.url}} style={[BasicStyles.profileImageSize]}/>
+              <UserImage user={item.title}/>
               <Text style={{
-                color: Color.normalGray,
+                color: Color.primary,
                 lineHeight: 30,
-                paddingLeft: 10
-              }}>{item.title.username} - ****{item.thread.substring(16, 32)}</Text>
+                paddingLeft: 10,
+                width: '30%'
+              }}>{item.title.username}</Text>
+              <Text style={{
+                color: Color.primary,
+                lineHeight: 30,
+                paddingLeft: 10,
+                fontWeight: 'bold',
+                textAlign:'right',
+                width: '60%'
+              }}>
+                {Currency.display((item.request.amount + item.peer.charge).toFixed(2), item.request.currency)}
+              </Text>
             </View>
             <View style={{
               marginBottom: 5,
               paddingLeft: 10,
-              paddingRight: 10
+              paddingRight: 10,
+              flexDirection: 'row'
             }}>
-              <Text style={Style.dateTextLeft}>{item.created_at_human}</Text>
+              <Text style={[Style.dateTextLeft, {
+                width: '40%'
+              }]}>{item.created_at_human}</Text>
+              <Text style={[Style.dateTextLeft, {
+                width: '60%',
+                textAlign: 'right'
+              }]}>{Helper.showRequestType(item.request.type)} - {item.thread.substring(16, 32)}</Text>
             </View>
           </View>
         </TouchableHighlight>
@@ -89,7 +107,9 @@ class Groups extends Component{
     const { data, selected } = this.state;
     const { user } = this.props.state;
     return (
-      <View>
+      <View style={{
+        width: '100%'
+      }}>
         {
           data != null && user != null && (
             <FlatList
@@ -125,10 +145,13 @@ class Groups extends Component{
           }
         }}
         >
-        <View style={Style.MainContainer}>
+        <View stle={{
+          flexDirection: 'row',
+          width: '100%'
+        }}>
           {this._flatList()}
-          {data == null && (<Empty />)}
         </View>
+        {data == null && (<Empty />)}
         {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>
     );

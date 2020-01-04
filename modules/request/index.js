@@ -3,7 +3,7 @@ import Style from './Style.js';
 import { TextInput, View, Image, TouchableHighlight, Text, ScrollView} from 'react-native';
 import  { Picker, FlatList, TouchableOpacity } from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner, Rating, CustomModal, Empty } from 'components';
+import { Spinner, Rating, CustomModal, Empty, UserImage } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
@@ -380,7 +380,7 @@ class Requests extends Component{
               {
                 item.images.map((image, imageIndex) => {
                   return (
-                    <Image source={{uri: Config.BACKEND_URL  + item.account.profile.url}} style={[BasicStyles.profileImageSize]}/>
+                    <View></View>
                   );
                 })
               }
@@ -408,7 +408,7 @@ class Requests extends Component{
     return (
       <View>
         <View style={{flexDirection: 'row', marginTop: 10}}>
-          <Image source={{uri: Config.BACKEND_URL  + item.account.profile.url}} style={[BasicStyles.profileImageSize]}/>
+          <UserImage user={item.account}/>
           <Text style={{
             color: Color.primary,
             lineHeight: 30,

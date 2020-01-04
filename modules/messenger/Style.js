@@ -10,7 +10,8 @@ export default {
   MainContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '100%'
   },
   text: {
     color: Color.normalGray
@@ -24,7 +25,7 @@ export default {
   },
   Separator: {
     height: 0.5,
-    width: width,
+    width: '100%',
     backgroundColor: Color.lightGray
   },
   formControl: {
