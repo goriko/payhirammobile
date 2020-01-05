@@ -5,6 +5,7 @@ import {NavigationActions} from 'react-navigation';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { connect } from 'react-redux';
 import { Empty } from 'components';
+import Api from 'services/api/index.js';
 class Notifications extends Component{
   constructor(props){
     super(props);
@@ -19,7 +20,32 @@ class Notifications extends Component{
     );
   };
 
-  viewNotification = (notification) => {
+  updateNotification = (searchParameter, notification, route) => {
+    const { setSearchParameter, setNotifications } = this.props;
+    const { user } = this.props.state;
+    if(user == null){
+      return
+    }
+    let parameter = {
+      id: notification.id
+    }
+    Api.request(Routes.notificationUpdate, parameter, response => {
+      let retrieveParameter = {
+        account_id: user.id
+      }
+      Api.request(Routes.notificationsRetrieve, retrieveParameter, notifications => {
+        setNotifications(notifications.size, notifications.data);
+        setSearchParameter(searchParameter)
+        const navigateAction = NavigationActions.navigate({
+          routeName: route
+        });
+        this.props.navigation.dispatch(navigateAction);
+      });
+    })
+  }
+
+  viewNotification = (notification, index) => {
+    const { notifications } = this.props.state;
     const { setSearchParameter } = this.props;
     setSearchParameter(null)
     let route = null;
@@ -43,11 +69,15 @@ class Notifications extends Component{
         }
         break;
     }
-    setSearchParameter(searchParameter)
-    const navigateAction = NavigationActions.navigate({
-      routeName: route
-    });
-    this.props.navigation.dispatch(navigateAction);
+    if(notifications.unread > index){
+      this.updateNotification(searchParameter, notification, route);
+    }else{
+      setSearchParameter(searchParameter)
+      const navigateAction = NavigationActions.navigate({
+        routeName: route
+      });
+      this.props.navigation.dispatch(navigateAction);
+    }
   }
 
   render() {
@@ -64,7 +94,7 @@ class Notifications extends Component{
             renderItem={({ item, index }) => (
               <View>
                 <TouchableHighlight
-                  onPress={() => {this.viewNotification(item)}}
+                  onPress={() => {this.viewNotification(item, index)}}
                   underlayColor={Color.gray}
                   >
                   <View style={[Style.TextContainer, {
@@ -104,7 +134,8 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
-    setSearchParameter: (searchParameter) => dispatch(actions.setSearchParameter(searchParameter))
+    setSearchParameter: (searchParameter) => dispatch(actions.setSearchParameter(searchParameter)),
+    setNotifications: (unread, notifications) => dispatch(actions.setNotifications(unread, notifications))
   };
 };
 
