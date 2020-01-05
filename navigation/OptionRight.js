@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEnvelope, faBell} from '@fortawesome/free-solid-svg-icons';
@@ -23,17 +23,54 @@ class NavigationDrawerStructureRight extends Component {
   }
   
   render() {
+    const { messenger, notifications } = this.props.state;;
     return (
       <View style={{ flexDirection: 'row' }}>
         <View>
           <TouchableOpacity onPress={() => this.navigateToScreen('Messenger')}>
             {/*Donute Button Image */}
-            <FontAwesomeIcon icon={ faEnvelope } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+            <View style={{ flexDirection: 'row'}}>
+              <FontAwesomeIcon icon={ faEnvelope } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+              {
+                messenger && messenger.unread > 0 &&
+                (
+                  <Text style={{
+                    color: Color.white,
+                    backgroundColor: Color.danger,
+                    borderRadius: 2,
+                    paddingLeft: 6,
+                    paddingRight: 6,
+                    paddingTop: 4,
+                    paddingBottom: 4,
+                    fontSize: 11,
+                    marginLeft: -20
+                  }}>{messenger.unread}</Text>
+                )
+              }
+            </View>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity onPress={() => this.goTo('notificationStack')}>
-            <FontAwesomeIcon icon={ faBell } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+            <View style={{ flexDirection: 'row'}}>
+              <FontAwesomeIcon icon={ faBell } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+              {
+                notifications && notifications.unread > 0 &&
+                (
+                  <Text style={{
+                    color: Color.white,
+                    backgroundColor: Color.danger,
+                    borderRadius: 2,
+                    paddingLeft: 6,
+                    paddingRight: 6,
+                    paddingTop: 4,
+                    paddingBottom: 4,
+                    fontSize: 11,
+                    marginLeft: -20
+                  }}>{notifications.unread}</Text>
+                )
+              }
+            </View>
           </TouchableOpacity>   
         </View>
         

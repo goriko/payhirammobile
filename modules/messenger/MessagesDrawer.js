@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import Messages from 'modules/messenger/Messages.js';
 import { Color, BasicStyles, Helper } from 'common';
+import { UserImage } from 'components';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import Currency from 'services/Currency.js';
@@ -25,7 +26,7 @@ class HeaderOptions extends Component {
         {
           messengerGroup != null && (
           <View style={{flexDirection: 'row'}}>
-            <Image source={{uri: Config.BACKEND_URL  + messengerGroup.title.profile.url}} style={[BasicStyles.profileImageSize]}/>
+            <UserImage  user={messengerGroup.title} color={Color.white}/>
             <Text style={{
               color: Color.white,
               lineHeight: 30,

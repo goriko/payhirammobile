@@ -484,7 +484,7 @@ class Requests extends Component{
     const { isLoading, connectModal, connectSelected, data } = this.state;
     return (
       <View>
-        {this._search()}
+        {/*this._search()*/}
         <ScrollView 
           style={[Style.ScrollView, {
             height: '100%'
