@@ -78,17 +78,28 @@ class Groups extends Component{
               </Text>
             </View>
             <View style={{
+              paddingLeft: 10,
+              paddingRight: 10
+            }}>
+              <Text style={[Style.dateTextLeft, {
+                color: item.request.status < 2 ? Color.danger : Color.normalGray,
+                paddingBottom: 0
+              }]}>{item.request.status < 2 ? 'Transaction is on going' : 'Transaction completed'}</Text>
+            </View>
+            <View style={{
               marginBottom: 5,
               paddingLeft: 10,
               paddingRight: 10,
               flexDirection: 'row'
             }}>
               <Text style={[Style.dateTextLeft, {
-                width: '40%'
+                width: '40%',
+                paddingTop: 2
               }]}>{item.created_at_human}</Text>
               <Text style={[Style.dateTextLeft, {
                 width: '60%',
-                textAlign: 'right'
+                textAlign: 'right',
+                paddingTop: 2
               }]}>{Helper.showRequestType(item.request.type)} - {item.thread.substring(16, 32)}</Text>
             </View>
           </View>
