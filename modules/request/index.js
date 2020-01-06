@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { TextInput, View, Image, TouchableHighlight, Text, ScrollView} from 'react-native';
+import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, BackHandler} from 'react-native';
 import  { Picker, FlatList, TouchableOpacity } from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner, Rating, CustomModal, Empty, UserImage } from 'components';
@@ -32,8 +32,23 @@ class Requests extends Component{
     }
   }
 
-  componentDidMount(){
-    this.retrieve();
+  componentDidMount() {
+    this.retrieve()
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    this.backHandler.remove()
+  }
+
+  handleBackPress = () => {
+    const { user } = this.props.state;
+    console.log('back button');
+    if(user){
+      return true
+    }else{
+      return false
+    }
   }
 
   redirect = (route) => {
@@ -499,7 +514,7 @@ class Requests extends Component{
           >
           <View style={Style.MainContainer}>
             {this._flatList()}
-            {data == null && (<Empty />)}
+            {data == null && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
           </View>
         </ScrollView>
           <TouchableOpacity

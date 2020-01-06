@@ -16,6 +16,9 @@ class HeaderOptions extends Component {
   }
 
   back = () => {
+    const { setMessagesOnGroup, setMessengerGroup } = this.props;
+    setMessagesOnGroup({groupId: null, messages: null});
+    setMessengerGroup(null);
     this.props.navigationProps.navigate('drawerStack');
   };
 
@@ -74,7 +77,8 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
-    logout: () => dispatch(actions.logout())
+    setMessagesOnGroup: (messagesOnGroup) => dispatch(actions.setMessagesOnGroup(messagesOnGroup)),
+    setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup)),
   };
 };
 

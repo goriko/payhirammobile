@@ -80,7 +80,7 @@ class SendRequirements extends Component {
         marginBottom: 50
       }}>
         <View>
-          <Text style={Style.templateText}>Hi {user.username}! Send the requirements below. Just click the button.</Text>
+          <Text style={Style.templateText}>Hi {user.username}! Send the requirements below. Just click the button and swipe to right for more options.</Text>
         </View>
         <ScrollView horizontal={true} style={[Style.ScrollView, {
           marginBottom: 50

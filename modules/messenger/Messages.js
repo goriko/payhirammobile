@@ -66,6 +66,9 @@ class Messages extends Component{
   retrieveGroup = () => {
     const { user, messengerGroup } = this.props.state;
     const { setMessengerGroup } = this.props;
+    if(messengerGroup == null){
+      return
+    }
     let parameter = {
       condition: [{
         value: messengerGroup.id,
@@ -516,13 +519,14 @@ class Messages extends Component{
         height: '100%'
       }}>
         {
-          messagesOnGroup != null && user != null && (
+          messagesOnGroup != null && messagesOnGroup.messages != null && user != null && (
             <FlatList
               data={messagesOnGroup.messages}
               extraData={selected}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
-                marginBottom: 50
+                marginBottom: 50,
+                flex: 1
               }}
               renderItem={({ item, index }) => (
                 <View>
@@ -542,7 +546,11 @@ class Messages extends Component{
     const { messengerGroup, user } = this.props.state;
     return (
       <View>
-        <ScrollView 
+        <ScrollView
+          ref={ref => this.scrollView = ref}
+          onContentSizeChange={(contentWidth, contentHeight)=>{        
+              this.scrollView.scrollToEnd({animated: true});
+          }}
           style={[Style.ScrollView, {
             marginBottom: messengerGroup != null && messengerGroup.request.status < 2 ? 50 : 0
           }]}
