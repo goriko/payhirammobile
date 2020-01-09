@@ -28,7 +28,7 @@ class Review extends Component {
         width: '100%'
       }}>
         {
-          messengerGroup.rating == null && (
+          messengerGroup != null && messengerGroup.rating == null && (
             <View>
               <View>
                 <Text style={Style.templateText}>Hi {user.username}! Please help {messengerGroup.title.username} by giving a review.</Text>
