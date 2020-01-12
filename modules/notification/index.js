@@ -20,6 +20,41 @@ class Notifications extends Component{
     );
   };
 
+  retrieveRequest = (route) => {
+    const { user, searchParameter } = this.props.state;
+    const { setUserLedger } = this.props;
+    console.log('retrieveRequest', searchParameter)
+    if(user == null){
+      return;
+    }
+    let parameter = {
+      account_id: user.id,
+      offset: 0,
+      limit: 10,
+      sort: {
+        column: 'created_at',
+        value: 'desc'
+      },
+      value: searchParameter == null ? '%' : searchParameter.value,
+      column: searchParameter == null ? 'created_at' : searchParameter.column,
+      type: user.account_type
+    }
+    Api.request(Routes.requestRetrieve, parameter, response => {
+      const { setRequests } = this.props;
+      setUserLedger(response.ledger)
+      console.log('retrieve', response.data)
+      if(response.data !=  null){
+        setRequests(response.data)
+      }else{
+        setRequests(null)
+      }
+      const navigateAction = NavigationActions.navigate({
+        routeName: route
+      });
+      this.props.navigation.dispatch(navigateAction);
+    });
+  }
+
   updateNotification = (searchParameter, notification, route) => {
     const { setSearchParameter, setNotifications } = this.props;
     const { user } = this.props.state;
@@ -36,6 +71,12 @@ class Notifications extends Component{
       Api.request(Routes.notificationsRetrieve, retrieveParameter, notifications => {
         setNotifications(notifications.size, notifications.data);
         setSearchParameter(searchParameter)
+        if(route == 'Requests'){
+          setTimeout(() => {
+            this.retrieveRequest(route)
+          }, 1000)
+          return
+        }
         const navigateAction = NavigationActions.navigate({
           routeName: route
         });
@@ -63,16 +104,23 @@ class Notifications extends Component{
         break;
       case 'thread':
         route = 'Messenger';
-        searchParameter = {
-          column: 'id',
-          value: notification.payload_value
-        }
+        // searchParameter = {
+        //   column: 'id',
+        //   value: notification.payload_value
+        // }
+        searchParameter = null
         break;
     }
     if(notifications.unread > index){
       this.updateNotification(searchParameter, notification, route);
     }else{
       setSearchParameter(searchParameter)
+      if(route == 'Requests'){
+        setTimeout(() => {
+          this.retrieveRequest(route)
+        }, 1000)
+        return
+      }
       const navigateAction = NavigationActions.navigate({
         routeName: route
       });
@@ -134,6 +182,8 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
+    setRequests: (requests) => dispatch(actions.setRequests(requests)),
+    setUserLedger: (userLedger) => dispatch(actions.setUserLedger(userLedger)),
     setSearchParameter: (searchParameter) => dispatch(actions.setSearchParameter(searchParameter)),
     setNotifications: (unread, notifications) => dispatch(actions.setNotifications(unread, notifications))
   };

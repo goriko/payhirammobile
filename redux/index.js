@@ -15,6 +15,7 @@ const types = {
   UPDATE_MESSAGES_ON_GROUP: 'UPDATE_MESSAGES_ON_GROUP',
   SET_LOCATION: 'SET_LOCATION',
   SET_SEARCH_PARAMETER: 'SET_SEARCH_PARAMETER',
+  SET_REQUESTS: 'SET_REQUESTS',
   nav: null
 }
 
@@ -54,6 +55,9 @@ export const actions = {
   },
   setSearchParameter(searchParameter){
     return { type: types.SET_SEARCH_PARAMETER, searchParameter};
+  },
+  setRequests(requests){
+    return { type: types.SET_REQUESTS, requests}
   }
 };
 
@@ -71,6 +75,7 @@ const initialState = {
   },
   searchParameter: null,
   location: null,
+  requests: null,
   nav: null
 }
 
@@ -87,13 +92,14 @@ const reducer = (state = initialState, action) => {
   const { messages, unread, message } = action;
   const { messengerGroup, messagesOnGroup } = action;
   const { location, notification } = action;
-  const { searchParameter } = action;
+  const { searchParameter, requests } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
       return Object.assign({}, initialState);
     case types.LOGIN:
       storeData('token', token);
+      console.log('LOGIN', true);
       Data.setToken(token)
       return { ...state, user, token };
     case types.SET_NOTIFICATIONS:
@@ -101,7 +107,7 @@ const reducer = (state = initialState, action) => {
         unread,
         notifications: action.notifications
       }
-      console.log('notifications', notifications);
+      console.log('notifications', true);
       return {
         ...state,
         notifications
@@ -141,7 +147,7 @@ const reducer = (state = initialState, action) => {
         unread,
         messages
       }
-      console.log('messenger', messenger);
+      console.log('messenger', true);
       return {
         ...state,
         messenger
@@ -182,9 +188,15 @@ const reducer = (state = initialState, action) => {
             messages: temp
           } 
         }else{
-          updatedMessagesOnGroup = {
-            ...state.messagesOnGroup,
-            messages: oldMessages.push(message)
+          if(parseInt(message.id) != parseInt(oldMessages[oldMessages.length - 1])){
+            updatedMessagesOnGroup = {
+              ...state.messagesOnGroup,
+              messages: oldMessages.push(message)
+            }
+          }else{
+            updatedMessagesOnGroup = {
+              ...state.messagesOnGroup
+            }
           }
         }        
       }else{
@@ -208,6 +220,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         searchParameter
+      }
+    case types.SET_REQUESTS:
+      return {
+        ...state,
+        requests
       }
     default:
       return {...state, nav: state.nav};

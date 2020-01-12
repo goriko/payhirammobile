@@ -16,7 +16,6 @@ class Requests extends Component{
     super(props);
     this.state = {
       isLoading: false,
-      data: null,
       selected: null,
       connectModal: false,
       connectSelected: null,
@@ -76,14 +75,22 @@ class Requests extends Component{
     this.setState({isLoading: true});
     Api.request(Routes.requestRetrieve, parameter, response => {
       this.setState({isLoading: false});
-      console.log('requests', response.data)
       setUserLedger(response.ledger)
+      const { setRequests } = this.props;
       if(response.data !=  null){
-        this.setState({data: response.data})
+        setRequests(response.data)
       }else{
-        this.setState({data: null})
+        setRequests(null)
       }
     });
+  }
+
+  onRefresh = () => {
+    const { setSearchParameter } = this.props;
+    setSearchParameter(null)
+    setTimeout(() => {
+      this.retrieve()
+    }, 1000)
   }
 
   search = () => {
@@ -446,7 +453,12 @@ class Requests extends Component{
             }
             {
               type == 'rating' && (
-                <Rating ratings={item.rating}></Rating>
+                <View style={{
+                  width: '100%',
+                  alignItems: 'flex-end'
+                }}>
+                  <Rating ratings={item.rating}></Rating>
+                </View>
               )
             }
           </View>
@@ -462,14 +474,14 @@ class Requests extends Component{
   };
 
   _flatList = () => {
-    const { data, selected } = this.state;
-    const { user } = this.props.state;
+    const { selected } = this.state;
+    const { user, requests } = this.props.state;
     return (
       <View>
         {
-          data != null && user != null && (
+          requests != null && user != null && (
             <FlatList
-              data={data}
+              data={requests}
               extraData={selected}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
@@ -496,7 +508,8 @@ class Requests extends Component{
   }
 
   render() {
-    const { isLoading, connectModal, connectSelected, data } = this.state;
+    const { isLoading, connectModal, connectSelected } = this.state;
+    const { requests, searchParameter } = this.props.state;
     return (
       <View>
         {/*this._search()*/}
@@ -513,8 +526,36 @@ class Requests extends Component{
           }}
           >
           <View style={Style.MainContainer}>
+            {
+              searchParameter != null && (
+                <View style={{
+                  alignItems: 'center'
+                }}>
+                  <TouchableOpacity
+                    onPress={() => this.onRefresh()} 
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: 40,
+                      borderRadius: 5,
+                      color: Color.primary,
+                      backgroundColor: Color.white,
+                      borderColor: Color.primary,
+                      borderWidth: 1,
+                      width: '50%'
+                    }}
+                    >
+                    <Text style={{
+                      color: Color.primary,
+                      fontSize: 11,
+                      textAlign: 'center'
+                    }}>Reload</Text>
+                  </TouchableOpacity>
+                </View>
+              )
+            }
             {this._flatList()}
-            {data == null && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
+            {requests == null && (<Empty refresh={true} onRefresh={() => this.onRefresh()}/>)}
           </View>
         </ScrollView>
           <TouchableOpacity
@@ -551,6 +592,7 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
+    setRequests: (requests) => dispatch(actions.setRequests(requests)),
     setUserLedger: (userLedger) => dispatch(actions.setUserLedger(userLedger)),
     setSearchParameter: (searchParameter) => dispatch(actions.setSearchParameter(searchParameter)),
     setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup))
