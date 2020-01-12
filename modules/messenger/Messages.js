@@ -79,9 +79,11 @@ class Messages extends Component{
     }
     this.setState({isLoading: true});
     Api.request(Routes.customMessengerGroupRetrieveByParams, parameter, response => {
-      this.retrieve();
       if(response.data != null){
         setMessengerGroup(response.data);
+        setTimeout(() => {
+          this.retrieve()
+        }, 500)
       }
     });
   }

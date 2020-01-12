@@ -18,7 +18,7 @@ class Transfer extends Component {
     }
   }
 
-  transfer = (flag) => {
+  transfer = () => {
     this.setState({isOtpModal: false})
     const { messengerGroup, user} = this.props.state;
     let parameter = {
