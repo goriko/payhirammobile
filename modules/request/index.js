@@ -27,7 +27,8 @@ class Requests extends Component{
       }, {
         title: 'Location',
         value: 'location'
-      }]
+      }],
+      isBookmark: false
     }
   }
 
@@ -334,41 +335,46 @@ class Requests extends Component{
   }
 
   _footer = (item) => {
+    const { isBookmark } = this.state;
     return (
       <View>
         <View style={{
           flexDirection: 'row',
           marginBottom: 10}}>
-          <View style={{
-            width: '50%'
-          }}>
-            <TouchableHighlight
-              onPress={() => {this.bookmark(item)}}
-              style={[Style.btn, {backgroundColor: Color.warning}]}
-              underlayColor={Color.gray}
-              >
-              <View
-                style={{
-                  flexDirection: 'row'
-                }}
-              >
-                {
-                  item.bookmark == true && (
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      style={{
-                        color: Color.white,
-                        marginRight: 10
-                      }}
-                    />
-                  )
-                }
-                <Text style={{
-                  color: Color.white
-                }}>Bookmark</Text>
+          {
+            isBookmark == true && (
+              <View style={{
+                width: '50%'
+              }}>
+                <TouchableHighlight
+                  onPress={() => {this.bookmark(item)}}
+                  style={[Style.btn, {backgroundColor: Color.warning}]}
+                  underlayColor={Color.gray}
+                  >
+                  <View
+                    style={{
+                      flexDirection: 'row'
+                    }}
+                  >
+                    {
+                      item.bookmark == true && (
+                        <FontAwesomeIcon
+                          icon={faStar}
+                          style={{
+                            color: Color.white,
+                            marginRight: 10
+                          }}
+                        />
+                      )
+                    }
+                    <Text style={{
+                      color: Color.white
+                    }}>Bookmark</Text>
+                  </View>
+                </TouchableHighlight>
               </View>
-            </TouchableHighlight>
-          </View>
+            )
+          }
 
           <View style={{
             width: '50%'

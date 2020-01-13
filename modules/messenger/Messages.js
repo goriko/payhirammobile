@@ -56,6 +56,7 @@ class Messages extends Component{
     this.setState({isLoading: true});
     Api.request(Routes.messengerMessagesRetrieve, parameter, response => {
       this.setState({isLoading: false});
+      console.log('response', response.data);
       setMessagesOnGroup({
         messages: response.data,
         groupId: messengerGroup.id
