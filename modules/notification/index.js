@@ -3,6 +3,7 @@ import Style from './Style.js';
 import { View, Text, ScrollView, FlatList, TouchableHighlight} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import { Routes, Color, Helper, BasicStyles } from 'common';
+import { Spinner } from 'components';
 import { connect } from 'react-redux';
 import { Empty } from 'components';
 import Api from 'services/api/index.js';
@@ -10,7 +11,8 @@ class Notifications extends Component{
   constructor(props){
     super(props);
     this.state = {
-      selected: null
+      selected: null,
+      isLoading: false
     }
   }
 
@@ -19,6 +21,22 @@ class Notifications extends Component{
       <View style={BasicStyles.Separator}/>
     );
   };
+
+  retrieve = () => {
+    const { setNotifications } = this.props;
+    const { user } = this.props.state;
+    if(user == null){
+      return
+    }
+    let parameter = {
+      account_id: user.id
+    }
+    this.setState({isLoading: true})
+    Api.request(Routes.notificationsRetrieve, parameter, notifications => {
+      this.setState({isLoading: false})
+      setNotifications(notifications.size, notifications.data)
+    })
+  }
 
   retrieveRequest = (route) => {
     const { user, searchParameter } = this.props.state;
@@ -130,11 +148,20 @@ class Notifications extends Component{
 
   render() {
     const { notifications } = this.props.state;
-    const { selected } = this.state;
+    const { selected, isLoading } = this.state;
     return (
-      <ScrollView style={Style.ScrollView}>
+      <ScrollView
+        style={Style.ScrollView}
+        onScroll={(event) => {
+          if(event.nativeEvent.contentOffset.y <= 0) {
+            if(this.state.isLoading == false){
+              this.retrieve()
+            }
+          }
+        }}
+        >
         <View style={Style.MainContainer}>
-          {notifications == null || (notifications != null && notifications.notifications == null) && (<Empty />)}
+          {notifications == null || (notifications != null && notifications.notifications == null) && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
           <FlatList
             data={notifications.notifications}
             extraData={selected}
@@ -172,6 +199,7 @@ class Notifications extends Component{
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
+        {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>
     );
   }

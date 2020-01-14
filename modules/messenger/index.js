@@ -162,7 +162,7 @@ class Groups extends Component{
         }}>
           {this._flatList()}
         </View>
-        {data == null && (<Empty />)}
+        {data == null && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
         {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>
     );

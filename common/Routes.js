@@ -7,6 +7,7 @@ export default {
   authRefresh: apiUrl + 'authenticate/refresh',
   authInvalidate: apiUrl + 'authenticate/invalidate',
   accountRetrieve: apiUrl + 'accounts/retrieve',
+  accountUpdate: apiUrl + 'accounts/update',
   accountCreate: apiUrl + 'accounts/create',
   notificationsRetrieve: apiUrl + 'notifications/retrieve',
   notificationUpdate: apiUrl + 'notifications/update',

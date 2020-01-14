@@ -297,7 +297,7 @@ class Requests extends Component{
                             <TouchableHighlight
                               onPress={() => {this.acceptPeer(item, request)}}
                               underlayColor={Color.gray}
-                              style={[Style.btn, {backgroundColor: Color.primary}]}
+                              style={[Style.btn, {backgroundColor: Color.warning}]}
                             >
                               <Text style={{
                                 color: Color.white
@@ -340,7 +340,8 @@ class Requests extends Component{
       <View>
         <View style={{
           flexDirection: 'row',
-          marginBottom: 10}}>
+          marginBottom: 10
+        }}>
           {
             isBookmark == true && (
               <View style={{
@@ -348,7 +349,7 @@ class Requests extends Component{
               }}>
                 <TouchableHighlight
                   onPress={() => {this.bookmark(item)}}
-                  style={[Style.btn, {backgroundColor: Color.warning}]}
+                  style={[Style.btn, {backgroundColor: Color.primary}]}
                   underlayColor={Color.gray}
                   >
                   <View

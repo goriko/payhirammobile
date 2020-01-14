@@ -78,7 +78,7 @@ class CreateRequest extends Component {
       flag = true;
       return
     }
-    if(this.state.neededOn == null){
+    if(this.state.neededOn == null || this.state.neededOn == ''){
       this.setState({
         errorMessage: 'Needed on date is required'
       })
