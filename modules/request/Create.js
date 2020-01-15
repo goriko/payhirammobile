@@ -183,6 +183,7 @@ class CreateRequest extends Component {
             display="default"
             date={new Date()}
             onCancel={() => this.setState({showDatePicker: false})}
+            minimumDate={new Date()}
             onConfirm={this.setDate} 
             onChange={this.setDate} />
         }

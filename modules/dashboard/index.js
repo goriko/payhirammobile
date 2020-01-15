@@ -349,8 +349,8 @@ class Dashboard extends Component{
         <View style={Style.MainContainer}>
           {userLedger != null && (this._accountBalance())}
           {ledger != null && (this._requests())}
-          {ledger != null && (this._approvedRequest())}
-          {ledger != null && (this._availableFunds())}
+          {/*ledger != null && (this._approvedRequest()) */}
+          {/*ledger != null && (this._availableFunds()) */}
         </View>
         <View style={Style.MainContainer}>
           {ledger != null && (this._summary())}
