@@ -44,10 +44,12 @@ export default {
     money_type: 'Wallet'
   }],
   pusher: {
+    broadcast_type: 'pusher',
     channel: 'payhiram',
-    notifications: 'Notifications',
-    messages: 'Message',
-    validation: 'Validation'
+    notifications: 'App\\Events\\Notifications',
+    messages: 'App\\Events\\Message',
+    messageGroup: 'App\\Events\\MessageGroup',
+    typing: 'typing'
   },
   showRequestType(type){
     switch(parseInt(type)){

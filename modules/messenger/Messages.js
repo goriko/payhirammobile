@@ -56,7 +56,7 @@ class Messages extends Component{
     this.setState({isLoading: true});
     Api.request(Routes.messengerMessagesRetrieve, parameter, response => {
       this.setState({isLoading: false});
-      console.log('response', response.data);
+      console.log('retrieve response', response.data);
       setMessagesOnGroup({
         messages: response.data,
         groupId: messengerGroup.id
@@ -64,7 +64,7 @@ class Messages extends Component{
     });
   }
 
-  retrieveGroup = () => {
+  retrieveGroup = (flag = null) => {
     const { user, messengerGroup } = this.props.state;
     const { setMessengerGroup } = this.props;
     if(messengerGroup == null){
@@ -80,11 +80,14 @@ class Messages extends Component{
     }
     this.setState({isLoading: true});
     Api.request(Routes.customMessengerGroupRetrieveByParams, parameter, response => {
+      console.log('retrieve group response', response);
       if(response.data != null){
         setMessengerGroup(response.data);
-        setTimeout(() => {
-          this.retrieve()
-        }, 500)
+        if(flag !== false){
+          setTimeout(() => {
+            this.retrieve()
+          }, 500)
+        }
       }
     });
   }
@@ -379,7 +382,7 @@ class Messages extends Component{
         width: '100%'
       }}>
         {messengerGroup.request.status == 2 && (
-          <Review refresh={() => this.retrieveGroup()}></Review>
+          <Review refresh={() => this.retrieveGroup(false)}></Review>
         )}
         { 
           messengerGroup.account_id == user.id &&
@@ -407,7 +410,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieveGroup()
+                this.retrieveGroup(false)
               }}
             ></Transfer>
           )
@@ -421,7 +424,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieveGroup()
+                this.retrieveGroup(false)
               }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
@@ -438,7 +441,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieveGroup()
+                this.retrieveGroup(false)
               }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
@@ -449,7 +452,8 @@ class Messages extends Component{
         {
           messengerGroup.account_id != user.id &&
           messengerGroup.request.type == 1 &&
-          messengerGroup.request.status < 2 && (
+          messengerGroup.request.status < 2 &&
+          parseInt(messengerGroup.validations.validation_status) > 0  && (
             <SendRequirements 
               onLoading={(flag) => this.setState({
                 isLoading: flag
@@ -529,7 +533,8 @@ class Messages extends Component{
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
                 marginBottom: 50,
-                flex: 1
+                flex: 1,
+                height: height
               }}
               renderItem={({ item, index }) => (
                 <View>

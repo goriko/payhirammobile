@@ -131,10 +131,17 @@ const reducer = (state = initialState, action) => {
             notifications: temp
           }
         }else{
-          oldNotif.notifications.unshift(notification)
-          updatedNotifications = {
-            unread: oldNotif.unread + unread,
-            notifications: oldNotif.notifications
+          if(parseInt(notification.id) != parseInt(oldNotif.notifications[oldNotif.notifications.length - 1].id)){
+            oldNotif.notifications.unshift(notification)
+            updatedNotifications = {
+              unread: oldNotif.unread + unread,
+              notifications: oldNotif.notifications
+            }
+          }else{
+            updatedNotifications = {
+              unread: oldNotif.unread + unread,
+              notifications: oldNotif.notifications
+            }
           }
         }
       }
@@ -188,7 +195,7 @@ const reducer = (state = initialState, action) => {
             messages: temp
           } 
         }else{
-          if(parseInt(message.id) != parseInt(oldMessages[oldMessages.length - 1])){
+          if(parseInt(message.id) != parseInt(oldMessages[oldMessages.length - 1].id)){
             updatedMessagesOnGroup = {
               ...state.messagesOnGroup,
               messages: oldMessages.push(message)

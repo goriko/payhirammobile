@@ -8,18 +8,15 @@ export default {
     this.pusher = new Pusher(Config.PUSHER.key, Config.PUSHER);
     this.channel = this.pusher.subscribe(Helper.pusher.channel);
     this.channel.bind(Helper.pusher.notifications, response => {
-      console.log('response', response);
-      callback({type: Helper.pusher.notifications, data: response})
+      callback({type: Helper.pusher.notifications, data: response.data})
       // add notification here
     })
     this.channel.bind(Helper.pusher.messages, response => {
-      console.log('response', response);
-      callback({type: Helper.pusher.messages, data: response})
+      callback({type: Helper.pusher.messages, data: response.data})
       // add messages here
     })
-    this.channel.bind(Helper.pusher.validation, response => {
-      console.log('response', response);
-      callback({type: Helper.pusher.validation, data: response})
+    this.channel.bind(Helper.pusher.messageGroup, response => {
+      callback({type: Helper.pusher.messageGroup, data: response.data})
       // add validation here
     })
   }
