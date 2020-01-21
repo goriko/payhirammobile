@@ -72,7 +72,8 @@ class Transfer extends Component {
           <TouchableOpacity
             onPress={() => this.updateOtp()} 
             style={[Style.templateBtn, {
-              width: '50%'
+              width: '50%',
+              marginBottom: 50
             }]}
             >
             <Text style={Style.templateText}>Transfer</Text>

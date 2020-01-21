@@ -23,10 +23,8 @@ class AddRequirements extends Component {
         account_id: user.id
       }
     }
-    this.props.onLoading(true)
     Api.request(Routes.requestValidationCreate, parameter, response => {
-      this.props.onLoading(false)
-      this.props.onFinished()
+      this.props.onFinish()
     });
   }
 
@@ -52,7 +50,8 @@ class AddRequirements extends Component {
                   <View style={{
                       width: (width / 2) - 20,
                       height: 50,
-                      marginRight: 10
+                      marginRight: 10,
+                      marginBottom: 50
                     }}>
                     <TouchableOpacity
                       onPress={() => this.addValidation(item.payload)} 

@@ -45,6 +45,32 @@ class SendRequirements extends Component {
     })
   }
 
+  addFakeMessage = (uri, id) => {
+    const { user, messengerGroup, messagesOnGroup } = this.props.state;
+    let parameter = {
+      messenger_group_id: messengerGroup.id,
+      message: null,
+      account_id: user.id,
+      status: 0,
+      payload: 'image',
+      payload_value: null,
+      url: uri,
+      code: messagesOnGroup.messages.length + 1
+    }
+    let newMessageTemp = {
+      ...parameter,
+      account: user,
+      created_at_human: null,
+      sending_flag: true,
+      files: [{
+        url: uri
+      }],
+      error: null
+    }
+    const { updateMessagesOnGroup } = this.props;
+    updateMessagesOnGroup(newMessageTemp);
+  }
+
   handleChoosePhoto = (id) => {
     const { user } = this.props.state;
     const options = {
@@ -53,11 +79,13 @@ class SendRequirements extends Component {
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {
         let formData = new FormData();
+        let uri = Platform.OS == "android" ? response.uri : response.uri.replace("file://", "")
         formData.append("file", {
           name: response.fileName,
           type: response.type,
-          uri: Platform.OS == "android" ? response.uri : response.uri.replace("file://", "")
+          uri: uri
         });
+        this.addFakeMessage(uri, id)
         formData.append('file_url', response.fileName);
         formData.append('account_id', user.id);
         this.props.onLoading(true)
@@ -108,6 +136,7 @@ class SendRequirements extends Component {
                       style={[Style.templateBtn, {
                         width: '100%',
                         height: 50,
+                        marginBottom: 50
                       }]}
                       key={index}
                       >
@@ -135,6 +164,7 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
+    updateMessagesOnGroup: (message) => dispatch(actions.updateMessagesOnGroup(message)),
   };
 };
 

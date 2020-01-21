@@ -15,6 +15,7 @@ import Transfer from './templates/Transfer.js';
 import SendRequirements from './templates/SendRequirements.js';
 import ImageModal from 'components/Modal/ImageModal.js';
 import ImagePicker from 'react-native-image-picker';
+import CommonRequest from 'services/CommonRequest.js';
 import { Dimensions } from 'react-native';
 const height = Math.round(Dimensions.get('window').height);
 class Messages extends Component{
@@ -26,7 +27,8 @@ class Messages extends Component{
       newMessage: null,
       imageModalUrl: null,
       isImageModal: false,
-      photo: null
+      photo: null,
+      keyRefresh: 0
     }
   }
 
@@ -38,36 +40,24 @@ class Messages extends Component{
   }
 
   retrieve = () => {
-    const { user, messengerGroup } = this.props.state;
+    console.log('hi')
+    const { messengerGroup } = this.props.state;
     const { setMessagesOnGroup } = this.props;
-    if(messengerGroup == null){
-      return
-    }
-    let parameter = {
-      condition: [{
-        value: messengerGroup.id,
-        column: 'messenger_group_id',
-        clause: '='
-      }],
-      sort: {
-        'created_at': 'ASC'
-      }
-    }
     this.setState({isLoading: true});
-    Api.request(Routes.messengerMessagesRetrieve, parameter, response => {
+    CommonRequest.retrieveMessages(messengerGroup, response => {
       this.setState({isLoading: false});
-      console.log('retrieve response', response.data);
       setMessagesOnGroup({
         messages: response.data,
         groupId: messengerGroup.id
       })
-    });
+    })
   }
 
   retrieveGroup = (flag = null) => {
+    console.log('hello')
     const { user, messengerGroup } = this.props.state;
     const { setMessengerGroup } = this.props;
-    if(messengerGroup == null){
+    if(messengerGroup == null || user == null){
       return
     }
     let parameter = {
@@ -78,22 +68,20 @@ class Messages extends Component{
       }],
       account_id: user.id
     }
-    this.setState({isLoading: true});
-    Api.request(Routes.customMessengerGroupRetrieveByParams, parameter, response => {
-      console.log('retrieve group response', response);
+    CommonRequest.retrieveMessengerGroup(messengerGroup, user, response => {
       if(response.data != null){
         setMessengerGroup(response.data);
-        if(flag !== false){
-          setTimeout(() => {
-            this.retrieve()
-          }, 500)
-        }
+        setTimeout(() => {
+          this.retrieve(response.data)
+          this.setState({keyRefresh: this.state.keyRefresh + 1})
+        }, 500)
       }
-    });
+    })
   }
 
   sendNewMessage = () => {
-    const { messengerGroup, user} = this.props.state;
+    const { messengerGroup, user, messagesOnGroup} = this.props.state;
+    const { updateMessagesOnGroup,  updateMessageByCode} = this.props;
     if(messengerGroup == null || user == null || this.state.newMessage == null){
       return
     }
@@ -103,42 +91,38 @@ class Messages extends Component{
       account_id: user.id,
       status: 0,
       payload: 'text',
-      payload_value: null
+      payload_value: null,
+      code: messagesOnGroup.messages.length + 1
     }
-    this.setState({isLoading: true});
+    let newMessageTemp = {
+      ...parameter,
+      account: user,
+      created_at_human: null,
+      sending_flag: true,
+      error: null
+    }
+    updateMessagesOnGroup(newMessageTemp);
+    this.setState({newMessage: null})
     Api.request(Routes.messengerMessagesCreate, parameter, response => {
-      this.setState({isLoading: false});
       if(response.data != null){
-        const { updateMessagesOnGroup } = this.props;
-        updateMessagesOnGroup(response.data);
-        this.setState({newMessage: null})
+        updateMessageByCode(response.data);
       }
     });
   }
 
-  sendImageWithoutPayload = (url) => {
-    const { messengerGroup, user } = this.props.state;
-    let parameter = {
-      messenger_group_id: messengerGroup.id,
-      message: null,
-      account_id: user.id,
-      status: 0,
-      payload: 'image',
-      payload_value: null,
-      url: url
-    }
-    console.log('parameter', parameter)
+  sendImageWithoutPayload = (parameter) => {
+    const { messengerGroup, user, messagesOnGroup } = this.props.state;
+    const { updateMessageByCode } = this.props;
+
     Api.request(Routes.mmCreateWithImageWithoutPayload, parameter, response => {
-      this.setState({isLoading: false})
       if(response.data != null){
-        const { updateMessagesOnGroup } = this.props;
-        updateMessagesOnGroup(response.data);
+        updateMessageByCode(response.data);
       }
     })
   }
 
   handleChoosePhoto = () => {
-    const { user } = this.props.state;
+    const { user, messengerGroup, messagesOnGroup } = this.props.state;
     const options = {
       noData: true,
     }
@@ -147,19 +131,45 @@ class Messages extends Component{
         this.setState({ photo: response })
         console.log('photo', response)
         let formData = new FormData();
+        let uri = Platform.OS == "android" ? response.uri : response.uri.replace("file://", "");
+        let parameter = {
+          messenger_group_id: messengerGroup.id,
+          message: null,
+          account_id: user.id,
+          status: 0,
+          payload: 'image',
+          payload_value: null,
+          url: uri,
+          code: messagesOnGroup.messages.length + 1
+        }
+        let newMessageTemp = {
+          ...parameter,
+          account: user,
+          created_at_human: null,
+          sending_flag: true,
+          files: [{
+            url: uri
+          }],
+          error: null
+        }
+        const { updateMessagesOnGroup } = this.props;
+        updateMessagesOnGroup(newMessageTemp);
         formData.append("file", {
           name: response.fileName,
           type: response.type,
-          uri: Platform.OS == "android" ? response.uri : response.uri.replace("file://", "")
+          uri: uri
         });
         formData.append('file_url', response.fileName);
         formData.append('account_id', user.id);
-        this.setState({isLoading: true})
         Api.upload(Routes.imageUploadUnLink, formData, imageResponse => {
           // add message
           console.log('response', imageResponse)
           if(imageResponse.data.data != null){
-            this.sendImageWithoutPayload(imageResponse.data.data)
+            parameter = {
+              ...parameter,
+              url: imageResponse.data.data
+            }
+            this.sendImageWithoutPayload(parameter)
           }
         })
       }else{
@@ -189,7 +199,7 @@ class Messages extends Component{
     this.setState({isLoading: true})
     Api.request(Routes.requestValidationUpdate, parameter, response => {
       this.setState({isLoading: false})
-      this.retrieveGroup()
+      // this.retrieveGroup()
     })
   }
 
@@ -216,7 +226,17 @@ class Messages extends Component{
                   style={Style.messageImage}
                   key={imageIndex}
                   >
-                  <Image source={{uri: Config.BACKEND_URL  + imageItem.url}} style={Style.messageImage} key={imageIndex}/>
+                  {
+                    item.sending_flag == true && (
+                      <Image source={{uri: imageItem.url}} style={Style.messageImage} key={imageIndex}/>
+                    )
+                  }
+                  {
+                    item.sending_flag != true && (
+                      <Image source={{uri: Config.BACKEND_URL  + imageItem.url}} style={Style.messageImage} key={imageIndex}/>
+                    )
+                  }
+                  
                 </TouchableOpacity>
               );
             })
@@ -351,15 +371,26 @@ class Messages extends Component{
         {
           item.payload == 'image' && (this._image(item))
         }
+        {
+          item.sending_flag == true && (
+            <Text style={{
+              fontSize: 10,
+              color: Color.gray,
+              textAlign: 'right' 
+            }}>Sending...</Text>
+          )
+        }
       </View>
     );
   }
 
-  _conversations = (item) => {
-    const { user } = this.props.state;
+  _conversations = (item, index) => {
+    const { user, messagesOnGroup } = this.props.state;
+    console.log('item', item)
     return (
       <View style={{
-        width: '100%'
+        width: '100%',
+        marginBottom: index == (messagesOnGroup.messages.length - 1) ? 50: 0
       }}>
         <View style={{
           alignItems: 'flex-end'
@@ -377,24 +408,24 @@ class Messages extends Component{
 
   _templates = () => {
     const { messengerGroup, user } = this.props.state;
+    console.log('messengerGroup_templates', messengerGroup)
     return (
       <View style={{
         width: '100%'
       }}>
         {messengerGroup.request.status == 2 && (
-          <Review refresh={() => this.retrieveGroup(false)}></Review>
+          <Review 
+            refresh={() => {
+              this.retrieveGroup()
+            }}></Review>
         )}
         { 
           messengerGroup.account_id == user.id &&
-          messengerGroup.request.type == 1 &&
+          messengerGroup.request.type == 1 && 
+          messengerGroup.validations &&
           messengerGroup.validations.complete_status == false &&
           messengerGroup.request.status < 2 && (
-            <AddRequirements
-              onFinished={() => this.retrieveGroup()}
-              onLoading={(flag) => this.setState({
-                isLoading: flag
-              })}>
-            </AddRequirements>
+            <AddRequirements onFinish={() => this.setState({keyRefresh: this.state.keyRefresh + 1})}></AddRequirements>
           )
         }
         {
@@ -410,7 +441,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieveGroup(false)
+                this.retrieveGroup()
               }}
             ></Transfer>
           )
@@ -424,7 +455,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieveGroup(false)
+                this.retrieveGroup()
               }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
@@ -441,7 +472,7 @@ class Messages extends Component{
                 isLoading: flag
               })}
               onFinished={() => {
-                this.retrieveGroup(false)
+                this.retrieveGroup()
               }}
               text={
                 'If you receive the money from other peer already, then you can continue to transfer and complete the thread.'
@@ -519,7 +550,9 @@ class Messages extends Component{
 
   _flatList = () => {
     const { selected } = this.state;
-    const { user, messagesOnGroup } = this.props.state;
+    const { user, messagesOnGroup, messengerGroup } = this.props.state;
+    console.log('messengerGroup', messengerGroup)
+    console.log('messagesOnGroup', messagesOnGroup.messages)
     return (
       <View style={{
         width: '100%',
@@ -529,16 +562,15 @@ class Messages extends Component{
           messagesOnGroup != null && messagesOnGroup.messages != null && user != null && (
             <FlatList
               data={messagesOnGroup.messages}
-              extraData={selected}
+              extraData={this.props}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
                 marginBottom: 50,
-                flex: 1,
-                height: height
+                flex: 1
               }}
               renderItem={({ item, index }) => (
                 <View>
-                  {this._conversations(item)}
+                  {this._conversations(item, index)}
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -550,22 +582,22 @@ class Messages extends Component{
   }
 
   render() {
-    const { isLoading, isImageModal, imageModalUrl, photo } = this.state;
+    const { isLoading, isImageModal, imageModalUrl, photo, keyRefresh } = this.state;
     const { messengerGroup, user } = this.props.state;
     return (
-      <View>
+      <View key={keyRefresh}>
         <ScrollView
           ref={ref => this.scrollView = ref}
           onContentSizeChange={(contentWidth, contentHeight)=>{        
               this.scrollView.scrollToEnd({animated: true});
           }}
           style={[Style.ScrollView, {
-            marginBottom: messengerGroup != null && messengerGroup.request.status < 2 ? 50 : 0
+            height: '100%'
           }]}
           onScroll={(event) => {
             if(event.nativeEvent.contentOffset.y <= 0) {
               if(this.state.isLoading == false){
-                this.retrieveGroup()
+                this.retrieve()
               }
             }
           }}
@@ -589,7 +621,8 @@ class Messages extends Component{
           bottom: 0,
           left: 0,
           borderTopColor: Color.lightGray,
-          borderTopWidth: 1
+          borderTopWidth: 1,
+          backgroundColor: Color.white
         }}>
           {messengerGroup != null && messengerGroup.request.status < 2 && (this._footer())}
         </View>
@@ -610,6 +643,7 @@ const mapDispatchToProps = dispatch => {
     setMessagesOnGroup: (messagesOnGroup) => dispatch(actions.setMessagesOnGroup(messagesOnGroup)),
     setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup)),
     updateMessagesOnGroup: (message) => dispatch(actions.updateMessagesOnGroup(message)),
+    updateMessageByCode: (message) => dispatch(actions.updateMessageByCode(message)),
   };
 };
 

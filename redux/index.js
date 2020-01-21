@@ -11,8 +11,11 @@ const types = {
   SET_LEDGER: 'SET_LEDGER',
   SET_USER_LEDGER: 'SET_USER_LEDGER',
   SET_MESSENGER_GROUP: 'SET_MESSENGER_GROUP',
+  UPDATE_MESSENGER_GROUP: 'UPDATE_MESSENGER_GROUP',
   SET_MESSAGES_ON_GROUP: 'SET_MESSAGES_ON_GROUP',
   UPDATE_MESSAGES_ON_GROUP: 'UPDATE_MESSAGES_ON_GROUP',
+  UPDATE_MESSAGE_BY_CODE: 'UPDATE_MESSAGE_BY_CODE',
+  UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD: 'UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD',
   SET_LOCATION: 'SET_LOCATION',
   SET_SEARCH_PARAMETER: 'SET_SEARCH_PARAMETER',
   SET_REQUESTS: 'SET_REQUESTS',
@@ -41,11 +44,20 @@ export const actions = {
   setMessengerGroup(messengerGroup){
     return { type: types.SET_MESSENGER_GROUP, messengerGroup};
   },
+  updateMessengerGroup(messengerGroup){
+    return { type: types.UPDATE_MESSENGER_GROUP, messengerGroup}
+  },
+  updateMessagesOnGroupByPayload(messages){
+    return { type: types.UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD, messages}
+  },
   setMessagesOnGroup(messagesOnGroup){
     return { type: types.SET_MESSAGES_ON_GROUP, messagesOnGroup};
   },
   updateMessagesOnGroup(message){
     return { type: types.UPDATE_MESSAGES_ON_GROUP, message};
+  },
+  updateMessageByCode(message){
+    return { type: types.UPDATE_MESSAGE_BY_CODE, message}
   },
   setLocation(location){
     return { type: types.SET_LOCATION, location};
@@ -58,7 +70,7 @@ export const actions = {
   },
   setRequests(requests){
     return { type: types.SET_REQUESTS, requests}
-  }
+  },
 };
 
 const initialState = {
@@ -178,6 +190,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         messengerGroup
       }
+    case types.UPDATE_MESSENGER_GROUP:
+      return {
+        ...state,
+        messengerGroup: {
+          ...state.messengerGroup,
+          created_at_human: messengerGroup.created_at_human,
+          rating: messengerGroup.rating,
+          status: parseInt(messengerGroup.status),
+          validations: messengerGroup.validations
+        }
+      }
     case types.SET_MESSAGES_ON_GROUP:
       return {
         ...state,
@@ -217,6 +240,36 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         updatedMessagesOnGroup
+      }
+    case types.UPDATE_MESSAGE_BY_CODE:
+      let newMessagesOnGroup = state.messagesOnGroup.messages.map((item, index) => {
+        if(typeof item.code != undefined || typeof item.code != 'undefined'){
+          if(parseInt(item.code) == parseInt(message.code)){
+            return message;
+          }
+        }
+        return item;
+      })
+      return {
+        ...state,
+        messagesOnGroup: {
+          ...state.messagesOnGroup,
+          messages: newMessagesOnGroup
+        }
+      }
+    case types.UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD:
+      let tempMessages = state.messagesOnGroup.messages.map((item, index) => {
+        if(parseInt(item.id) == parseInt(action.messages[index].id) && item.payload_value != null){
+          return action.messages[index];
+        }
+        return item;
+      })
+      return {
+        ...state,
+        messagesOnGroup: {
+          ...state.messagesOnGroup,
+          messages: tempMessages
+        }
       }
     case types.SET_LOCATION:
       return {

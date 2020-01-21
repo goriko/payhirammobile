@@ -7,7 +7,7 @@ import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
-
+import CommonRequest from 'services/CommonRequest.js';
 class Groups extends Component{
   constructor(props){
     super(props);
@@ -30,15 +30,10 @@ class Groups extends Component{
     if(user == null){
       return
     }
-    let parameter = {
-      account_id: user.id,
-      code: null
-    }
     this.setState({isLoading: true});
-    Api.request(Routes.customMessengerGroupRetrieve, parameter, response => {
-      console.log(response.data)
+    CommonRequest.retrieveMessengerGroups(user, response => {
       this.setState({isLoading: false, data: response.data});
-    });
+    })
   }
 
   viewMessages = (item) => {
