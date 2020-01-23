@@ -8,7 +8,8 @@ export default {
     borderWidth: 1,
     width: width - 40,
     paddingLeft: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    borderRadius: 5
   },
   formControlModal: {
     height: 50,
@@ -16,14 +17,16 @@ export default {
     borderWidth: 1,
     width: '90%',
     marginLeft: '5%',
-    marginBottom: 20
+    marginBottom: 20,
+    borderRadius: 5
   },
   formControlCreate: {
     height: 50,
     borderColor: Color.gray,
     borderWidth: 1,
     width: '100%',
-    marginBottom: 20
+    marginBottom: 20,
+    borderRadius: 5
   },
   pickerStyle: {
     height: 50,
@@ -43,7 +46,8 @@ export default {
     width: width - 40,
     marginBottom: 20,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 5
   },
   btnPrimary: {
     backgroundColor: Color.primary

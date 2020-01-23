@@ -19,6 +19,7 @@ const types = {
   SET_LOCATION: 'SET_LOCATION',
   SET_SEARCH_PARAMETER: 'SET_SEARCH_PARAMETER',
   SET_REQUESTS: 'SET_REQUESTS',
+  UPDATE_REQUESTS: 'UPDATE_REQUESTS',
   nav: null
 }
 
@@ -70,6 +71,9 @@ export const actions = {
   },
   setRequests(requests){
     return { type: types.SET_REQUESTS, requests}
+  },
+  updateRequests(requests){
+    return { type: types.UPDATE_REQUESTS, requests}
   },
 };
 
@@ -286,6 +290,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         requests
       }
+    case types.UPDATE_REQUESTS:
+    state.requests.push(...requests)
+    return {
+      ...state,
+      requests: state.requests
+    }
     default:
       return {...state, nav: state.nav};
   }

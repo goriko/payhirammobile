@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, BackHandler} from 'react-native';
+import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, BackHandler, ToastAndroid} from 'react-native';
 import  { Picker, FlatList, TouchableOpacity } from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner, Rating, CustomModal, Empty, UserImage } from 'components';
@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Dimensions } from 'react-native';
+const height = Math.round(Dimensions.get('window').height);
 class Requests extends Component{
 
   constructor(props){
@@ -21,6 +23,7 @@ class Requests extends Component{
       connectSelected: null,
       searchValue: null,
       searchType: null,
+      size: 0,
       filterOptions: [{
         title: 'Amount',
         value: 'amount'
@@ -28,7 +31,9 @@ class Requests extends Component{
         title: 'Location',
         value: 'location'
       }],
-      isBookmark: false
+      isBookmark: false,
+      limit: 10,
+      active: 1
     }
   }
 
@@ -55,7 +60,7 @@ class Requests extends Component{
     this.props.navigation.navigate(route);
   }
 
-  retrieve = () => {
+  retrieve = (flag = true) => {
     const { user, searchParameter } = this.props.state;
     const { setUserLedger } = this.props;
     if(user == null){
@@ -63,8 +68,8 @@ class Requests extends Component{
     }
     let parameter = {
       account_id: user.id,
-      offset: 0,
-      limit: 10,
+      offset: (this.state.active - 1) * this.state.limit,
+      limit: this.state.limit,
       sort: {
         column: 'created_at',
         value: 'desc'
@@ -75,13 +80,21 @@ class Requests extends Component{
     }
     this.setState({isLoading: true});
     Api.request(Routes.requestRetrieve, parameter, response => {
-      this.setState({isLoading: false});
+      this.setState({isLoading: false, size: response.size ? response.size : 0});
       setUserLedger(response.ledger)
-      const { setRequests } = this.props;
-      if(response.data !=  null){
-        setRequests(response.data)
+      if(flag == true){
+        const { setRequests } = this.props;
+        if(response.data !=  null){
+          setRequests(response.data)
+        }else{
+          setRequests(null)
+        }
       }else{
-        setRequests(null)
+        const { updateRequests } = this.props;
+        // scroll to bottom
+        if(response.data !=  null){
+          updateRequests(response.data)
+        }
       }
     });
   }
@@ -525,10 +538,28 @@ class Requests extends Component{
             height: '100%'
           }]}
           onScroll={(event) => {
+            let scrollingHeight = event.nativeEvent.layoutMeasurement.height + event.nativeEvent.contentOffset.y
+            let totalHeight = event.nativeEvent.contentSize.height - 20
             if(event.nativeEvent.contentOffset.y <= 0) {
               if(this.state.isLoading == false){
-                this.retrieve()
+                this.setState({active: 1})
+                setTimeout(() => {
+                  this.retrieve()
+                }, 10)
               }
+            }
+            if(scrollingHeight >= totalHeight) {
+              let totalPage = this.state.size / this.state.limit;
+              let prevActive = this.state.active;
+              let newPage = this.state.active < (totalPage - 1) ? this.state.active + 1 : this.state.active;
+              this.setState({active: newPage})
+              setTimeout(() => {
+                if(prevActive < newPage){
+                  this.retrieve(false)
+                }else{
+                  ToastAndroid.show('Nothing follows!', ToastAndroid.LONG);
+                }
+              }, 10)
             }
           }}
           >
@@ -600,6 +631,7 @@ const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
     setRequests: (requests) => dispatch(actions.setRequests(requests)),
+    updateRequests: (requests) => dispatch(actions.updateRequests(requests)),
     setUserLedger: (userLedger) => dispatch(actions.setUserLedger(userLedger)),
     setSearchParameter: (searchParameter) => dispatch(actions.setSearchParameter(searchParameter)),
     setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup))

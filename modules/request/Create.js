@@ -294,7 +294,8 @@ class CreateRequest extends Component {
                 width: '100%',
                 marginBottom: 20,
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                borderRadius: 5,
               }}
               onPress={() => {this.setState({showDatePicker: true})}}
               underlayColor={Color.gray}
@@ -330,6 +331,7 @@ class CreateRequest extends Component {
                 width: '100%',
                 marginBottom: 20,
                 alignItems: 'center',
+                borderRadius: 5,
                 justifyContent: 'center'
               }}
               onPress={() => {this.redirect('locationStack')}}
@@ -351,7 +353,8 @@ class CreateRequest extends Component {
               borderWidth: 1,
               width: '100%',
               marginBottom: 20,
-              textAlignVertical: 'top'
+              textAlignVertical: 'top',
+              borderRadius: 5
             }}
             onChangeText={(reason) => this.setState({reason})}
             value={this.state.reason}
@@ -367,7 +370,8 @@ class CreateRequest extends Component {
                 width: '100%',
                 marginBottom: 100,
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                borderRadius: 5,
               }}
               onPress={() => {
                 this.validate()
