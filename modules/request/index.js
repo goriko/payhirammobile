@@ -96,7 +96,9 @@ class Requests extends Component{
           updateRequests(response.data)
         }
       }
-    });
+    }, error => {
+      this.setState({isLoading: false});
+    })
   }
 
   onRefresh = () => {
