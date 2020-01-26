@@ -351,6 +351,7 @@ class Requests extends Component{
 
   _footer = (item) => {
     const { isBookmark } = this.state;
+    const { user } = this.props.state;
     return (
       <View>
         <View style={{
@@ -391,20 +392,23 @@ class Requests extends Component{
               </View>
             )
           }
-
-          <View style={{
-            width: '50%'
-          }}>
-              <TouchableHighlight
-                onPress={() => {this.connectRequest(item)}}
-                underlayColor={Color.gray}
-                style={[Style.btn, {backgroundColor: Color.primary}]}
-              >
-                <Text style={{
-                  color: Color.white
-                }}>Connect</Text>
-              </TouchableHighlight>
-          </View>
+          {
+            user.account_type != 'USER' && (
+              <View style={{
+                width: '50%'
+              }}>
+                  <TouchableHighlight
+                    onPress={() => {this.connectRequest(item)}}
+                    underlayColor={Color.gray}
+                    style={[Style.btn, {backgroundColor: Color.primary}]}
+                  >
+                    <Text style={{
+                      color: Color.white
+                    }}>Connect</Text>
+                  </TouchableHighlight>
+              </View>
+            )
+          }
         </View>
       </View>
     ); 
