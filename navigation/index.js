@@ -9,6 +9,8 @@ import MessagesStack from 'modules/messenger/MessagesDrawer.js';
 import LedgerStack from 'modules/dashboard/LedgerDrawer.js';
 import CreateRequestStack from 'modules/request/CreateDrawer.js';
 import LocationStack from 'components/Location/Drawer.js';
+import DepositStack from 'modules/dashboard/DepositDrawer.js';
+import WithdrawalStack from 'modules/dashboard/WithdrawalDrawer.js';
 
 // login stack
 const LoginStack = createStackNavigator({
@@ -48,7 +50,9 @@ const PrimaryNav = createStackNavigator({
   messagesStack: { screen: MessagesStack},
   ledgerStack: { screen: LedgerStack},
   createRequestStack: { screen: CreateRequestStack},
-  locationStack: { screen: LocationStack}
+  locationStack: { screen: LocationStack},
+  depositStack: { screen: DepositStack},
+  withdrawalStack: { screen: WithdrawalStack}
 }, {
   // Default config for all screens
   headerMode: 'none',

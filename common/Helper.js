@@ -95,6 +95,13 @@ export default {
       colors: [Color.primary, Color.lightGray]
     },
   ],
+  payments: [{
+    title: 'Banco de Oro'
+  }, {
+    title: 'UnionBank of the Philippines'
+  }, {
+    title: 'Chinabank Corporation'
+  }],
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

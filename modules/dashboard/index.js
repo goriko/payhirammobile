@@ -7,6 +7,9 @@ import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import {NavigationActions} from 'react-navigation';
 import { connect } from 'react-redux';
+import { Dimensions } from 'react-native';
+const width = Math.round(Dimensions.get('window').width);
+const height = Math.round(Dimensions.get('window').height);
 class Dashboard extends Component{
   constructor(props){
     super(props);
@@ -66,12 +69,12 @@ class Dashboard extends Component{
   }
 
   withdrawal = () => {
-    console.log('withdrawal')
+    this.props.navigation.navigate('withdrawalStack')
   }
 
 
   deposit = () => {
-    console.log('deposit')
+    this.props.navigation.navigate('depositStack')
   }
 
   viewRequest = () => {
@@ -99,7 +102,8 @@ class Dashboard extends Component{
     const { userLedger } = this.props.state;
     return (
       <View style={[Style.Card, {
-        backgroundColor: Color.primary
+        backgroundColor: Color.primary,
+        width: '100%'
       }]}>
         <Text style={[Style.titleText, {
           paddingTop: 10
@@ -148,7 +152,8 @@ class Dashboard extends Component{
     return (
       <View style={[Style.Card, {
         backgroundColor: Color.secondary,
-        marginTop: 10
+        marginTop: 10,
+        width: '100%'
       }]}>
         <Text style={[Style.titleText, {
           paddingTop: 10
@@ -234,6 +239,59 @@ class Dashboard extends Component{
     );
   }
 
+  _pendingWithdrawal = () => {
+    const { ledger } = this.props.state;
+    return (
+      <ScrollView horizontal={true} style={Style.ScrollView}>
+        <View style={{
+          flexDirection: 'row'
+        }}>
+        {
+          ledger.ledger.withdrawal.map((item, index) => {
+            return (
+              <TouchableHighlight style={{
+                width: width * .75,
+                borderRadius: 5,
+                borderColor: Color.primary,
+                borderWidth: 1,
+                marginRight: 10,
+                padding: 5,
+                backgroundColor: Color.white,
+                paddingBottom: 20,
+                paddingTop: 20
+              }}
+              onPress={() => {console.log('hi')}}
+              underlayColor={Color.gray}
+                >
+                <View>
+                  <Text style={[Style.normalText, {
+                    textAlign: 'center'
+                  }]}>{item.created_at_human}</Text>
+                  <Text style={[Style.normalText, {
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: Color.danger,
+                  }]}>{Currency.display((parseFloat(item.amount) + parseFloat(item.charge)) * -1, item.currency)}</Text>
+                  <Text style={[Style.normalText, {
+                    textAlign: 'center'
+                  }]}>Withdrawal via {item.bank}/{item.account_number}/{item.account_name}</Text>
+                   <Text style={[Style.normalText, {
+                    textAlign: 'center',
+                    color: Color.danger
+                  }]}>Processing of the withdrawal will take up to 7 working days!</Text>
+                  <Text style={[Style.normalText, {
+                    textAlign: 'center'
+                  }]}>Transaction ID: {item.code}</Text>
+                </View>
+              </TouchableHighlight>
+            );
+          })
+        }
+        </View>
+      </ScrollView>
+    );
+  }
+
   _summary = () => {
     const { ledger } = this.props.state;
     const { selected } = this.state;
@@ -247,7 +305,8 @@ class Dashboard extends Component{
         }}>
           <Text style={{
             fontWeight: 'bold',
-            paddingTop: 20,
+            paddingTop: 5,
+            color: Color.primary,
             paddingBottom: 20
           }}>Ledger Summary</Text>
         </View>
@@ -351,6 +410,22 @@ class Dashboard extends Component{
           {ledger != null && (this._requests())}
           {/*ledger != null && (this._approvedRequest()) */}
           {/*ledger != null && (this._availableFunds()) */}
+        </View>
+        <View  style={Style.MainContainer}>
+          {ledger != null && ledger.ledger.withdrawal != null && (
+            <View style={{
+              width: '100%'
+            }}>
+              <Text style={{
+                fontWeight: 'bold',
+                paddingTop: 20,
+                paddingBottom: 10,
+                textAlign: 'center',
+                color: Color.primary
+              }}>Pending transactions</Text>
+              {this._pendingWithdrawal()}
+            </View>
+          )}
         </View>
         <View style={Style.MainContainer}>
           {ledger != null && (this._summary())}
