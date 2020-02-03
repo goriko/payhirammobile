@@ -511,7 +511,8 @@ class Requests extends Component{
               extraData={selected}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
-                marginBottom: 100
+                marginBottom: 100,
+                height: height
               }}
               renderItem={({ item, index }) => (
                 <View>

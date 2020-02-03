@@ -7,6 +7,8 @@ import { Spinner } from 'components';
 import { connect } from 'react-redux';
 import { Empty } from 'components';
 import Api from 'services/api/index.js';
+import { Dimensions } from 'react-native';
+const height = Math.round(Dimensions.get('window').height);
 class Notifications extends Component{
   constructor(props){
     super(props);
@@ -160,11 +162,14 @@ class Notifications extends Component{
           }
         }}
         >
+        {notifications == null || (notifications != null && notifications.notifications == null) && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
         <View style={Style.MainContainer}>
-          {notifications == null || (notifications != null && notifications.notifications == null) && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
           <FlatList
             data={notifications.notifications}
             extraData={selected}
+            style={{
+              height: height
+            }}
             ItemSeparatorComponent={this.FlatListItemSeparator}
             renderItem={({ item, index }) => (
               <View>

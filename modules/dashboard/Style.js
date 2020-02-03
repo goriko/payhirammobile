@@ -6,9 +6,8 @@ export default {
     padding: 10
   },
   MainContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center'
   },
   TextContainer: {
     flex: 1

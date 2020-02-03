@@ -95,7 +95,9 @@ class Dashboard extends Component{
     );
   };
 
-
+  test = () => {
+    //
+  }
 
 
   _accountBalance = () => {
@@ -405,30 +407,30 @@ class Dashboard extends Component{
           }
         }}
         >
-        <View style={Style.MainContainer}>
-          {userLedger != null && (this._accountBalance())}
-          {ledger != null && (this._requests())}
-          {/*ledger != null && (this._approvedRequest()) */}
-          {/*ledger != null && (this._availableFunds()) */}
-        </View>
-        <View  style={Style.MainContainer}>
-          {ledger != null && ledger.ledger.withdrawal != null && (
-            <View style={{
-              width: '100%'
-            }}>
-              <Text style={{
-                fontWeight: 'bold',
-                paddingTop: 20,
-                paddingBottom: 10,
-                textAlign: 'center',
-                color: Color.primary
-              }}>Pending transactions</Text>
-              {this._pendingWithdrawal()}
-            </View>
-          )}
-        </View>
-        <View style={Style.MainContainer}>
-          {ledger != null && (this._summary())}
+        <View style={[Style.MainContainer, {
+          height: height
+        }]}>
+          <View style={Style.MainContainer}>
+            {userLedger != null && (this._accountBalance())}
+            {ledger != null && (this._requests())}
+            {/*ledger != null && (this._approvedRequest()) */}
+            {/*ledger != null && (this._availableFunds()) */}
+            {ledger != null && ledger.ledger.withdrawal != null && (
+              <View style={{
+                width: '100%'
+              }}>
+                <Text style={{
+                  fontWeight: 'bold',
+                  paddingTop: 20,
+                  paddingBottom: 10,
+                  textAlign: 'center',
+                  color: Color.primary
+                }}>Pending transactions</Text>
+                {this._pendingWithdrawal()}
+              </View>
+            )}
+            {ledger != null && (this._summary())}
+          </View>
         </View>
         {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>

@@ -8,6 +8,8 @@ import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import CommonRequest from 'services/CommonRequest.js';
+import { Dimensions } from 'react-native';
+const height = Math.round(Dimensions.get('window').height);
 class Groups extends Component{
   constructor(props){
     super(props);
@@ -33,12 +35,44 @@ class Groups extends Component{
     this.setState({isLoading: true});
     CommonRequest.retrieveMessengerGroups(user, response => {
       this.setState({isLoading: false, data: response.data});
+      const { setMessenger } = this.props;
+      const { messenger } = this.props.state;
+      if(response.data !== null){
+        var counter = 0
+        for (var i = 0; i < response.data.length; i++) {
+          let item = response.data[i]
+          counter += parseInt(item.total_unread_messages)
+        }
+        setMessenger(counter, messenger.messages)
+      }
     })
+  }
+
+  updateLastMessageStatus = (item)  => {
+    if(parseInt(item.total_unread_messages) > 0){
+      let parameter = {
+        messenger_group_id: item.id
+      }
+      CommonRequest.updateMessageStatus(parameter, response => {
+        this.state.data.map((dataItem) => {
+          if(item.id === dataItem.id){
+            const { messenger } = this.props.state;
+            const { setMessenger } = this.props;
+            let unread = messenger.unread - parseInt(item.total_unread_messages)
+            setMessenger(unread, messenger.messages)
+            item.total_unread_messages = 0;
+            return item;
+          }
+          return dataItem;
+        })
+      })
+    }
   }
 
   viewMessages = (item) => {
     const { setMessengerGroup } = this.props;
     console.log('message group', item);
+    this.updateLastMessageStatus(item)
     setMessengerGroup(item);
     setTimeout(() => {
       this.props.navigation.navigate('messagesStack');
@@ -55,12 +89,31 @@ class Groups extends Component{
           <View>
             <View style={{flexDirection: 'row', marginTop: 5, paddingLeft: 10, paddingRight: 10}}>
               <UserImage user={item.title}/>
-              <Text style={{
-                color: Color.primary,
-                lineHeight: 30,
+              <View style={{
                 paddingLeft: 10,
-                width: '30%'
-              }}>{item.title.username}</Text>
+                width: '30%',
+                flexDirection: 'row'
+              }}>
+                <Text style={{
+                  color: Color.primary,
+                  lineHeight: 30,
+                }}>{item.title.username}</Text>
+                {
+                  parseInt(item.total_unread_messages) > 0 && (
+                    <Text style={{
+                      color: Color.white,
+                      lineHeight: 20,
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      backgroundColor: Color.danger,
+                      borderRadius: 5,
+                      marginTop: 5,
+                      marginBottom: 5,
+                      marginLeft: 10
+                    }}>{item.total_unread_messages}</Text>
+                  )
+                }
+              </View>
               <Text style={{
                 color: Color.primary,
                 lineHeight: 30,
@@ -123,7 +176,8 @@ class Groups extends Component{
               extraData={selected}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
-                marginBottom: 50
+                marginBottom: 50,
+                height: height
               }}
               renderItem={({ item, index }) => (
                 <View>
@@ -168,7 +222,8 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
-    setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup))
+    setMessengerGroup: (messengerGroup) => dispatch(actions.setMessengerGroup(messengerGroup)),
+    setMessenger: (unread, messages) => dispatch(actions.setMessenger(unread, messages)),
   };
 };
 

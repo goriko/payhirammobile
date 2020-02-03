@@ -7,12 +7,13 @@ export default {
   },
   MainContainer: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 20,
-    paddingRight: 20
   },
   text: {
     color: Color.normalGray
-  }
+  },
+  sectionHeadingStyle: {
+    paddingBottom: 10,
+    alignItems: 'center'
+  },
 }

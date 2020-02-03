@@ -5,6 +5,7 @@ import { Helper } from 'common';
 const types = {
   LOGOUT: 'LOGOUT',
   LOGIN: 'LOGIN',
+  UPDATE_USER: 'UPDATE_USER',
   SET_NOTIFICATIONS: 'SET_NOTIFICATIONS',
   UPDATE_NOTIFICATIONS: 'UPDATE_NOTIFICATIONS',
   SET_MESSAGES: 'SET_MESSAGES',
@@ -29,6 +30,9 @@ export const actions = {
   },
   logout() {
     return { type: types.LOGOUT };
+  },
+  updateUser: (user) => {
+    return { type: types.UPDATE_USER, user };
   },
   setNotifications(unread, notifications){
     return { type: types.SET_NOTIFICATIONS, unread, notifications};
@@ -118,6 +122,11 @@ const reducer = (state = initialState, action) => {
       console.log('LOGIN', true);
       Data.setToken(token)
       return { ...state, user, token };
+    case types.UPDATE_USER:
+      return {
+        ...state,
+        user
+      }
     case types.SET_NOTIFICATIONS:
       let notifications = {
         unread,

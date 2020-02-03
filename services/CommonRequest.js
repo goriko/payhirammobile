@@ -22,6 +22,13 @@ export default {
       }
     });
   },
+  updateMessageStatus (parameter, callback){
+    Api.request(Routes.messengerMessagesUpdate, parameter, response => {
+      if(callback){
+        callback(response)
+      }
+    });
+  },
   retrieveMessengerGroup(messengerGroup, user, callback){
     let parameter = {
       condition: [{

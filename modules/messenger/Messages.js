@@ -566,7 +566,8 @@ class Messages extends Component{
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
                 marginBottom: 50,
-                flex: 1
+                flex: 1,
+                
               }}
               renderItem={({ item, index }) => (
                 <View>
