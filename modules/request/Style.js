@@ -7,7 +7,6 @@ export default {
   },
   MainContainer: {
     flex: 1,
-    justifyContent: 'center',
   },
   text: {
     color: Color.normalGray

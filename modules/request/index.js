@@ -503,17 +503,15 @@ class Requests extends Component{
     const { selected } = this.state;
     const { user, requests } = this.props.state;
     return (
-      <View>
+      <View style={{
+        marginBottom: 100
+      }}>
         {
           requests != null && user != null && (
             <FlatList
               data={requests}
               extraData={selected}
               ItemSeparatorComponent={this.FlatListItemSeparator}
-              style={{
-                marginBottom: 100,
-                height: height
-              }}
               renderItem={({ item, index }) => (
                 <View>
                   {this._header(item, 'amount')}
@@ -541,9 +539,7 @@ class Requests extends Component{
       <View>
         {/*this._search()*/}
         <ScrollView 
-          style={[Style.ScrollView, {
-            height: '100%'
-          }]}
+          style={Style.ScrollView}
           onScroll={(event) => {
             let scrollingHeight = event.nativeEvent.layoutMeasurement.height + event.nativeEvent.contentOffset.y
             let totalHeight = event.nativeEvent.contentSize.height - 20
@@ -570,7 +566,8 @@ class Requests extends Component{
             }
           }}
           >
-          <View style={Style.MainContainer}>
+          <View style={[Style.MainContainer, {
+          }]}>
             {
               searchParameter != null && (
                 <View style={{
