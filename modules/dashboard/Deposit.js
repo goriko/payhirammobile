@@ -65,6 +65,13 @@ class Deposit extends Component {
       })
       return
     }
+    if(Helper.MAXIMUM_DEPOSIT < this.state.amount){
+      let error = 'Maximum transaction is ' + Currency.display(Helper.MAXIMUM_DEPOSIT, this.state.currency)
+      this.setState({
+        errorMessage: error
+      })
+      return
+    }
     if(this.state.bank == null || this.state.bank == ''){
       this.setState({
         errorMessage: 'Bank is required'

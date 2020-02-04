@@ -26,6 +26,8 @@ export default {
   request: {
     MINIMUM: 1000
   },
+  MAXIMUM_DEPOSIT: 500000,
+  MAXIMUM_WITHDRAWAL: 500000,
   payhiramCharges: {
     percentage: .20
   },

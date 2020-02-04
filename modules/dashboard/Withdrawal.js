@@ -131,6 +131,13 @@ class Withdrawal extends Component {
       })
       return false
     }
+    if(Helper.MAXIMUM_WITHDRAWAL < this.state.amount){
+      let error = 'Maximum transaction is ' + Currency.display(Helper.MAXIMUM_WITHDRAWAL, this.state.currency)
+      this.setState({
+        errorMessage: error
+      })
+      return false
+    }
     if(userLedger.amount < (parseInt(this.state.amount) + parseInt(this.state.charge))){
       let error = 'You have an insufficient balance.'
       this.setState({
