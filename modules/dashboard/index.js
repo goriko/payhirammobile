@@ -408,7 +408,7 @@ class Dashboard extends Component{
         }}
         >
         <View style={[Style.MainContainer, {
-          height: height
+          minHeight: height
         }]}>
           <View style={Style.MainContainer}>
             {userLedger != null && (this._accountBalance())}
