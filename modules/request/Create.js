@@ -10,6 +10,8 @@ import { Spinner, LocationAutoComplete } from 'components';
 import Currency from 'services/Currency.js';
 import Api from 'services/api/index.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Dimensions } from 'react-native';
+const width = Math.round(Dimensions.get('window').width);
 class CreateRequest extends Component {
   constructor(props){
     super(props);
@@ -127,7 +129,7 @@ class CreateRequest extends Component {
           Helper.fulfillmentTypes.map((item, index) => {
             return (
               <TouchableHighlight style={{
-                width: '25%',
+                width: width / 2,
                 borderRadius: 5,
                 borderColor: Color.primary,
                 borderWidth: 1,

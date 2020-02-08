@@ -43,7 +43,6 @@ class Notifications extends Component{
   retrieveRequest = (route) => {
     const { user, searchParameter } = this.props.state;
     const { setUserLedger } = this.props;
-    console.log('retrieveRequest', searchParameter)
     if(user == null){
       return;
     }
@@ -62,7 +61,6 @@ class Notifications extends Component{
     Api.request(Routes.requestRetrieve, parameter, response => {
       const { setRequests } = this.props;
       setUserLedger(response.ledger)
-      console.log('retrieve', response.data)
       if(response.data !=  null){
         setRequests(response.data)
       }else{

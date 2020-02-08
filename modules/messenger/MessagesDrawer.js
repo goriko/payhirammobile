@@ -35,7 +35,7 @@ class HeaderOptions extends Component {
               lineHeight: 30,
               paddingLeft: 1,
               width: '30%'
-            }}>{messengerGroup.title.username}</Text>
+            }}>{messengerGroup.title.username.length > 10 ? messengerGroup.title.username.substr(0, 10) + '...' : messengerGroup.title.username}</Text>
             <Text style={{
               color: Color.white,
               lineHeight: 30,

@@ -40,7 +40,6 @@ class Messages extends Component{
   }
 
   retrieve = () => {
-    console.log('hi')
     const { messengerGroup } = this.props.state;
     const { setMessagesOnGroup } = this.props;
     this.setState({isLoading: true});
@@ -54,7 +53,6 @@ class Messages extends Component{
   }
 
   retrieveGroup = (flag = null) => {
-    console.log('hello')
     const { user, messengerGroup } = this.props.state;
     const { setMessengerGroup } = this.props;
     if(messengerGroup == null || user == null){
@@ -129,7 +127,6 @@ class Messages extends Component{
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {
         this.setState({ photo: response })
-        console.log('photo', response)
         let formData = new FormData();
         let uri = Platform.OS == "android" ? response.uri : response.uri.replace("file://", "");
         let parameter = {
@@ -163,7 +160,6 @@ class Messages extends Component{
         formData.append('account_id', user.id);
         Api.upload(Routes.imageUploadUnLink, formData, imageResponse => {
           // add message
-          console.log('response', imageResponse)
           if(imageResponse.data.data != null){
             parameter = {
               ...parameter,
@@ -386,7 +382,6 @@ class Messages extends Component{
 
   _conversations = (item, index) => {
     const { user, messagesOnGroup } = this.props.state;
-    console.log('item', item)
     return (
       <View style={{
         width: '100%',
@@ -408,7 +403,6 @@ class Messages extends Component{
 
   _templates = () => {
     const { messengerGroup, user } = this.props.state;
-    console.log('messengerGroup_templates', messengerGroup)
     return (
       <View style={{
         width: '100%'
@@ -421,7 +415,7 @@ class Messages extends Component{
         )}
         { 
           messengerGroup.account_id == user.id &&
-          messengerGroup.request.type == 1 && 
+          (messengerGroup.request.type == 1 || messengerGroup.request.type == 4) && 
           messengerGroup.validations &&
           messengerGroup.validations.complete_status == false &&
           messengerGroup.request.status < 2 && (
@@ -430,7 +424,7 @@ class Messages extends Component{
         }
         {
           messengerGroup.account_id == user.id &&
-          messengerGroup.request.type == 1 &&
+          (messengerGroup.request.type == 1 || messengerGroup.request.type == 4) &&
           messengerGroup.request.status < 2 &&
           messengerGroup.validations.transfer_status === 'approved' && (
             <Transfer
@@ -482,7 +476,7 @@ class Messages extends Component{
         }
         {
           messengerGroup.account_id != user.id &&
-          messengerGroup.request.type == 1 &&
+          (messengerGroup.request.type == 1 || messengerGroup.request.type == 4) &&
           messengerGroup.request.status < 2 &&
           parseInt(messengerGroup.validations.validation_status) > 0  && (
             <SendRequirements 
@@ -551,8 +545,6 @@ class Messages extends Component{
   _flatList = () => {
     const { selected } = this.state;
     const { user, messagesOnGroup, messengerGroup } = this.props.state;
-    console.log('messengerGroup', messengerGroup)
-    console.log('messagesOnGroup', messagesOnGroup.messages)
     return (
       <View style={{
         width: '100%',

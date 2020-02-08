@@ -74,7 +74,7 @@ class Requests extends Component{
         column: 'created_at',
         value: 'desc'
       },
-      value: searchParameter == null ? '%' : searchParameter.value,
+      value: searchParameter == null ? '%' : searchParameter.value + '%',
       column: searchParameter == null ? 'created_at' : searchParameter.column,
       type: user.account_type
     }
@@ -177,7 +177,6 @@ class Requests extends Component{
   }
 
   connectRequest = (item) => {
-    console.log('connectRequest')
     this.setState({
       connectSelected: item
     });

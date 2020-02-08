@@ -46,6 +46,11 @@ export default {
     label: 'Deposit',
     description: 'Allow other peer to process your deposits.',
     money_type: 'Wallet'
+  }, {
+    value: 4,
+    label: 'Bills and Payments',
+    description: 'Don\'t have time and want to pay your bills? Allow other peer to fulfil your bills.',
+    money_type: 'Cash'
   }],
   pusher: {
     broadcast_type: 'pusher',
@@ -109,6 +114,7 @@ export default {
       case 1: return 'Send'
       case 2: return 'Withdrawal'
       case 3: return 'Deposit'
+      case 4: return 'Bills and Paymets'
       case 101: return 'Lending'
       case 102: return 'Installment'
     }
