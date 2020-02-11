@@ -190,7 +190,7 @@ class Withdrawal extends Component {
             paddingLeft: 10,
             paddingRight: 10,
             textAlign: 'justify'
-          }}>Hi {user.username}! We are happy to serve you! Just a friendly reminder that the processing of the withdrawal will take up to 7 working days!</Text>
+          }}>Hi {user.username}! We are happy to serve you! Just a friendly reminder that the processing of the withdrawal will take up to 7 working days! For faster transaction you can create or post a request.</Text>
         </View>
         <View style={{
           marginTop: 10

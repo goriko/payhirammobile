@@ -95,7 +95,9 @@ class Deposit extends Component {
     const { userLedger, user } = this.props.state;
     const { errorMessage } = this.state;
     return (
-      <View>
+      <View style={{
+        height: height
+      }}>
         <View style={{
           alignItems: 'center',
           borderRadius: 5,
