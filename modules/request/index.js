@@ -33,7 +33,8 @@ class Requests extends Component{
       }],
       isBookmark: false,
       limit: 10,
-      active: 1
+      active: 1,
+      activePage: 0
     }
   }
 
@@ -58,6 +59,28 @@ class Requests extends Component{
 
   redirect = (route) => {
     this.props.navigation.navigate(route);
+  }
+
+  setRetrieveParameter = (flag) => {
+    const { setSearchParameter } = this.props;
+    const { user, searchParameter } = this.props.state;
+    if(flag == false){
+      setSearchParameter(null)
+      this.setState({activePage: 0})
+      setTimeout(() => {
+        this.retrieve()
+      }, 100)
+    }else{
+      let searchParameter = {
+        column: 'account_id',
+        value: user.id
+      }
+      this.setState({activePage: 1})
+      setSearchParameter(searchParameter)
+      setTimeout(() => {
+        this.retrieve()
+      }, 100)
+    }
   }
 
   retrieve = (flag = true) => {
@@ -567,34 +590,50 @@ class Requests extends Component{
           >
           <View style={[Style.MainContainer, {
           }]}>
-            {
-              searchParameter != null && (
-                <View style={{
-                  alignItems: 'center'
+              <View style={{
+                  alignItems: 'center',
+                  flexDirection: 'row'
                 }}>
-                  <TouchableOpacity
-                    onPress={() => this.onRefresh()} 
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: 40,
-                      borderRadius: 5,
-                      color: Color.primary,
-                      backgroundColor: Color.white,
-                      borderColor: Color.primary,
-                      borderWidth: 1,
-                      width: '50%'
-                    }}
-                    >
-                    <Text style={{
-                      color: Color.primary,
-                      fontSize: 11,
-                      textAlign: 'center'
-                    }}>Reload</Text>
-                  </TouchableOpacity>
-                </View>
-              )
-            }
+                <TouchableOpacity
+                  onPress={() => this.setRetrieveParameter(false)} 
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    backgroundColor: this.state.activePage == 0 ? Color.primary : Color.white,
+                    borderColor: Color.primary,
+                    borderTopLeftRadius: 5,
+                    borderWidth: 1,
+                    width: '50%'
+                  }}
+                  >
+                  <Text style={{
+                    color: this.state.activePage == 0 ? Color.white : Color.primary,
+                    fontSize: 11,
+                    textAlign: 'center'
+                  }}>All requests</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.setRetrieveParameter(true)} 
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    borderTopRightRadius: 5,
+                    backgroundColor: this.state.activePage == 1 ? Color.primary : Color.white,
+                    borderColor: Color.primary,
+                    borderWidth: 1,
+                    borderLeftWidth: 0,
+                    width: '50%'
+                  }}
+                  >
+                  <Text style={{
+                    color: this.state.activePage == 1 ? Color.white : Color.primary,
+                    fontSize: 11,
+                    textAlign: 'center'
+                  }}>View my requests</Text>
+                </TouchableOpacity>
+              </View>
             {this._flatList()}
             {requests == null && (<Empty refresh={true} onRefresh={() => this.onRefresh()}/>)}
           </View>
