@@ -24,11 +24,15 @@ class HeaderOptions extends Component {
 
   _card = () => {
     const { messengerGroup } = this.props.state;
+    // {Helper.showRequestType(messengerGroup.request.type)} - 
     return (
       <View>
         {
           messengerGroup != null && (
-          <View style={{flexDirection: 'row'}}>
+          <View style={{
+            flexDirection: 'row',
+            width: '100%'
+          }}>
             <UserImage  user={messengerGroup.title} color={Color.white}/>
             <Text style={{
               color: Color.white,
@@ -40,11 +44,10 @@ class HeaderOptions extends Component {
               color: Color.white,
               lineHeight: 30,
               textAlign: 'right',
-              width: '60%',
+              width: '67%',
               marginLeft: -1
             }}>
-              {Helper.showRequestType(messengerGroup.request.type)} - 
-              {' ' + Currency.display((messengerGroup.request.amount + messengerGroup.peer.charge).toFixed(2), messengerGroup.request.currency)}
+              {Currency.display((messengerGroup.request.amount + messengerGroup.peer.charge).toFixed(2), messengerGroup.request.currency)}
             </Text>
           </View>
         )}

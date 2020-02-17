@@ -21,6 +21,7 @@ const types = {
   SET_SEARCH_PARAMETER: 'SET_SEARCH_PARAMETER',
   SET_REQUESTS: 'SET_REQUESTS',
   UPDATE_REQUESTS: 'UPDATE_REQUESTS',
+  SET_PIN_FLAG: 'SET_PIN_FLAG',
   nav: null
 }
 
@@ -79,6 +80,9 @@ export const actions = {
   updateRequests(requests){
     return { type: types.UPDATE_REQUESTS, requests}
   },
+  setPinFlag(pinFlag){
+    return { type: types.SET_PIN_FLAG, pinFlag}
+  }
 };
 
 const initialState = {
@@ -96,7 +100,8 @@ const initialState = {
   searchParameter: null,
   location: null,
   requests: null,
-  nav: null
+  nav: null,
+  pinFlag: false
 }
 
 storeData = async (key, value) => {
@@ -305,6 +310,11 @@ const reducer = (state = initialState, action) => {
       ...state,
       requests: state.requests
     }
+    case types.SET_PIN_FLAG:
+      return {
+        ...state,
+        pinFlag: action.pinFlag
+      }
     default:
       return {...state, nav: state.nav};
   }

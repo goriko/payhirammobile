@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Style from 'modules/messenger/Style.js';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import {BasicStyles, Color, Routes} from 'common';
+import {BasicStyles, Color, Routes, Helper} from 'common';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import OtpModal from 'components/Modal/Otp.js';
+import PinModal from 'components/Modal/Pin.js';
 import Api from 'services/api/index.js';
 const width = Math.round(Dimensions.get('window').width);
 class Transfer extends Component {
@@ -35,23 +36,30 @@ class Transfer extends Component {
 
   updateOtp = () => {
     const { user } = this.props.state;
-    let parameter = {
-      account_id: user.id
-    }
-    this.props.onLoading(true);
-    Api.request(Routes.notificationSettingOtp, parameter, response => {
-      this.setState({otpData: response})
-      this.props.onLoading(false);
-      if(response.error == null){
-        this.setState({blockedFlag: false, errorMessage: null})
-      }else{
-        this.setState({blockedFlag: true})
-        this.setState({errorMessage: response.error})
-      }
+    if(Helper.authorize == 'PIN'){
+      this.setState({blockedFlag: false, errorMessage: null})
       setTimeout(() => {
         this.setState({isOtpModal: true})
       }, 500)
-    });
+    }else{
+      let parameter = {
+        account_id: user.id
+      }
+      this.props.onLoading(true);
+      Api.request(Routes.notificationSettingOtp, parameter, response => {
+        this.setState({otpData: response})
+        this.props.onLoading(false);
+        if(response.error == null){
+          this.setState({blockedFlag: false, errorMessage: null})
+        }else{
+          this.setState({blockedFlag: true})
+          this.setState({errorMessage: response.error})
+        }
+        setTimeout(() => {
+          this.setState({isOtpModal: true})
+        }, 500)
+      });
+    }
   }
 
   render(){
@@ -79,19 +87,39 @@ class Transfer extends Component {
             <Text style={Style.templateText}>Transfer</Text>
           </TouchableOpacity>
         </View>
-        <OtpModal
-          visible={isOtpModal}
-          title={blockedFlag == false ? 'Authentication via OTP' : 'Blocked Account'}
-          actionLabel={{
-            yes: 'Authenticate',
-            no: 'Cancel'
-          }}
-          onCancel={() => this.setState({isOtpModal: false})}
-          onSuccess={() => this.transfer()}
-          onResend={() => this.updateOtp()}
-          error={errorMessage}
-          blockedFlag={blockedFlag}
-        ></OtpModal>
+        {
+          Helper.authorize == 'OTP' && (
+            <OtpModal
+              visible={isOtpModal}
+              title={blockedFlag == false ? 'Authentication via OTP' : 'Blocked Account'}
+              actionLabel={{
+                yes: 'Authenticate',
+                no: 'Cancel'
+              }}
+              onCancel={() => this.setState({isOtpModal: false})}
+              onSuccess={() => this.transfer()}
+              onResend={() => this.updateOtp()}
+              error={errorMessage}
+              blockedFlag={blockedFlag}
+            ></OtpModal>
+          )
+        }
+        {
+          Helper.authorize == 'PIN' && (
+            <PinModal
+              visible={isOtpModal}
+              title={'Authentication via PIN'}
+              actionLabel={{
+                yes: 'Authenticate',
+                no: 'Cancel'
+              }}
+              onCancel={() => this.setState({isOtpModal: false})}
+              onSuccess={() => this.transfer()}
+              error={errorMessage}
+              blockedFlag={blockedFlag}
+            ></PinModal>
+          )
+        }
       </View>
     );
   }

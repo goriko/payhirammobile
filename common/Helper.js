@@ -109,6 +109,7 @@ export default {
   }, {
     title: 'Chinabank Corporation'
   }],
+  authorize: 'PIN',
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

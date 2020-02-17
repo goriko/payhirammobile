@@ -11,6 +11,7 @@ import Currency from 'services/Currency.js';
 import Api from 'services/api/index.js';
 import MessageModal from 'components/Modal/Message.js';
 import OtpModal from 'components/Modal/Otp.js';
+import PinModal from 'components/Modal/Pin.js';
 import { Dimensions } from 'react-native';
 const height = Math.round(Dimensions.get('window').height);
 class Withdrawal extends Component {
@@ -34,26 +35,33 @@ class Withdrawal extends Component {
 
   updateOtp = () => {
     const { user } = this.props.state;
-    if(user == null){
-      return
-    }
-    let parameter = {
-      account_id: user.id
-    }
-    this.setState({isLoading: true});
-    Api.request(Routes.notificationSettingOtp, parameter, response => {
-      this.setState({isLoading: false});
-      this.setState({otpData: response})
-      if(response.error == null){
-        this.setState({blockedFlag: false, errorMessage: null})
-      }else{
-        this.setState({blockedFlag: true})
-        this.setState({errorMessage: response.error})
-      }
+    if(Helper.authorize == 'PIN'){
+      this.setState({blockedFlag: false, errorMessage: null})
       setTimeout(() => {
         this.setState({isOtpModal: true})
       }, 500)
-    });
+    }else{
+      if(user == null){
+        return
+      }
+      let parameter = {
+        account_id: user.id
+      }
+      this.setState({isLoading: true});
+      Api.request(Routes.notificationSettingOtp, parameter, response => {
+        this.setState({isLoading: false});
+        this.setState({otpData: response})
+        if(response.error == null){
+          this.setState({blockedFlag: false, errorMessage: null})
+        }else{
+          this.setState({blockedFlag: true})
+          this.setState({errorMessage: response.error})
+        }
+        setTimeout(() => {
+          this.setState({isOtpModal: true})
+        }, 500)
+      });
+    }
   }
 
   onSuccessOtp = () => {
@@ -422,19 +430,39 @@ class Withdrawal extends Component {
               this.redirect()
             }}
           /> : null}
-        <OtpModal
-          visible={isOtpModal}
-          title={blockedFlag == false ? 'Authentication via OTP' : 'Blocked Account'}
-          actionLabel={{
-            yes: 'Authenticate',
-            no: 'Cancel'
-          }}
-          onCancel={() => this.setState({isOtpModal: false})}
-          onSuccess={() => this.onSuccessOtp()}
-          onResend={() => this.updateOtp()}
-          error={errorMessage}
-          blockedFlag={blockedFlag}
-        ></OtpModal>
+        {
+          Helper.authorize == 'OTP' && (
+            <OtpModal
+              visible={isOtpModal}
+              title={blockedFlag == false ? 'Authentication via OTP' : 'Blocked Account'}
+              actionLabel={{
+                yes: 'Authenticate',
+                no: 'Cancel'
+              }}
+              onCancel={() => this.setState({isOtpModal: false})}
+              onSuccess={() => this.transfer()}
+              onResend={() => this.updateOtp()}
+              error={errorMessage}
+              blockedFlag={blockedFlag}
+            ></OtpModal>
+          )
+        }
+        {
+          Helper.authorize == 'PIN' && (
+            <PinModal
+              visible={isOtpModal}
+              title={'Authentication via PIN'}
+              actionLabel={{
+                yes: 'Authenticate',
+                no: 'Cancel'
+              }}
+              onCancel={() => this.setState({isOtpModal: false})}
+              onSuccess={() => this.transfer()}
+              error={errorMessage}
+              blockedFlag={blockedFlag}
+            ></PinModal>
+          )
+        }
       </View>
     );
   }
