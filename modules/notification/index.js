@@ -36,6 +36,7 @@ class Notifications extends Component{
     this.setState({isLoading: true})
     Api.request(Routes.notificationsRetrieve, parameter, notifications => {
       this.setState({isLoading: false})
+      console.log(notifications.data.length)
       setNotifications(notifications.size, notifications.data)
     })
   }
@@ -161,13 +162,13 @@ class Notifications extends Component{
         }}
         >
         {notifications == null || (notifications != null && notifications.notifications == null) && (<Empty refresh={true} onRefresh={() => this.retrieve()}/>)}
-        <View style={Style.MainContainer}>
+        {isLoading ? <Spinner mode="overlay"/> : null }
+        <View style={[Style.MainContainer, {
+          minHeight: height
+        }]}>
           <FlatList
             data={notifications.notifications}
             extraData={selected}
-            style={{
-              height: height
-            }}
             ItemSeparatorComponent={this.FlatListItemSeparator}
             renderItem={({ item, index }) => (
               <View>
@@ -202,7 +203,6 @@ class Notifications extends Component{
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
-        {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>
     );
   }

@@ -51,7 +51,7 @@ class NavigationDrawerStructureRight extends Component {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity onPress={() => this.goTo('notificationStack')}>
+          <TouchableOpacity onPress={() => this.navigateToScreen('Notification')}>
             <View style={{ flexDirection: 'row'}}>
               <FontAwesomeIcon icon={ faBell } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
               {

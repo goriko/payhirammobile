@@ -9,6 +9,7 @@ import { Color, BasicStyles } from 'common';
 import Requests from 'modules/request';
 import Dashboard from 'modules/dashboard';
 import Messenger from 'modules/messenger';
+import Notification from 'modules/notification';
 import Profile from 'modules/profile';
 import OptionRight from './OptionRight';
 class MenuDrawerStructure extends Component {
@@ -56,6 +57,21 @@ const Dashboard_StackNavigator = createStackNavigator({
     screen: Dashboard,
     navigationOptions: ({ navigation }) => ({
       title: 'Dashboard',
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: Color.primary,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const Notification_StackNavigator = createStackNavigator({
+  Notification: {
+    screen: Notification,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Notification',
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerStyle: {
@@ -120,6 +136,12 @@ const Drawer = createDrawerNavigator({
     screen: Profile_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Profile',
+    },
+  },
+  Notification: {
+    screen: Notification_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Notification',
     },
   },
 }, {

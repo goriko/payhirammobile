@@ -159,11 +159,51 @@ class Dashboard extends Component{
       }]}>
         <Text style={[Style.titleText, {
           paddingTop: 10
-        }]}>Active Requests</Text>
+        }]}>Requested Amount</Text>
         <Text style={[Style.numberText, {
           paddingTop: 20,
           paddingBottom: 20
         }]}>{Currency.display(ledger.ledger.total_requests, 'PHP')}</Text>
+        <View style={{
+          flexDirection: 'row',
+          marginBottom: 10}}>
+          <View style={{
+            width: '100%',
+          }}>
+              <TouchableHighlight
+                onPress={() => {this.redirectDrawer('Requests')}}
+                style={[Style.btn, {
+                  backgroundColor: Color.primary,
+                  width: '40%',
+                  marginLeft: '30%'
+                }]}
+                underlayColor={Color.gray}
+                >
+                  <Text style={{
+                    color: Color.white
+                  }}>View Requests</Text>
+              </TouchableHighlight>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  _myTotalRequest = () => {
+    const { ledger } = this.props.state;
+    return (
+      <View style={[Style.Card, {
+        backgroundColor: Color.warning,
+        marginTop: 10,
+        width: '100%'
+      }]}>
+        <Text style={[Style.titleText, {
+          paddingTop: 10
+        }]}>My Pending Requests</Text>
+        <Text style={[Style.numberText, {
+          paddingTop: 20,
+          paddingBottom: 20
+        }]}>{Currency.display(ledger.ledger.personal_total_requests, ledger.ledger.currency)}</Text>
         <View style={{
           flexDirection: 'row',
           marginBottom: 10}}>
@@ -202,7 +242,7 @@ class Dashboard extends Component{
         <Text style={[Style.numberText, {
           paddingTop: 20,
           paddingBottom: 20
-        }]}>{Currency.display(ledger.ledger.available, 'PHP')}</Text>
+        }]}>{Currency.display(ledger.ledger.available, ledger.ledger.currency)}</Text>
         <View style={{
           flexDirection: 'row',
           marginBottom: 10}}>
@@ -228,7 +268,7 @@ class Dashboard extends Component{
         <Text style={[Style.numberText, {
           paddingTop: 20,
           paddingBottom: 20
-        }]}>{Currency.display(ledger.ledger.approved, 'PHP')}</Text>
+        }]}>{Currency.display(ledger.ledger.approved, ledger.ledger.currency)}</Text>
         <View style={{
           flexDirection: 'row',
           marginBottom: 10}}>
@@ -298,7 +338,9 @@ class Dashboard extends Component{
     const { ledger } = this.props.state;
     const { selected } = this.state;
     return (
-      <View>
+      <View style={{
+        width: '100%'
+      }}>
         <View style={{
           alignItems: 'center',
           borderBottomColor: Color.gray,
@@ -319,8 +361,6 @@ class Dashboard extends Component{
           data={ledger.data}
           extraData={selected}
           ItemSeparatorComponent={this.FlatListItemSeparator}
-          style={{
-          }}
           renderItem={({ item, index }) => (
             <View>
               <TouchableHighlight
@@ -369,7 +409,9 @@ class Dashboard extends Component{
           keyExtractor={(item, index) => index.toString()}
         />
         <View style={{
-          flexDirection: 'row' 
+          flexDirection: 'row',
+          width: '100%',
+          marginBottom: 100
         }}>
           <TouchableHighlight
             style={{
@@ -407,11 +449,13 @@ class Dashboard extends Component{
           }
         }}
         >
+        {isLoading ? <Spinner mode="overlay"/> : null }
         <View style={[Style.MainContainer, {
           minHeight: height
         }]}>
           <View style={Style.MainContainer}>
             {userLedger != null && (this._accountBalance())}
+            {ledger != null && (this._myTotalRequest()) }
             {ledger != null && (this._requests())}
             {/*ledger != null && (this._approvedRequest()) */}
             {/*ledger != null && (this._availableFunds()) */}
@@ -432,7 +476,6 @@ class Dashboard extends Component{
             {ledger != null && (this._summary())}
           </View>
         </View>
-        {isLoading ? <Spinner mode="overlay"/> : null }
       </ScrollView>
     );
   }

@@ -176,8 +176,7 @@ class Groups extends Component{
               extraData={selected}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               style={{
-                marginBottom: 50,
-                height: height
+                marginBottom: 50
               }}
               renderItem={({ item, index }) => (
                 <View>
@@ -207,7 +206,8 @@ class Groups extends Component{
         >
         <View stle={{
           flexDirection: 'row',
-          width: '100%'
+          width: '100%',
+          minHeight: height
         }}>
           {this._flatList()}
         </View>
