@@ -20,7 +20,8 @@ export default {
       // add validation here
     })
     this.channel.bind(Helper.pusher.systemNotification, response => {
-      callback( {type: Helper.pusher.systemNotification, data: response.data})
+      console.log('hello')
+      callback({type: Helper.pusher.systemNotification, data: response.data})
     })
   }
 }
