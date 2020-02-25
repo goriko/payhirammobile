@@ -19,5 +19,8 @@ export default {
       callback({type: Helper.pusher.messageGroup, data: response.data})
       // add validation here
     })
+    this.channel.bind(Helper.pusher.systemNotification, response => {
+      callback( {type: Helper.pusher.systemNotification, data: response.data})
+    })
   }
 }

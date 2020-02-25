@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Image, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner, Empty } from 'components';
+import { Spinner, Empty, SystemNotification } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import {NavigationActions} from 'react-navigation';
@@ -450,6 +450,7 @@ class Dashboard extends Component{
         }}
         >
         {isLoading ? <Spinner mode="overlay"/> : null }
+        <SystemNotification></SystemNotification>
         <View style={[Style.MainContainer, {
           minHeight: height
         }]}>

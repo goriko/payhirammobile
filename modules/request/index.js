@@ -3,7 +3,7 @@ import Style from './Style.js';
 import { TextInput, View, Image, TouchableHighlight, Text, ScrollView, BackHandler, ToastAndroid} from 'react-native';
 import  { Picker, FlatList, TouchableOpacity } from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
-import { Spinner, Rating, CustomModal, Empty, UserImage } from 'components';
+import { Spinner, Rating, CustomModal, Empty, UserImage, SystemNotification } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
 import { connect } from 'react-redux';
@@ -588,6 +588,7 @@ class Requests extends Component{
             }
           }}
           >
+          <SystemNotification></SystemNotification>
           <View style={[Style.MainContainer, {
           }]}>
               <View style={{

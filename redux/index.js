@@ -22,7 +22,8 @@ const types = {
   SET_REQUESTS: 'SET_REQUESTS',
   UPDATE_REQUESTS: 'UPDATE_REQUESTS',
   SET_PIN_FLAG: 'SET_PIN_FLAG',
-  nav: null
+  SET_SYSTEM_NOTIFICATION: 'SET_SYSTEM_NOTIFICATION',
+  nav: null,
 }
 
 export const actions = {
@@ -82,6 +83,9 @@ export const actions = {
   },
   setPinFlag(pinFlag){
     return { type: types.SET_PIN_FLAG, pinFlag}
+  },
+  setSystemNotification(systemNotification){
+    return { type: types.SET_SYSTEM_NOTIFICATION, systemNotification}
   }
 };
 
@@ -101,7 +105,8 @@ const initialState = {
   location: null,
   requests: null,
   nav: null,
-  pinFlag: false
+  pinFlag: false,
+  systemNotification: null
 }
 
 storeData = async (key, value) => {
@@ -118,6 +123,7 @@ const reducer = (state = initialState, action) => {
   const { messengerGroup, messagesOnGroup } = action;
   const { location, notification } = action;
   const { searchParameter, requests } = action;
+  const { systemNotification } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -314,6 +320,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pinFlag: action.pinFlag
+      }
+    case types.SET_SYSTEM_NOTIFICATION:
+      return {
+        ...state,
+        systemNotification
       }
     default:
       return {...state, nav: state.nav};

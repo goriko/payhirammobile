@@ -6,6 +6,7 @@ export default {
   APP_NAME_BASIC: 'Payhiram',
   APP_EMAIL: 'support@payhiram.ph',
   APP_WEBSITE: 'www.payhiram.increment.ltd',
+  APP_HOST: 'com.payhiram',
   DrawerMenu: [{
     title: 'Requests',
     route: 'Requests'
@@ -58,6 +59,7 @@ export default {
     notifications: 'App\\Events\\Notifications',
     messages: 'App\\Events\\Message',
     messageGroup: 'App\\Events\\MessageGroup',
+    systemNotification: 'App\\Events\\SystemNotification',
     typing: 'typing'
   },
   tutorials: [

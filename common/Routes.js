@@ -46,4 +46,5 @@ export default {
   accountProfileCreate: apiUrl + 'account_profiles/create',
   accountProfileUpdate: apiUrl + 'account_profiles/update',
   investorLocationsRetrieve: apiUrl + 'investor_locations/retrieve',
+  systemNotificationRetrieve: apiUrl + 'system_notifications/retrieve'
 }
