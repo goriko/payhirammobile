@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Style from './Style';
-import {Text, View, TouchableOpacity, TextInput, Picker, ScrollView, TouchableHighlight, ToastAndroid} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, Picker, ScrollView, TouchableHighlight, ToastAndroid, Platform} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import Currency from 'services/Currency.js';
 import Api from 'services/api/index.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Dimensions } from 'react-native';
+import {Picker as PickerIOS} from '@react-native-community/picker';
 const width = Math.round(Dimensions.get('window').width);
 class CreateRequest extends Component {
   constructor(props){
@@ -258,21 +259,44 @@ class CreateRequest extends Component {
           marginTop: 10
         }}>
           <Text>Select Currency</Text>
-          <Picker selectedValue={this.state.currency}
-          onValueChange={(currency) => this.setState({currency})}
-          style={BasicStyles.pickerStyleCreate}
-          >
-            {
-              Helper.currency.map((item, index) => {
-                return (
-                  <Picker.Item
-                  key={index}
-                  label={item.title} 
-                  value={item.value}/>
-                );
-              })
-            }
-          </Picker>
+          {
+            Platform.OS == 'android' && (
+              <Picker selectedValue={this.state.currency}
+              onValueChange={(currency) => this.setState({currency})}
+              style={BasicStyles.pickerStyleCreate}
+              >
+                {
+                  Helper.currency.map((item, index) => {
+                    return (
+                      <Picker.Item
+                      key={index}
+                      label={item.title} 
+                      value={item.value}/>
+                    );
+                  })
+                }
+              </Picker>
+            )
+          }
+          {
+            Platform.OS == 'ios' && (
+              <PickerIOS selectedValue={this.state.currency}
+                onValueChange={(currency) => this.setState({currency})}
+                style={BasicStyles.pickerStyleCreate}
+                >
+                  {
+                    Helper.currency.map((item, index) => {
+                      return (
+                        <PickerIOS.Item
+                        key={index}
+                        label={item.title} 
+                        value={item.value}/>
+                      );
+                    })
+                  }
+                </PickerIOS>
+            )
+          }
         </View>
         <View>
           <Text style={{

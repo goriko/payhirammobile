@@ -18,7 +18,7 @@ export default {
         }
       });
     }else if(Platform.OS === 'ios'){
-      // implement iOS here
+      callback(true)
     }
   }
 }
