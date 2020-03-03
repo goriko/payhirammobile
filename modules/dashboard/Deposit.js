@@ -96,7 +96,7 @@ class Deposit extends Component {
     const { errorMessage } = this.state;
     return (
       <View style={{
-        height: height
+        minHeight: height
       }}>
         <View style={{
           alignItems: 'center',
@@ -229,9 +229,7 @@ class Deposit extends Component {
     return (
       <View style={Style.MainContainer}>
         <ScrollView 
-          style={[Style.ScrollView, {
-            height: height
-          }]}
+          style={Style.ScrollView}
           >
           {this._inputs()}
         </ScrollView>

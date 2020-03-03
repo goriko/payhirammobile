@@ -184,7 +184,9 @@ class Withdrawal extends Component {
     const { userLedger, user } = this.props.state;
     const { errorMessage } = this.state;
     return (
-      <View>
+      <View style={{
+        minHeight: height
+      }}>
         <View style={{
           alignItems: 'center',
           borderRadius: 5,
@@ -414,9 +416,7 @@ class Withdrawal extends Component {
     return (
       <View style={Style.MainContainer}>
         <ScrollView 
-          style={[Style.ScrollView, {
-            height: height
-          }]}
+          style={Style.ScrollView}
           >
           {this._inputs()}
         </ScrollView>
