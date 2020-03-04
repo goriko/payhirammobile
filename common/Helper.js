@@ -105,8 +105,6 @@ export default {
     },
   ],
   payments: [{
-    title: 'Banco de Oro'
-  }, {
     title: 'UnionBank of the Philippines'
   }, {
     title: 'Chinabank Corporation'

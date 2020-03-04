@@ -148,7 +148,7 @@ class Groups extends Component{
                 width: '60%',
                 textAlign: 'right',
                 paddingTop: 2
-              }]}>{Helper.showRequestType(item.request.type)} - {item.thread.substring(16, 32)}</Text>
+              }]}>{Helper.showRequestType(item.request.type)} - {item.thread.substring(24, 32)}</Text>
             </View>
           </View>
         </TouchableHighlight>
