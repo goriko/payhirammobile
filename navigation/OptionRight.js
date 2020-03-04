@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Platform } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEnvelope, faBell} from '@fortawesome/free-solid-svg-icons';
@@ -32,7 +32,7 @@ class NavigationDrawerStructureRight extends Component {
             <View style={{ flexDirection: 'row'}}>
               <FontAwesomeIcon icon={ faEnvelope } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
               {
-                messenger && messenger.unread > 0 &&
+                messenger && messenger.unread > 0 && Platform.OS == 'android' &&
                 (
                   <Text style={{
                     color: Color.white,
@@ -45,6 +45,28 @@ class NavigationDrawerStructureRight extends Component {
                     fontSize: 11,
                     marginLeft: -20
                   }}>{messenger.unread}</Text>
+                )
+              }
+              {
+                messenger && messenger.unread > 0 && Platform.OS == 'ios' &&
+                (
+                  <View style={{
+                    backgroundColor: Color.danger,
+                    borderRadius: 5,
+                    fontSize: 11,
+                    marginLeft: -20
+                  }}>
+                    <Text
+                      style={{
+                        color: Color.white,
+                        paddingLeft: 5,
+                        paddingRight: 5,
+                        paddingTop: 2,
+                        paddingBottom: 2,
+                        lineHeight: 20,
+                        textAlign: 'center'
+                      }}>{messenger.unread}</Text>
+                  </View>
                 )
               }
             </View>
@@ -68,6 +90,28 @@ class NavigationDrawerStructureRight extends Component {
                     fontSize: 11,
                     marginLeft: -20
                   }}>{notifications.unread}</Text>
+                )
+              }
+              {
+                notifications && notifications.unread > 0 && Platform.OS == 'ios' &&
+                (
+                  <View style={{
+                    ackgroundColor: Color.danger,
+                    borderRadius: 5,
+                    fontSize: 11,
+                    marginLeft: -20
+                  }}>
+                    <Text
+                      style={{
+                        color: Color.white,
+                        paddingLeft: 5,
+                        paddingRight: 5,
+                        paddingTop: 2,
+                        paddingBottom: 2,
+                        lineHeight: 20,
+                        textAlign: 'center'
+                      }}>{notifications.unread}</Text>
+                  </View>
                 )
               }
             </View>

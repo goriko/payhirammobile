@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { View, TouchableHighlight, Text, ScrollView, FlatList} from 'react-native';
+import { View, TouchableHighlight, Text, ScrollView, FlatList, Platform} from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner, Empty, UserImage } from 'components';
 import Api from 'services/api/index.js';
@@ -99,7 +99,7 @@ class Groups extends Component{
                   lineHeight: 30,
                 }}>{item.title.username.length > 10 ? item.title.username.substr(0, 10) + '...' : item.title.username}</Text>
                 {
-                  parseInt(item.total_unread_messages) > 0 && (
+                  parseInt(item.total_unread_messages) > 0 && Platform.OS == 'android' && (
                     <Text style={{
                       color: Color.white,
                       lineHeight: 20,
@@ -111,6 +111,24 @@ class Groups extends Component{
                       marginBottom: 5,
                       marginLeft: 10
                     }}>{item.total_unread_messages}</Text>
+                  )
+                }
+                {
+                  parseInt(item.total_unread_messages) > 0 && Platform.OS == 'ios' && (
+                    <View style={{
+                      backgroundColor: Color.danger,
+                      borderRadius: 5,
+                      marginTop: 5,
+                      marginBottom: 5,
+                      marginLeft: 10
+                    }}>
+                      <Text style={{
+                        color: Color.white,
+                        lineHeight: 20,
+                        paddingLeft: 5,
+                        paddingRight: 5,
+                      }}>{item.total_unread_messages}</Text>
+                    </View>
                   )
                 }
               </View>

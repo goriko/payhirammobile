@@ -41,8 +41,11 @@ export default {
     paddingLeft: 10,
     paddingRight: 10,
     marginRight: '30%',
-    textAlign: 'left',
     overflow: 'hidden'
+  },
+  messageTextRightIOS: {
+    color: Color.white,
+    textAlign: 'left'
   },
   messageTextLeft: {
     backgroundColor: Color.primary,
@@ -56,6 +59,9 @@ export default {
     paddingLeft: 10,
     paddingRight: 10,
     marginLeft: '30%',
+  },
+  messageTextLeftIOS: {
+    color: Color.white,
     textAlign: 'right'
   },
   dateText: {

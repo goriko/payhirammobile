@@ -150,6 +150,7 @@ class Notifications extends Component{
   render() {
     const { notifications } = this.props.state;
     const { selected, isLoading } = this.state;
+
     return (
       <ScrollView
         style={Style.ScrollView}
@@ -166,42 +167,46 @@ class Notifications extends Component{
         <View style={[Style.MainContainer, {
           minHeight: height
         }]}>
-          <FlatList
-            data={notifications.notifications}
-            extraData={selected}
-            ItemSeparatorComponent={this.FlatListItemSeparator}
-            renderItem={({ item, index }) => (
-              <View>
-                <TouchableHighlight
-                  onPress={() => {this.viewNotification(item, index)}}
-                  underlayColor={Color.gray}
-                  >
-                  <View style={[Style.TextContainer, {
-                    backgroundColor: notifications.unread > index ? Color.lightGray : Color.white
-                  }]}>
-                    <Text
-                      style={[BasicStyles.titleText, {
-                        paddingTop: 10
+          {
+            notifications && (
+              <FlatList
+                data={notifications.notifications}
+                extraData={selected}
+                ItemSeparatorComponent={this.FlatListItemSeparator}
+                renderItem={({ item, index }) => (
+                  <View>
+                    <TouchableHighlight
+                      onPress={() => {this.viewNotification(item, index)}}
+                      underlayColor={Color.gray}
+                      >
+                      <View style={[Style.TextContainer, {
+                        backgroundColor: notifications.unread > index ? Color.lightGray : Color.white
                       }]}>
-                      {item.title}
-                    </Text>
-                    <Text
-                      style={BasicStyles.normalText}>
-                      {item.description}
-                    </Text>
+                        <Text
+                          style={[BasicStyles.titleText, {
+                            paddingTop: 10
+                          }]}>
+                          {item.title}
+                        </Text>
+                        <Text
+                          style={BasicStyles.normalText}>
+                          {item.description}
+                        </Text>
 
-                    <Text
-                      style={[BasicStyles.normalText, {
-                        paddingBottom: 10
-                      }]}>
-                      {item.created_at_human}
-                    </Text>
+                        <Text
+                          style={[BasicStyles.normalText, {
+                            paddingBottom: 10
+                          }]}>
+                          {item.created_at_human}
+                        </Text>
+                      </View>
+                    </TouchableHighlight>
                   </View>
-                </TouchableHighlight>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+          }
         </View>
       </ScrollView>
     );

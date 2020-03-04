@@ -204,10 +204,21 @@ class Messages extends Component{
     return (
       <View>
       {
-        item.payload_value != null && (
+        item.payload_value != null && Platform.OS == 'android' && (
           <Text style={[Style.messageTextRight, {
             backgroundColor: item.validations.status == 'approved' ? Color.primary : Color.danger
           }]}>{item.validations.payload} - {item.validations.status}</Text>
+        )
+      }
+      {
+        item.payload_value != null && Platform.OS == 'ios' && (
+          <View style={[Style.messageTextRight, {
+            backgroundColor: item.validations.status == 'approved' ? Color.primary : Color.danger
+          }]}>
+            <Text style={Style.messageTextRightIOS}>
+              {item.validations.payload} - {item.validations.status}
+            </Text>
+          </View>
         )
       }
         <View style={{
@@ -341,8 +352,15 @@ class Messages extends Component{
           textAlign: 'left'
         }]}>{item.created_at_human}</Text>
         {
-          item.message != null && (
+          item.message != null && Platform.OS == 'android' && (
             <Text style={Style.messageTextRight}>{item.message}</Text>
+          )
+        }
+        {
+          item.message != null && Platform.OS == 'ios' && (
+            <View style={Style.messageTextRight}>
+                <Text style={Style.messageTextRightIOS}>{item.message}</Text>
+            </View>
           )
         }
         {
@@ -360,8 +378,15 @@ class Messages extends Component{
           textAlign: 'right'
         }]}>{item.created_at_human}</Text>
         {
-          item.message != null && (
+          item.message != null && Platform.OS == 'android' && (
             <Text style={Style.messageTextLeft}>{item.message}</Text>
+          )
+        }
+        {
+          item.message != null && Platform.OS == 'ios' && (
+            <View style={Style.messageTextLeft}>
+                <Text style={Style.messageTextLeftIOS}>{item.message}</Text>
+            </View>
           )
         }
         {
