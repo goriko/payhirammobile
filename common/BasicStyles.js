@@ -40,6 +40,28 @@ export default {
     borderBottomWidth: 1,
     width: '100%'
   },
+  pickerStyleIOS: {
+    inputIOS: {
+      borderWidth: 1,
+      borderColor: Color.gray,
+      borderRadius: 5,
+      color: '#000',
+      paddingRight: 30,
+      marginRight: 18,
+      marginLeft: 10,
+      height: 50
+    }
+  },
+  pickerStyleIOSNoMargin: {
+    inputIOS: {
+      borderWidth: 1,
+      borderColor: Color.gray,
+      borderRadius: 5,
+      color: '#000',
+      height: 50,
+      width: '100%'
+    }
+  },
   btn: {
     height: 50,
     backgroundColor: Color.primary,

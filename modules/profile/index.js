@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Dimensions } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import RNPickerSelect from 'react-native-picker-select';
 const height = Math.round(Dimensions.get('window').height);
 const gender = [{
   title: 'Male',
@@ -192,6 +193,12 @@ class Profile extends Component{
   _inputs = () => {
     const { userLedger, user, location } = this.props.state;
     const { errorMessage } = this.state;
+    const iOSGender = gender.map((item, index) => {
+                      return {
+                        label: item.title,
+                        value: item.value
+                      };
+                    });
     return (
       <View>
         <View>
@@ -227,21 +234,39 @@ class Profile extends Component{
         <View style={{
         }}>
           <Text>Gender</Text>
-          <Picker selectedValue={this.state.sex}
-          onValueChange={(sex) => this.setState({sex})}
-          style={BasicStyles.pickerStyleCreate}
-          >
-            {
-              gender.map((item, index) => {
-                return (
-                  <Picker.Item
-                  key={index}
-                  label={item.title} 
-                  value={item.value}/>
-                );
-              })
-            }
-          </Picker>
+          {
+            Platform.OS == 'android' && (
+              <Picker selectedValue={this.state.sex}
+                onValueChange={(sex) => this.setState({sex})}
+                style={BasicStyles.pickerStyleCreate}
+                >
+                  {
+                    gender.map((item, index) => {
+                      return (
+                        <Picker.Item
+                        key={index}
+                        label={item.title} 
+                        value={item.value}/>
+                      );
+                    })
+                  }
+                </Picker>
+            )
+          }
+          {
+            Platform.OS == 'ios' && (
+              <RNPickerSelect
+                onValueChange={(sex) => this.setState({sex})}
+                items={iOSGender}
+                style={BasicStyles.pickerStyleIOSNoMargin}
+                placeholder={{
+                  label: 'Click to select',
+                  value: null,
+                  color: Color.primary
+                }}
+                />
+            )
+          }
         </View>
         <View>
           <Text style={{

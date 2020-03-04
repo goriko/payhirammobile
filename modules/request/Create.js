@@ -11,7 +11,7 @@ import Currency from 'services/Currency.js';
 import Api from 'services/api/index.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Dimensions } from 'react-native';
-import {Picker as PickerIOS} from '@react-native-community/picker';
+import RNPickerSelect from 'react-native-picker-select';
 const width = Math.round(Dimensions.get('window').width);
 class CreateRequest extends Component {
   constructor(props){
@@ -196,6 +196,12 @@ class CreateRequest extends Component {
   _inputs = () => {
     const { userLedger, user, location } = this.props.state;
     const { errorMessage } = this.state;
+    const currency = Helper.currency.map((item, index) => {
+                      return {
+                        label: item.title,
+                        value: item.value
+                      };
+                    });
     return (
       <View>
         <View style={{
@@ -280,21 +286,16 @@ class CreateRequest extends Component {
           }
           {
             Platform.OS == 'ios' && (
-              <PickerIOS selectedValue={this.state.currency}
+              <RNPickerSelect
                 onValueChange={(currency) => this.setState({currency})}
-                style={BasicStyles.pickerStyleCreate}
-                >
-                  {
-                    Helper.currency.map((item, index) => {
-                      return (
-                        <PickerIOS.Item
-                        key={index}
-                        label={item.title} 
-                        value={item.value}/>
-                      );
-                    })
-                  }
-                </PickerIOS>
+                items={currency}
+                style={BasicStyles.pickerStyleIOSNoMargin}
+                placeholder={{
+                  label: 'Click to select',
+                  value: null,
+                  color: Color.primary
+                }}
+                />
             )
           }
         </View>
@@ -374,13 +375,22 @@ class CreateRequest extends Component {
             paddingTop: 10
           }}>Details</Text>
           <TextInput
-            style={{
+            style={ Platform.OS == 'android' ? {
               borderColor: Color.gray,
               borderWidth: 1,
               width: '100%',
               marginBottom: 20,
               textAlignVertical: 'top',
               borderRadius: 5
+            } : {
+              borderColor: Color.gray,
+              borderWidth: 1,
+              width: '100%',
+              marginBottom: 20,
+              textAlignVertical: 'top',
+              borderRadius: 5,
+              minHeight: 50,
+              textAlignVertical: 'middle'
             }}
             onChangeText={(reason) => this.setState({reason})}
             value={this.state.reason}

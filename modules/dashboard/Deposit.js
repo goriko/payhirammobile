@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Style from './Style';
-import {Text, View, TouchableOpacity, TextInput, Picker, ScrollView, TouchableHighlight, ToastAndroid} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, Picker, ScrollView, TouchableHighlight, ToastAndroid, Platform} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import Currency from 'services/Currency.js';
 import Api from 'services/api/index.js';
 import MessageModal from 'components/Modal/Message.js';
 import { Dimensions } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 const height = Math.round(Dimensions.get('window').height);
 class Deposit extends Component {
   constructor(props){
@@ -94,6 +95,19 @@ class Deposit extends Component {
   _inputs = () => {
     const { userLedger, user } = this.props.state;
     const { errorMessage } = this.state;
+    const currency = Helper.currency.map((item, index) => {
+                      return {
+                        label: item.title,
+                        value: item.value
+                      };
+                    });
+
+    const bank = Helper.payments.map((item, index) => {
+                    return {
+                      label: item.title,
+                      value: item.title
+                    };
+                  })
     return (
       <View style={{
         minHeight: height
@@ -129,21 +143,39 @@ class Deposit extends Component {
           marginTop: 10
         }}>
           <Text>Select Currency</Text>
-          <Picker selectedValue={this.state.currency}
-          onValueChange={(currency) => this.setState({currency})}
-          style={BasicStyles.pickerStyleCreate}
-          >
-            {
-              Helper.currency.map((item, index) => {
-                return (
-                  <Picker.Item
-                  key={index}
-                  label={item.title} 
-                  value={item.value}/>
-                );
-              })
-            }
-          </Picker>
+          {
+            Platform.OS == 'android' && (
+              <Picker selectedValue={this.state.currency}
+              onValueChange={(currency) => this.setState({currency})}
+              style={BasicStyles.pickerStyleCreate}
+              >
+                {
+                  Helper.currency.map((item, index) => {
+                    return (
+                      <Picker.Item
+                      key={index}
+                      label={item.title} 
+                      value={item.value}/>
+                    );
+                  })
+                }
+              </Picker>
+            )
+          }
+          {
+            Platform.OS == 'ios' && (
+              <RNPickerSelect
+                onValueChange={(currency) => this.setState({currency})}
+                items={currency}
+                style={BasicStyles.pickerStyleIOSNoMargin}
+                placeholder={{
+                  label: 'Click to select',
+                  value: null,
+                  color: Color.primary
+                }}
+                />
+            )
+          }
         </View>
         <View>
           <Text style={{
@@ -161,34 +193,61 @@ class Deposit extends Component {
           marginTop: 10
         }}>
           <Text>Select Bank</Text>
-          <Picker selectedValue={this.state.bank}
-          onValueChange={(bank) => this.setState({bank})}
-          style={BasicStyles.pickerStyleCreate}
-          >
-            {
-              Helper.payments.map((item, index) => {
-                return (
-                  <Picker.Item
-                  key={index}
-                  label={item.title} 
-                  value={item.title}/>
-                );
-              })
-            }
-          </Picker>
+          {
+            Platform.OS == 'android' ** (
+              <Picker selectedValue={this.state.bank}
+              onValueChange={(bank) => this.setState({bank})}
+              style={BasicStyles.pickerStyleCreate}
+              >
+                {
+                  Helper.payments.map((item, index) => {
+                    return (
+                      <Picker.Item
+                      key={index}
+                      label={item.title} 
+                      value={item.title}/>
+                    );
+                  })
+                }
+              </Picker>
+            )
+          }
+          {
+            Platform.OS == 'ios' && (
+              <RNPickerSelect
+                onValueChange={(currency) => this.setState({bank})}
+                items={bank}
+                style={BasicStyles.pickerStyleIOSNoMargin}
+                placeholder={{
+                  label: 'Click to select',
+                  value: null,
+                  color: Color.primary
+                }}
+                /> 
+            )
+          }
         </View>
         <View>
           <Text style={{
             paddingTop: 10
           }}>Message (optional)</Text>
           <TextInput
-            style={{
+            style={ Platform.OS == 'android' ? {
               borderColor: Color.gray,
               borderWidth: 1,
               width: '100%',
               marginBottom: 20,
               textAlignVertical: 'top',
               borderRadius: 5
+            } : {
+              borderColor: Color.gray,
+              borderWidth: 1,
+              width: '100%',
+              marginBottom: 20,
+              textAlignVertical: 'top',
+              borderRadius: 5,
+              minHeight: 50,
+              textAlignVertical: 'middle'
             }}
             onChangeText={(description) => this.setState({description})}
             value={this.state.description}

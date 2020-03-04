@@ -41,7 +41,8 @@ export default {
     paddingLeft: 10,
     paddingRight: 10,
     marginRight: '30%',
-    textAlign: 'left'
+    textAlign: 'left',
+    overflow: 'hidden'
   },
   messageTextLeft: {
     backgroundColor: Color.primary,
