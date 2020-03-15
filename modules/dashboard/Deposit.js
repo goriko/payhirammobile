@@ -238,7 +238,8 @@ class Deposit extends Component {
               width: '100%',
               marginBottom: 20,
               textAlignVertical: 'top',
-              borderRadius: 5
+              borderRadius: 5,
+              paddingLeft: 10
             } : {
               borderColor: Color.gray,
               borderWidth: 1,
@@ -247,7 +248,8 @@ class Deposit extends Component {
               textAlignVertical: 'top',
               borderRadius: 5,
               minHeight: 50,
-              textAlignVertical: 'middle'
+              textAlignVertical: 'middle',
+              paddingLeft: 10
             }}
             onChangeText={(description) => this.setState({description})}
             value={this.state.description}

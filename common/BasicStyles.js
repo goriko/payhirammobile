@@ -18,7 +18,8 @@ export default {
     width: '90%',
     marginLeft: '5%',
     marginBottom: 20,
-    borderRadius: 5
+    borderRadius: 5,
+    paddingLeft: 10
   },
   formControlCreate: {
     height: 50,
@@ -26,7 +27,8 @@ export default {
     borderWidth: 1,
     width: '100%',
     marginBottom: 20,
-    borderRadius: 5
+    borderRadius: 5,
+    paddingLeft: 10
   },
   pickerStyle: {
     height: 50,
@@ -38,7 +40,8 @@ export default {
     height: 50,
     borderBottomColor: Color.gray,
     borderBottomWidth: 1,
-    width: '100%'
+    width: '100%',
+    paddingLeft: 10
   },
   pickerStyleIOS: {
     inputIOS: {
@@ -49,7 +52,8 @@ export default {
       paddingRight: 30,
       marginRight: 18,
       marginLeft: 10,
-      height: 50
+      height: 50,
+      paddingLeft: 10
     }
   },
   pickerStyleIOSNoMargin: {
@@ -59,7 +63,8 @@ export default {
       borderRadius: 5,
       color: '#000',
       height: 50,
-      width: '100%'
+      width: '100%',
+      paddingLeft: 10
     }
   },
   btn: {
