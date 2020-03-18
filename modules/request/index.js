@@ -462,11 +462,30 @@ class Requests extends Component{
   }
 
   _subHeader = (item) => {
+    const { user } = this.props.state;
     return (
       <View>
         <Text style={{
           color: Color.primary,
         }}>{Helper.showRequestType(item.type)}</Text>
+        {
+          (item.coupon != null && parseInt(item.account_id) == user.id) && (
+            <Text style={
+              Style.text
+            }>
+              {
+                item.coupon.type === 'percentage' ? item.coupon.amount + '% ' : Currency.display(item.coupon.amount, item.coupon.currency) + ' '
+              }
+               Discount({item.coupon.code})
+            </Text>
+
+          )
+        }
+        {
+          (item.max_charge !== null && item.max_charge > 0) && (
+            <Text style={Style.text}>Suggested Charge - {Currency.display(item.max_charge, item.currency)}</Text>
+          )
+        }
         <Text style={Style.text}>Posted on {item.created_at_human}</Text>
         <Text style={Style.text}>{item.location.route + ', ' + item.location.locality + ', ' + item.location.country}</Text>
         <Text style={Style.text}>Needed on {item.needed_on_human}</Text>

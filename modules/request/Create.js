@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Style from './Style';
 import {Text, View, TouchableOpacity, TextInput, Picker, ScrollView, TouchableHighlight, ToastAndroid, Platform} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import { Color , BasicStyles, Helper, Routes} from 'common';
@@ -30,7 +30,8 @@ class CreateRequest extends Component {
       money_type: 'Cash',
       coupon: null,
       couponFlag: false,
-      couponInput: null
+      couponInput: null,
+      max_charge: null
     }
   }
 
@@ -96,7 +97,9 @@ class CreateRequest extends Component {
       location: location,
       images: [],
       comaker: null,
-      coupon: this.state.coupon
+      coupon: this.state.coupon,
+      max_charge: this.state.max_charge
+
     }
     this.setState({isLoading: true});
     console.log('parameter', parameter);
@@ -354,6 +357,18 @@ class CreateRequest extends Component {
         <View>
           <Text style={{
             paddingTop: 10
+          }}>Maximum Charge</Text>
+          <TextInput
+            style={BasicStyles.formControlCreate}
+            onChangeText={(max_charge) => this.setState({max_charge})}
+            value={this.state.max_charge}
+            placeholder={'Optional'}
+            keyboardType={'numeric'}
+          />
+        </View>
+        <View>
+          <Text style={{
+            paddingTop: 10
           }}>Needed on</Text>
           <TouchableHighlight style={{
                 height: 50,
@@ -468,7 +483,7 @@ class CreateRequest extends Component {
           )
         }
         {
-          this.state.couponFlag == true && (
+          (this.state.couponFlag == true && this.state.coupon == null) && (
             <View style={{
               flexDirection: 'row'
             }}>
@@ -524,6 +539,44 @@ class CreateRequest extends Component {
                   color: Color.white,
                   textAlign: 'center',
                 }}>Cancel</Text>
+              </TouchableHighlight>
+            </View>
+          )
+        }
+        {
+          (this.state.couponFlag == true && this.state.coupon !== null) && (
+            <View style={{
+              flexDirection: 'row',
+              marginTop: 20,
+              marginBottom: 20
+            }}>
+              <Text style={{
+                width: '50%'
+              }}>Discount</Text>
+              <Text style={{
+                width: '40%',
+                textAlign: 'right',
+                paddingRight: 20,
+              }}>
+                {
+                  this.state.coupon.type == 'percentage' ? this.state.coupon.amount + '%' : Currency.display(this.state.coupon.amount, this.state.currency)
+                }
+              </Text>
+              <TouchableHighlight
+              onPress={() => {
+                this.setState({
+                  couponFlag: false,
+                  coupon: null,
+                  couponInput: null
+                })
+              }}
+              style={{
+                width: '10%',
+                color: Color.danger
+              }}>
+                <FontAwesomeIcon icon={faTrash} size={BasicStyles.iconSize} style={{
+                  color: Color.warning
+                }}></FontAwesomeIcon>
               </TouchableHighlight>
             </View>
           )
