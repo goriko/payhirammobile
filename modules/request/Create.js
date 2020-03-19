@@ -485,7 +485,8 @@ class CreateRequest extends Component {
         {
           (this.state.couponFlag == true && this.state.coupon == null) && (
             <View style={{
-              flexDirection: 'row'
+              flexDirection: 'row',
+              marginBottom: 20
             }}>
               <View style={{
                 width: '50%'
