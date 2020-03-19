@@ -531,7 +531,7 @@ class CreateRequest extends Component {
                   marginTop: 27,
                 }}
                 onPress={() => {
-                  this.setState({coupon: null, couponFlag: false, couponInput: null})
+                  this.setState({coupon: null, couponFlag: false, couponInput: null, showDatePicker: false})
                 }}
                 underlayColor={Color.gray}
                   >
