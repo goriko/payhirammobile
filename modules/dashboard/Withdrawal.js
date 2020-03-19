@@ -221,7 +221,7 @@ class Withdrawal extends Component {
         }}>
           <Text>Select Bank</Text>
           {
-            Platform.OS == 'android' ** (
+            Platform.OS == 'android' && (
               <Picker selectedValue={this.state.bank}
               onValueChange={(bank) => this.setState({bank})}
               style={BasicStyles.pickerStyleCreate}
