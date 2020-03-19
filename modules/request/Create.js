@@ -509,7 +509,7 @@ class CreateRequest extends Component {
                   justifyContent: 'center',
                   marginLeft: '1%',
                   borderRadius: 5,
-                  marginTop: 27
+                  marginTop: 30
                 }}
                 onPress={() => {
                   this.applyCoupon()
@@ -529,7 +529,7 @@ class CreateRequest extends Component {
                   justifyContent: 'center',
                   marginLeft: '1%',
                   borderRadius: 5,
-                  marginTop: 27,
+                  marginTop: 30,
                 }}
                 onPress={() => {
                   this.setState({coupon: null, couponFlag: false, couponInput: null, showDatePicker: false})
