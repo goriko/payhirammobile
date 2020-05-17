@@ -41,7 +41,7 @@ const Requests_StackNavigator = createStackNavigator({
   Requests: {
     screen: Requests,
     navigationOptions: ({ navigation }) => ({
-      title: 'Requests',
+      title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerStyle: {
@@ -56,7 +56,7 @@ const Dashboard_StackNavigator = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
     navigationOptions: ({ navigation }) => ({
-      title: 'Dashboard',
+      title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerStyle: {
@@ -71,7 +71,7 @@ const Notification_StackNavigator = createStackNavigator({
   Notification: {
     screen: Notification,
     navigationOptions: ({ navigation }) => ({
-      title: 'Notification',
+      title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerStyle: {
@@ -87,7 +87,7 @@ const Messenger_StackNavigator = createStackNavigator({
   Messenger: {
     screen: Messenger,
     navigationOptions: ({ navigation }) => ({
-      title: 'Messages',
+      title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerStyle: {
@@ -102,7 +102,7 @@ const Profile_StackNavigator = createStackNavigator({
   Profile: {
     screen: Profile,
     navigationOptions: ({ navigation }) => ({
-      title: 'Profile',
+      title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerStyle: {

@@ -11,7 +11,7 @@ export default {
     title: 'Requests',
     route: 'Requests'
   }, {
-    title: 'Dashboard',
+    title: 'My Wallet',
     route: 'Dashboard'
   }, {
     title: 'Messages',

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, Platform, Dimensions } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEnvelope, faBell} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faBell, faWallet, faHandshake} from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Color, BasicStyles } from 'common';
 
 import { connect } from 'react-redux';
+const width = Math.round(Dimensions.get('window').width);
 class NavigationDrawerStructureRight extends Component {
   constructor(props){
     super(props);
@@ -25,8 +26,33 @@ class NavigationDrawerStructureRight extends Component {
   render() {
     const { messenger, notifications } = this.props.state;;
     return (
-      <View style={{ flexDirection: 'row' }}>
-        <View>
+      <View style={{ flexDirection: 'row', width: width - (width * .10) }}>
+        <View style={{
+          width: '25%',
+          alignItems: 'center'
+        }}>
+          <TouchableOpacity onPress={() => this.navigateToScreen('Requests')}>
+            {/*Donute Button Image */}
+            <View style={{ flexDirection: 'row'}}>
+              <FontAwesomeIcon icon={ faHandshake } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{
+          width: '25%',
+          alignItems: 'center'
+        }}>
+          <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
+            {/*Donute Button Image */}
+            <View style={{ flexDirection: 'row'}}>
+              <FontAwesomeIcon icon={ faWallet } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{
+          width: '25%',
+          alignItems: 'center'
+        }}>
           <TouchableOpacity onPress={() => this.navigateToScreen('Messenger')}>
             {/*Donute Button Image */}
             <View style={{ flexDirection: 'row'}}>
@@ -72,7 +98,10 @@ class NavigationDrawerStructureRight extends Component {
             </View>
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={{
+          width: '25%',
+          alignItems: 'center'
+        }}>
           <TouchableOpacity onPress={() => this.navigateToScreen('Notification')}>
             <View style={{ flexDirection: 'row'}}>
               <FontAwesomeIcon icon={ faBell } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
