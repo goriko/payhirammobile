@@ -14,6 +14,12 @@ export default {
     title: 'My Wallet',
     route: 'Dashboard'
   }, {
+    title: 'Products & Installment',
+    route: 'Dashboard'
+  }, {
+    title: 'Rentals',
+    route: 'Dashboard'
+  }, {
     title: 'Messages',
     route: 'Messenger'
   }, {

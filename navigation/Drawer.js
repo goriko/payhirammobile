@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -12,6 +12,8 @@ import Messenger from 'modules/messenger';
 import Notification from 'modules/notification';
 import Profile from 'modules/profile';
 import OptionRight from './OptionRight';
+import Style from './Style.js'
+const width = Math.round(Dimensions.get('window').width);
 class MenuDrawerStructure extends Component {
   constructor(props){
     super(props);
@@ -24,14 +26,7 @@ class MenuDrawerStructure extends Component {
   };
   render() {
     return (
-      <View style={{ flexDirection: 'row' }}>
-        {this.state.loginState === true && 
-          <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
-            {/*Donute Button Image */}
-            <FontAwesomeIcon icon={ faBars } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
-          </TouchableOpacity>
-        }
-        
+      <View style={{ flexDirection: 'row'}}>
       </View>
     );
   }
@@ -44,10 +39,8 @@ const Requests_StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: Color.primary,
-      },
-      headerTintColor: '#fff',
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary,
     }),
   },
 });
@@ -59,10 +52,8 @@ const Dashboard_StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: Color.primary,
-      },
-      headerTintColor: '#fff',
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
     }),
   },
 });
@@ -74,10 +65,8 @@ const Notification_StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: Color.primary,
-      },
-      headerTintColor: '#fff',
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
     }),
   },
 });
@@ -90,10 +79,8 @@ const Messenger_StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: Color.primary,
-      },
-      headerTintColor: '#fff',
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
     }),
   },
 });
@@ -105,10 +92,8 @@ const Profile_StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: Color.primary,
-      },
-      headerTintColor: '#fff',
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
     }),
   },
 });

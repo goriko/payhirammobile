@@ -90,7 +90,7 @@ export default {
   },
   iconSize: 24,
   iconStyle: {
-    color: Color.white,
+    color: Color.primary,
     paddingLeft: 20,
     paddingRight: 20
   },

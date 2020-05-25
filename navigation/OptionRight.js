@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Platform, Dimensions } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEnvelope, faBell, faWallet, faHandshake} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faBell, faMoneyBillWave, faStoreAlt, faPlay, faCaretSquareRight, faBars} from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Color, BasicStyles } from 'common';
 
@@ -16,6 +16,11 @@ class NavigationDrawerStructureRight extends Component {
     this.props.navigationProps.navigate(screen)
   }
 
+
+  toggleDrawer = () => {
+    this.props.navigationProps.toggleDrawer();
+  };
+
   navigateToScreen = (route) => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -26,35 +31,55 @@ class NavigationDrawerStructureRight extends Component {
   render() {
     const { messenger, notifications } = this.props.state;;
     return (
-      <View style={{ flexDirection: 'row', width: width - (width * .10) }}>
+      <View style={{ flexDirection: 'row', width: width }}> 
+
+        <TouchableOpacity
+          onPress={this.toggleDrawer.bind(this)}
+          style={{
+            width: '16.5%',
+            alignItems: 'center',
+            marginLeft: '0.5%'
+          }}
+          >
+          {/*Donute Button Image */}
+          <FontAwesomeIcon icon={ faBars } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+        </TouchableOpacity>
+
         <View style={{
-          width: '25%',
+          width: '16.5%',
           alignItems: 'center'
         }}>
           <TouchableOpacity onPress={() => this.navigateToScreen('Requests')}>
-            {/*Donute Button Image */}
             <View style={{ flexDirection: 'row'}}>
-              <FontAwesomeIcon icon={ faHandshake } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+              <FontAwesomeIcon icon={ faMoneyBillWave } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
             </View>
           </TouchableOpacity>
         </View>
         <View style={{
-          width: '25%',
+          width: '16.5%',
           alignItems: 'center'
         }}>
           <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
-            {/*Donute Button Image */}
             <View style={{ flexDirection: 'row'}}>
-              <FontAwesomeIcon icon={ faWallet } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+              <FontAwesomeIcon icon={ faStoreAlt } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
             </View>
           </TouchableOpacity>
         </View>
         <View style={{
-          width: '25%',
+          width: '16.5%',
+          alignItems: 'center'
+        }}>
+          <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
+            <View style={{ flexDirection: 'row'}}>
+              <FontAwesomeIcon icon={ faCaretSquareRight } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{
+          width: '16.5%',
           alignItems: 'center'
         }}>
           <TouchableOpacity onPress={() => this.navigateToScreen('Messenger')}>
-            {/*Donute Button Image */}
             <View style={{ flexDirection: 'row'}}>
               <FontAwesomeIcon icon={ faEnvelope } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
               {
@@ -99,8 +124,9 @@ class NavigationDrawerStructureRight extends Component {
           </TouchableOpacity>
         </View>
         <View style={{
-          width: '25%',
-          alignItems: 'center'
+          width: '16.5%',
+          alignItems: 'center',
+          marginRight: '0.5%'
         }}>
           <TouchableOpacity onPress={() => this.navigateToScreen('Notification')}>
             <View style={{ flexDirection: 'row'}}>
