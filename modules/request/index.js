@@ -577,7 +577,7 @@ class Requests extends Component{
     const { isLoading, connectModal, connectSelected } = this.state;
     const { requests, searchParameter } = this.props.state;
     return (
-      <View>
+      <View style={Style.MainContainer}>
         {/*this._search()*/}
         <ScrollView 
           style={Style.ScrollView}

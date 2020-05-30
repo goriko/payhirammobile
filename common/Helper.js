@@ -15,7 +15,7 @@ export default {
     route: 'Dashboard'
   }, {
     title: 'Products & Installment',
-    route: 'Dashboard'
+    route: 'Marketplace'
   }, {
     title: 'Rentals',
     route: 'Dashboard'
@@ -116,6 +116,9 @@ export default {
     title: 'Chinabank Corporation'
   }],
   authorize: 'PIN',
+  ecommerce: {
+    inventoryType: 'inventory'
+  },
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

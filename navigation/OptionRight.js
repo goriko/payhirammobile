@@ -59,7 +59,7 @@ class NavigationDrawerStructureRight extends Component {
           width: '16.5%',
           alignItems: 'center'
         }}>
-          <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
+          <TouchableOpacity onPress={() => this.navigateToScreen('Marketplace')}>
             <View style={{ flexDirection: 'row'}}>
               <FontAwesomeIcon icon={ faStoreAlt } size={BasicStyles.iconSize} style={BasicStyles.iconStyle}/>
             </View>

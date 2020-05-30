@@ -11,6 +11,7 @@ import Dashboard from 'modules/dashboard';
 import Messenger from 'modules/messenger';
 import Notification from 'modules/notification';
 import Profile from 'modules/profile';
+import { Product, Marketplace } from 'components';
 import OptionRight from './OptionRight';
 import Style from './Style.js'
 const width = Math.round(Dimensions.get('window').width);
@@ -24,13 +25,15 @@ class MenuDrawerStructure extends Component {
   toggleDrawer = () => {
     this.props.navigationProps.toggleDrawer();
   };
+
   render() {
-    return (
-      <View style={{ flexDirection: 'row'}}>
-      </View>
-    );
+      return (
+        <View style={{
+          flexDirection: 'row' 
+        }}></View>
+      );
+    }
   }
-}
  
 const Requests_StackNavigator = createStackNavigator({
   Requests: {
@@ -98,6 +101,32 @@ const Profile_StackNavigator = createStackNavigator({
   },
 });
 
+const Marketplace_StackNavigator = createStackNavigator({
+  Marketplace: {
+    screen: Marketplace,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
+    }),
+  },
+});
+
+const Product_StackNavigator = createStackNavigator({
+  Product: {
+    screen: Product,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
+    }),
+  },
+});
+
 const Drawer = createDrawerNavigator({
   Requests: {
     screen: Requests_StackNavigator,
@@ -127,6 +156,18 @@ const Drawer = createDrawerNavigator({
     screen: Notification_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Notification',
+    },
+  },
+  Marketplace: {
+    screen: Marketplace_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Marketplace',
+    },
+  },
+  Product: {
+    screen: Product_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Product',
     },
   },
 }, {

@@ -23,6 +23,7 @@ const types = {
   UPDATE_REQUESTS: 'UPDATE_REQUESTS',
   SET_PIN_FLAG: 'SET_PIN_FLAG',
   SET_SYSTEM_NOTIFICATION: 'SET_SYSTEM_NOTIFICATION',
+  SET_PRODUCT: 'SET_PRODUCT',
   nav: null,
 }
 
@@ -86,6 +87,9 @@ export const actions = {
   },
   setSystemNotification(systemNotification){
     return { type: types.SET_SYSTEM_NOTIFICATION, systemNotification}
+  },
+  setProduct(product){
+    return { type: types.SET_PRODUCT, product }
   }
 };
 
@@ -106,7 +110,8 @@ const initialState = {
   requests: null,
   nav: null,
   pinFlag: false,
-  systemNotification: null
+  systemNotification: null,
+  product: null
 }
 
 storeData = async (key, value) => {
@@ -124,6 +129,7 @@ const reducer = (state = initialState, action) => {
   const { location, notification } = action;
   const { searchParameter, requests } = action;
   const { systemNotification } = action;
+  const { product } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -325,6 +331,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         systemNotification
+      }
+    case types.SET_PRODUCT:
+      return {
+        ...state,
+        product
       }
     default:
       return {...state, nav: state.nav};

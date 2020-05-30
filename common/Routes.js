@@ -47,5 +47,6 @@ export default {
   accountProfileUpdate: apiUrl + 'account_profiles/update',
   investorLocationsRetrieve: apiUrl + 'investor_locations/retrieve',
   systemNotificationRetrieve: apiUrl + 'system_notifications/retrieve',
-  couponsValidate: apiUrl + 'coupons/validate'
+  couponsValidate: apiUrl + 'coupons/validate',
+  productsRetrieve: apiUrl + 'products/retrieve'
 }
