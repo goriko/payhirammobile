@@ -119,6 +119,26 @@ export default {
   ecommerce: {
     inventoryType: 'inventory'
   },
+  checkoutOptions: [{
+    title: 'POST TO REQUEST',
+    description: 'LET OUR PARTNERS PAY FOR YOU, THEN PAY THEM LATER',
+    route: 'createRequestStack'
+  }, {
+    title: 'PROCEED WITH INSTALLMENT',
+    description: 'AGREE THE TERMS OF THE SELLER',
+    route: 'Checkout'
+  }, {
+    title: 'PROCEED TO CHECKOUT',
+    description: 'PURCHASE ITEM(S) DIRECTLY',
+    route: 'Checkout'
+  }],
+  paymentMethods: [{
+    title: 'COD',
+    description: 'Cash on develivery'
+  }, {
+    title: 'MY WALLET',
+    description: 'Payhiram Wallet'
+  }],
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

@@ -11,7 +11,7 @@ import Dashboard from 'modules/dashboard';
 import Messenger from 'modules/messenger';
 import Notification from 'modules/notification';
 import Profile from 'modules/profile';
-import { Product, Marketplace } from 'components';
+import { Product, Marketplace, Checkout } from 'components';
 import OptionRight from './OptionRight';
 import Style from './Style.js'
 const width = Math.round(Dimensions.get('window').width);
@@ -127,6 +127,19 @@ const Product_StackNavigator = createStackNavigator({
   },
 });
 
+const Checkout_StackNavigator = createStackNavigator({
+  Checkout: {
+    screen: Checkout,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
+    }),
+  },
+});
+
 const Drawer = createDrawerNavigator({
   Requests: {
     screen: Requests_StackNavigator,
@@ -168,6 +181,12 @@ const Drawer = createDrawerNavigator({
     screen: Product_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Product',
+    },
+  },
+  Checkout: {
+    screen: Checkout_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Checkout',
     },
   },
 }, {
