@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
 import { View, Image, TouchableHighlight, Text, ScrollView, FlatList, TextInput, Picker} from 'react-native';
-import { Routes, Color, Helper, BasicStyles } from 'common';
+import { Routes, Color, Helper, BasicStyles, Countries } from 'common';
 import { Spinner, ImageUpload } from 'components';
 import {NavigationActions} from 'react-navigation';
 import Api from 'services/api/index.js';
@@ -15,12 +15,23 @@ class Billing extends Component{
   constructor(props){
     super(props);
     this.state = {
-      isLoading: false
+      isLoading: false,
+      address_1: null,
+      address_2: null,
+      location: null,
+      country: null,
+      city: null
     }
   }
 
   componentDidMount(){
     // this.retrieve()
+  }
+
+  manageLocation = (location) => {
+    this.setState({
+      location: location
+    })
   }
 
   setActive = () => {
@@ -55,11 +66,67 @@ class Billing extends Component{
   }
 
   _inputs = () => {
+    const currency = Countries.list.map((item, index) => {
+      return {
+        label: item.title,
+        value: item.title
+      };
+    });
     return (
       <View>
         <View style={{
           marginBottom: 100,
         }}>
+          <View>
+            <Text style={{
+            }}>Address 1</Text>
+            <TextInput
+              style={BasicStyles.formControlCreate}
+              onChangeText={(middleName) => this.setState({middleName})}
+              value={this.state.address_1}
+              placeholder={'123 Main Street'}
+            />
+          </View>
+
+          <View>
+            <Text style={{
+            }}>Address 2(Optional)</Text>
+            <TextInput
+              style={BasicStyles.formControlCreate}
+              onChangeText={(middleName) => this.setState({middleName})}
+              value={this.state.address_2}
+              placeholder={'Apt, Office, Suite'}
+            />
+          </View>
+
+          <View style={{
+            flexDirection: 'row'
+          }}>
+            <View style={{
+              width: '49%',
+              marginRight: '1%',
+              backgroundColor: Color.white
+            }}>
+              <Text style={{
+              }}>City</Text>
+              <TextInput
+                style={BasicStyles.formControlCreate}
+                onChangeText={(locality) => this.setState({locality})}
+                value={this.state.locality}
+                placeholder={'Locality or town'}
+              />
+            </View>
+            <View style={{
+              width: '49%',
+              marginLeft: '1%',
+              backgroundColor: Color.white
+            }}>
+              <Text style={{
+              }}>Country</Text>
+              
+            </View>
+          </View>
+
           <TouchableHighlight style={{
                 height: 50,
                 backgroundColor: Color.primary,
