@@ -12,6 +12,7 @@ import Messenger from 'modules/messenger';
 import Notification from 'modules/notification';
 import Profile from 'modules/profile';
 import { Product, Marketplace, Checkout } from 'components';
+import Billing from 'modules/profile/Billing.js';
 import OptionRight from './OptionRight';
 import Style from './Style.js'
 const width = Math.round(Dimensions.get('window').width);
@@ -140,6 +141,19 @@ const Checkout_StackNavigator = createStackNavigator({
   },
 });
 
+const Billing_StackNavigator = createStackNavigator({
+  Billing: {
+    screen: Billing,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary
+    }),
+  },
+});
+
 const Drawer = createDrawerNavigator({
   Requests: {
     screen: Requests_StackNavigator,
@@ -187,6 +201,12 @@ const Drawer = createDrawerNavigator({
     screen: Checkout_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Checkout',
+    },
+  },
+  Billing: {
+    screen: Billing_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Billing',
     },
   },
 }, {
