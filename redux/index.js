@@ -23,6 +23,7 @@ const types = {
   UPDATE_REQUESTS: 'UPDATE_REQUESTS',
   SET_PIN_FLAG: 'SET_PIN_FLAG',
   SET_SYSTEM_NOTIFICATION: 'SET_SYSTEM_NOTIFICATION',
+  SET_SELECTED_PRODUCT_ID: 'SET_SELECTED_PRODUCT_ID',
   SET_PRODUCT: 'SET_PRODUCT',
   nav: null,
 }
@@ -90,6 +91,11 @@ export const actions = {
   },
   setProduct(product){
     return { type: types.SET_PRODUCT, product }
+  },
+  setSelectedProductId(productId){
+    return {
+      type: types.SET_SELECTED_PRODUCT_ID, productId
+    }
   }
 };
 
@@ -111,7 +117,8 @@ const initialState = {
   nav: null,
   pinFlag: false,
   systemNotification: null,
-  product: null
+  product: null,
+  productId: null
 }
 
 storeData = async (key, value) => {
@@ -129,7 +136,7 @@ const reducer = (state = initialState, action) => {
   const { location, notification } = action;
   const { searchParameter, requests } = action;
   const { systemNotification } = action;
-  const { product } = action;
+  const { product, productId } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -336,6 +343,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         product
+      }
+    case types.SET_SELECTED_PRODUCT_ID:
+      return{
+        ...state,
+        productId
       }
     default:
       return {...state, nav: state.nav};

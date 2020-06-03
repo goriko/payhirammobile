@@ -655,7 +655,7 @@ class Requests extends Component{
                 </TouchableOpacity>
               </View>
             {this._flatList()}
-            {requests == null && (<Empty refresh={true} onRefresh={() => this.onRefresh()}/>)}
+            {(requests == null && isLoading == false) && (<Empty refresh={true} onRefresh={() => this.onRefresh()}/>)}
           </View>
         </ScrollView>
           <TouchableOpacity

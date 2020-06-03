@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { View, Image, TouchableHighlight, Text, ScrollView, FlatList, TextInput, Picker} from 'react-native';
+import { View, Image, TouchableHighlight, Text, ScrollView, FlatList, TextInput, Picker, Plat} from 'react-native';
 import { Routes, Color, Helper, BasicStyles, Countries } from 'common';
 import { Spinner, ImageUpload } from 'components';
 import {NavigationActions} from 'react-navigation';
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import RNPickerSelect from 'react-native-picker-select';
 import { Dimensions } from 'react-native';
 class Billing extends Component{
   constructor(props){
@@ -123,7 +124,39 @@ class Billing extends Component{
             }}>
               <Text style={{
               }}>Country</Text>
-              
+              {
+                Platform.OS == 'android' && (
+                  <Picker selectedValue={this.state.currency}
+                  onValueChange={(currency) => this.setState({currency})}
+                  style={BasicStyles.pickerStyleCreate}
+                  >
+                    {
+                      Helper.currency.map((item, index) => {
+                        return (
+                          <Picker.Item
+                          key={index}
+                          label={item.title} 
+                          value={item.value}/>
+                        );
+                      })
+                    }
+                  </Picker>
+                )
+              }
+              {
+                Platform.OS == 'ios' && (
+                  <RNPickerSelect
+                    onValueChange={(currency) => this.setState({currency})}
+                    items={currency}
+                    style={BasicStyles.pickerStyleIOSNoMargin}
+                    placeholder={{
+                      label: 'Click to select',
+                      value: null,
+                      color: Color.primary
+                    }}
+                    />
+                )
+              }
             </View>
           </View>
 

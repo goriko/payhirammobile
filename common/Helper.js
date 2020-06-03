@@ -139,6 +139,16 @@ export default {
     title: 'MY WALLET',
     description: 'Payhiram Wallet'
   }],
+  requirementsOptions: [{
+    title: '1 Valid ID',
+    payload: 'id_1'
+  }, {
+    title: '2 Valid ID\'s',
+    payload: 'id_2'
+  }, {
+    title: 'Credit Card',
+    payload: 'credit_card'
+  }],
   showRequestType(type){
     switch(parseInt(type)){
       case 1: return 'Send'

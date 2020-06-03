@@ -48,5 +48,6 @@ export default {
   investorLocationsRetrieve: apiUrl + 'investor_locations/retrieve',
   systemNotificationRetrieve: apiUrl + 'system_notifications/retrieve',
   couponsValidate: apiUrl + 'coupons/validate',
-  productsRetrieve: apiUrl + 'products/retrieve'
+  productsRetrieve: apiUrl + 'products/retrieve',
+  productsRetrieveBasic: apiUrl + 'products/retrieve_basic'
 }
