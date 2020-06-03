@@ -11,6 +11,7 @@ import Config from 'src/config.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Dimensions } from 'react-native';
+import RequestOptions from './RequestOptions.js';
 const height = Math.round(Dimensions.get('window').height);
 class Requests extends Component{
 
@@ -34,7 +35,8 @@ class Requests extends Component{
       isBookmark: false,
       limit: 10,
       active: 1,
-      activePage: 0
+      activePage: 0,
+      isRequestOptions: false
     }
   }
 
@@ -487,7 +489,11 @@ class Requests extends Component{
           )
         }
         <Text style={Style.text}>Posted on {item.created_at_human}</Text>
-        <Text style={Style.text}>{item.location.route + ', ' + item.location.locality + ', ' + item.location.country}</Text>
+        {
+          item.location != null && (
+            <Text style={Style.text}>{item.location.route + ', ' + item.location.locality + ', ' + item.location.country}</Text>
+          )
+        }
         <Text style={Style.text}>Needed on {item.needed_on_human}</Text>
       </View>
     );
@@ -574,10 +580,17 @@ class Requests extends Component{
   }
 
   render() {
-    const { isLoading, connectModal, connectSelected } = this.state;
+    const { isLoading, connectModal, connectSelected, isRequestOptions } = this.state;
     const { requests, searchParameter } = this.props.state;
     return (
       <View style={Style.MainContainer}>
+        {
+          isRequestOptions && (
+            <RequestOptions visible={isRequestOptions} navigate={(route) => this.redirect(route)} close={() => this.setState({
+              isRequestOptions: false
+            })}/>
+          )
+        }
         {/*this._search()*/}
         <ScrollView 
           style={Style.ScrollView}
@@ -660,7 +673,11 @@ class Requests extends Component{
         </ScrollView>
           <TouchableOpacity
               style={Style.floatingButton}
-              onPress={() => this.redirect('createRequestStack')}
+              onPress={() => {
+                this.setState({
+                  isRequestOptions: true
+                })
+              }}
             >
             <FontAwesomeIcon
               icon={faPlus}
