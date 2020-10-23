@@ -59,6 +59,22 @@ export default {
     description: 'Don\'t have time and want to pay your bills? Allow other peer to fulfil your bills.',
     money_type: 'Cash'
   }],
+  fulfillmentBorrowTypes: [{
+    value: 101,
+    label: 'Loan via Product Fulfilment',
+    description: 'Allow other peer to fulfill your transaction when you want to purchase our products from our partners.',
+    money_type: 'Wallet'
+  }, {
+    value: 102,
+    label: 'Direct Loan(Wallet)',
+    description: 'Allow other peer to fulfill your needed money via wallet.',
+    money_type: 'Cash'
+  }, {
+    value: 103,
+    label: 'Direct Loan(Cash)',
+    description: 'Allow other peer to fulfill your needed money via cash.',
+    money_type: 'Cash'
+  }],
   pusher: {
     broadcast_type: 'pusher',
     channel: 'payhiram',

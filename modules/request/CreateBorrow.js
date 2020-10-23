@@ -28,9 +28,6 @@ class CreateBorrowRequest extends Component {
       dateFlag: false,
       reason: null,
       money_type: 'Cash',
-      coupon: null,
-      couponFlag: false,
-      couponInput: null,
       max_charge: null
     }
   }
@@ -38,42 +35,6 @@ class CreateBorrowRequest extends Component {
   componentDidMount(){
     const { setLocation } = this.props;
     setLocation(null);
-  }
-
-  applyCoupon = () => {
-    const { user, location } = this.props.state;
-    if(user == null){
-      return
-    }
-    if(location == null){
-      this.setState({errorMessage: 'Location is required.'})
-      return
-    }
-    if(this.state.couponInput === null || this.state.couponInput === ''){
-      this.setState({errorMessage: 'Coupon is required.'})
-      return
-    }
-    let parameter = {
-      condition: [{
-        value: this.state.couponInput,
-        clause: '=',
-        column: 'code'
-      }, {
-        value: location.locality,
-        clause: '=',
-        column: 'locality'
-      }],
-      account_id: user.id
-    }
-    this.setState({isLoading: true});
-    Api.request(Routes.couponsValidate, parameter, response => {
-      this.setState({isLoading: false});
-      if(response.data !== null){
-        this.setState({coupon: response.data, errorMessage: null})
-      }else{
-        this.setState({errorMessage: response.error, coupon: null})
-      }
-    });
   }
 
   redirect = (route) => {
@@ -97,7 +58,6 @@ class CreateBorrowRequest extends Component {
       location: location,
       images: [],
       comaker: null,
-      coupon: this.state.coupon,
       max_charge: this.state.max_charge
 
     }
@@ -138,22 +98,6 @@ class CreateBorrowRequest extends Component {
       flag = true;
       return
     }
-    if(this.state.type < 101){
-      if(location == null){
-        this.setState({
-          errorMessage: 'Location is required'
-        })
-        flag = true;
-        return
-      }
-      if(this.state.type < 3 && userLedger != null && userLedger.amount < this.state.amount){
-        this.setState({
-          errorMessage: 'Insufficient Balance'
-        })
-        flag = true;
-        return
-      }
-    }
     setTimeout(() => {
       if(flag == false){
         this.setState({errorMessage: null})
@@ -170,7 +114,7 @@ class CreateBorrowRequest extends Component {
           flexDirection: 'row'
         }}>
         {
-          Helper.fulfillmentTypes.map((item, index) => {
+          Helper.fulfillmentBorrowTypes.map((item, index) => {
             return (
               <TouchableHighlight style={{
                 width: width / 2,
@@ -457,156 +401,27 @@ class CreateBorrowRequest extends Component {
             numberOfLines = {5}
           />
         </View>
-        {
-          this.state.couponFlag === false && (
-            <View>
-              <TouchableHighlight style={{
-                    height: 50,
-                    backgroundColor: Color.warning,
-                    width: '100%',
-                    marginBottom: 20,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 5,
-                  }}
-                  onPress={() => {
-                    this.setState({couponFlag: true})
-                  }}
-                  underlayColor={Color.gray}
-                    >
-                  <Text style={{
-                    color: Color.white,
-                    textAlign: 'center',
-                  }}>Add coupon</Text>
-              </TouchableHighlight>
-            </View>
-          )
-        }
-        {
-          (this.state.couponFlag == true && this.state.coupon == null) && (
-            <View style={{
-              flexDirection: 'row',
-              marginBottom: 100
-            }}>
-              <View style={{
-                width: '50%'
-              }}>
-                <Text style={{
-                  paddingTop: 10
-                }}>Coupon</Text>
-                <TextInput
-                  style={BasicStyles.formControlCreate}
-                  onChangeText={(couponInput) => this.setState({couponInput})}
-                  value={this.state.couponInput}
-                  placeholder={'Enter Coupon'}
-                />
-              </View>
-              <TouchableHighlight style={{
-                  height: 50,
-                  backgroundColor: Color.primary,
-                  width: '24%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginLeft: '1%',
-                  borderRadius: 5,
-                  marginTop: 30
-                }}
-                onPress={() => {
-                  this.applyCoupon()
-                }}
-                underlayColor={Color.gray}
-                  >
-                <Text style={{
-                  color: Color.white,
-                  textAlign: 'center',
-                }}>Apply</Text>
-              </TouchableHighlight>
-              <TouchableHighlight style={{
-                  height: 50,
-                  backgroundColor: Color.danger,
-                  width: '24%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginLeft: '1%',
-                  borderRadius: 5,
-                  marginTop: 30,
-                }}
-                onPress={() => {
-                  this.setState({coupon: null, couponFlag: false, couponInput: null, showDatePicker: false})
-                }}
-                underlayColor={Color.gray}
-                  >
-                <Text style={{
-                  color: Color.white,
-                  textAlign: 'center',
-                }}>Cancel</Text>
-              </TouchableHighlight>
-            </View>
-          )
-        }
-        {
-          (this.state.couponFlag == true && this.state.coupon !== null) && (
-            <View style={{
-              flexDirection: 'row',
-              marginTop: 20,
-              marginBottom: 20
-            }}>
-              <Text style={{
-                width: '50%'
-              }}>Discount</Text>
-              <Text style={{
-                width: '40%',
-                textAlign: 'right',
-                paddingRight: 20,
-              }}>
-                {
-                  this.state.coupon.type == 'percentage' ? this.state.coupon.amount + '%' : Currency.display(this.state.coupon.amount, this.state.currency)
-                }
-              </Text>
-              <TouchableHighlight
-              onPress={() => {
-                this.setState({
-                  couponFlag: false,
-                  coupon: null,
-                  couponInput: null
-                })
+        <View>
+          <TouchableHighlight style={{
+                height: 50,
+                backgroundColor: Color.primary,
+                width: '100%',
+                marginBottom: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 5,
               }}
-              style={{
-                width: '10%',
-                color: Color.danger
-              }}>
-                <FontAwesomeIcon icon={faTrash} size={BasicStyles.iconSize} style={{
-                  color: Color.warning
-                }}></FontAwesomeIcon>
-              </TouchableHighlight>
-            </View>
-          )
-        }
-        {
-          (this.state.couponFlag == false || (this.state.couponFlag == true && this.state.coupon != null)) && (
-            <View>
-              <TouchableHighlight style={{
-                    height: 50,
-                    backgroundColor: Color.primary,
-                    width: '100%',
-                    marginBottom: 100,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 5,
-                  }}
-                  onPress={() => {
-                    this.validate()
-                  }}
-                  underlayColor={Color.gray}
-                    >
-                  <Text style={{
-                    color: Color.white,
-                    textAlign: 'center',
-                  }}>Post</Text>
-              </TouchableHighlight>
-            </View>
-          )
-        }
+              onPress={() => {
+                this.validate()
+              }}
+              underlayColor={Color.gray}
+                >
+              <Text style={{
+                color: Color.white,
+                textAlign: 'center',
+              }}>Post</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
