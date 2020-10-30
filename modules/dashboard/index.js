@@ -449,6 +449,7 @@ class Dashboard extends Component{
           }
         }}
         >
+        
         {isLoading ? <Spinner mode="overlay"/> : null }
         <SystemNotification></SystemNotification>
         <View style={[Style.MainContainer, {

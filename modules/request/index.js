@@ -581,7 +581,7 @@ class Requests extends Component{
 
   render() {
     const { isLoading, connectModal, connectSelected, isRequestOptions } = this.state;
-    const { requests, searchParameter } = this.props.state;
+    const { requests} = this.props.state;
     return (
       <View style={Style.MainContainer}>
         {
