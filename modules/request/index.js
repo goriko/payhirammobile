@@ -584,6 +584,9 @@ class Requests extends Component{
     const { requests} = this.props.state;
     return (
       <View style={Style.MainContainer}>
+        <TouchableOpacity onPress={() => this.redirect('circleStack')} >
+          <Text>Testing</Text>
+        </TouchableOpacity>
         {
           isRequestOptions && (
             <RequestOptions visible={isRequestOptions} navigate={(route) => this.redirect(route)} close={() => this.setState({
