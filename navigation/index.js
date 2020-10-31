@@ -12,6 +12,8 @@ import CreateBorrowRequestStack from 'modules/request/CreateBorrowDrawer.js';
 import LocationStack from 'components/Location/Drawer.js';
 import DepositStack from 'modules/dashboard/DepositDrawer.js';
 import WithdrawalStack from 'modules/dashboard/WithdrawalDrawer.js';
+import CircleStack from 'modules/circle/circleDrawer.js';
+import RequestStack from 'modules/request/requestUpdated/requestDrawer.js'
 
 // login stack
 const LoginStack = createStackNavigator({
@@ -54,7 +56,9 @@ const PrimaryNav = createStackNavigator({
   locationStack: { screen: LocationStack},
   depositStack: { screen: DepositStack},
   withdrawalStack: { screen: WithdrawalStack},
-  createBorrowStack: { screen: CreateBorrowRequestStack}
+  createBorrowStack: { screen: CreateBorrowRequestStack},
+  circleStack: {screen: CircleStack},
+  requestStack: {screen: RequestStack}
 }, {
   // Default config for all screens
   headerMode: 'none',
