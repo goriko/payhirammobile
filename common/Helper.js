@@ -14,12 +14,6 @@ export default {
     title: 'My Wallet',
     route: 'Dashboard'
   }, {
-    title: 'Products & Installment',
-    route: 'Marketplace'
-  }, {
-    title: 'Rentals',
-    route: 'Dashboard'
-  }, {
     title: 'Messages',
     route: 'Messenger'
   }, {
