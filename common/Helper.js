@@ -22,12 +22,8 @@ export default {
       route: 'Dashboard',
     },
     {
-      title: 'Products & Installment',
-      route: 'Marketplace',
-    },
-    {
-      title: 'Rentals',
-      route: 'Dashboard',
+      title: 'Settings',
+      route: 'Settings',
     },
     {
       title: 'Messages',
@@ -36,10 +32,6 @@ export default {
     {
       title: 'Profile',
       route: 'Profile',
-    },
-    {
-      title: 'Settings',
-      route: 'Settings',
     },
   ],
   currency: [
