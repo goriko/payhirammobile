@@ -50,7 +50,6 @@ const SettingsStack = createStackNavigator({
       drawerLabel: 'Settings',
       headerStyle: {
         backgroundColor: 'white',
-        height: 100,
       },
       headerTintColor: '#4c4c4c',
     }),
