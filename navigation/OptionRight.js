@@ -41,8 +41,8 @@ class NavigationDrawerStructureRight extends Component {
       <View style={{flexDirection: 'row', width: width}}>
         <View
           style={{
-            height: 45,
-            width: 45,
+            height: 50,
+            width: 50,
             backgroundColor: '#3F0050',
             borderRadius: 50,
             justifyContent: 'center',
@@ -59,7 +59,7 @@ class NavigationDrawerStructureRight extends Component {
             {/*Donute Button Image */}
             <FontAwesomeIcon
               icon={faBars}
-              size={BasicStyles.iconSize}
+              size={25}
               style={{color: '#FFFFFF'}}
             />
           </TouchableOpacity>

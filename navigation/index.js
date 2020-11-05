@@ -12,7 +12,8 @@ import CircleStack from 'modules/circle/circleDrawer.js';
 import RequestStack from 'modules/request/requestUpdated/requestDrawer.js';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
 import CreateRequestStack from '../modules/request/createRequest/CreateRequestDrawer';
-
+import AccountSettingsStack from 'modules/accountSettings/AccountSettingsDrawer.js';
+import SettingsStack from 'modules/settings/SettingsDrawer.js';
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -62,6 +63,8 @@ const PrimaryNav = createStackNavigator(
     circleStack: {screen: CircleStack},
     requestStack: {screen: RequestStack},
     dashboardStack: {screen: DashboardStack},
+    accountSettingsStack: {screen: AccountSettingsStack},
+    settingsStack: {screen: SettingsStack},
   },
   {
     // Default config for all screens
