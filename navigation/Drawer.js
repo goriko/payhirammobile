@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Dimensions} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faBars} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faQrcode} from '@fortawesome/free-solid-svg-icons';
 import Slider from 'components/Slider';
 import {Color, BasicStyles} from 'common';
 import Requests from 'modules/request';
@@ -11,6 +11,7 @@ import Dashboard from 'modules/dashboard';
 import Messenger from 'modules/messenger';
 import Notification from 'modules/notification';
 import Profile from 'modules/profile';
+import Settings from 'modules/settings';
 import {Product, Marketplace, Checkout} from 'components';
 import Billing from 'modules/profile/Billing.js';
 import OptionRight from './OptionRight';
@@ -55,8 +56,12 @@ const Dashboard_StackNavigator = createStackNavigator({
     screen: Dashboard,
     navigationOptions: ({navigation}) => ({
       title: null,
-      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
-      headerRight: <OptionRight navigationProps={navigation} />,
+      headerLeft: <OptionRight navigationProps={navigation} />,
+      headerRight: (
+        <View style={{paddingRight: 8}}>
+          <FontAwesomeIcon icon={faQrcode} size={50} style={{color: 'black'}} />
+        </View>
+      ),
       headerStyle: Style.headerStyle,
       headerTintColor: Color.primary,
     }),
@@ -154,6 +159,19 @@ const Billing_StackNavigator = createStackNavigator({
   },
 });
 
+const Settings_StackNavigator = createStackNavigator({
+  Settings: {
+    screen: Settings,
+    navigationOptions: ({navigation}) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary,
+    }),
+  },
+});
+
 const Drawer = createDrawerNavigator(
   {
     Requests: {
@@ -208,6 +226,12 @@ const Drawer = createDrawerNavigator(
       screen: Billing_StackNavigator,
       navigationOptions: {
         drawerLabel: 'Billing',
+      },
+    },
+    Settings: {
+      screen: Settings_StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Settings',
       },
     },
   },
