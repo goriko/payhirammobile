@@ -14,6 +14,7 @@ import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
 import CreateRequestStack from '../modules/request/createRequest/CreateRequestDrawer';
 import AccountSettingsStack from 'modules/accountSettings/AccountSettingsDrawer.js';
 import SettingsStack from 'modules/settings/SettingsDrawer.js';
+import OtpStack from 'modules/otp/OtpDrawer.js';
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -65,6 +66,7 @@ const PrimaryNav = createStackNavigator(
     dashboardStack: {screen: DashboardStack},
     accountSettingsStack: {screen: AccountSettingsStack},
     settingsStack: {screen: SettingsStack},
+    otpStack: {screen: OtpStack},
   },
   {
     // Default config for all screens

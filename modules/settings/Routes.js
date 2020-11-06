@@ -12,11 +12,11 @@ const navigation = [
     route: '',
   },
   {
-    title: 'Profile',
+    title: 'Notifications',
     route: '',
   },
   {
-    title: 'Profile',
+    title: 'Display',
     route: '',
   },
 ];

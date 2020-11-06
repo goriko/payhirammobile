@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import styles from 'modules/settings/Styles.js';
 
 class SettingTile extends Component {
   render() {
@@ -19,25 +20,5 @@ class SettingTile extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  SettingTileContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    height: 100,
-    marginTop: '3%',
-    paddingHorizontal: '3%',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  SettingTextContainer: {},
-  SettingTextStyle: {
-    fontSize: 18,
-  },
-  IconContainer: {},
-});
 
 export default SettingTile;
