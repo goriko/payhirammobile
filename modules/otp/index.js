@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import CustomButton from 'modules/otp/CustomButton.js';
-import {Dimensions} from 'react-native';
-const height = Math.round(Dimensions.get('window').height);
+import styles from 'modules/otp/Styles.js';
+
 class OTP extends Component {
   render() {
     return (
@@ -50,47 +51,5 @@ class OTP extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-  },
-  OTPContainer: {
-    marginTop: '10%',
-    marginBottom: '80%',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flex: 1,
-  },
-  OTPTextContainer: {
-    paddingBottom: '1%',
-    marginBottom: 0,
-    width: '70%',
-  },
-  OTPTextStyle: {
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  OTPFieldContainer: {
-    width: '90%',
-    height: 200,
-  },
-  ResendContainer: {
-    width: '70%',
-  },
-  ResendTextStyle: {
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  ButtonContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    position: 'absolute',
-    bottom: 0,
-    paddingBottom: 10,
-  },
-});
 
 export default OTP;

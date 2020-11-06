@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 
+import styles from 'modules/otp/Styles.js';
+
 class CustomButton extends Component {
   constructor(props) {
     super(props);
@@ -32,19 +34,5 @@ class CustomButton extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  CustomButtonContainer: {
-    borderRadius: 10,
-  },
-  ButtonTextContainer: {
-    paddingVertical: '6%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ButtonTextStyle: {
-    textAlign: 'center',
-  },
-});
 
 export default CustomButton;
