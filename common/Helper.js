@@ -22,17 +22,13 @@ export default {
       route: 'Dashboard',
     },
     {
-      title: 'Settings',
-      route: 'Settings',
-    },
-    {
       title: 'Messages',
       route: 'Messenger',
     },
     {
-      title: 'Profile',
-      route: 'Profile',
-    },
+      title: 'Settings',
+      route: 'Settings',
+    }
   ],
   currency: [
     {
