@@ -8,7 +8,7 @@ class Settings extends Component {
   render() {
     return (
       <View style={styles.SettingsContainer}>
-        {navigation.map(({title, route, index}) => {
+        {navigation.map(({title, route}, index) => {
           return (
             <SettingTile
               key={index}
