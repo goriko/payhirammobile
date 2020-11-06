@@ -23,7 +23,9 @@
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-stack": "^1.10.3",
     "react-redux": "^7.1.3",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "@twotalltotems/react-native-otp-input": "^1.3.11",
+    "@react-native-community/clipboard": "^1.5.1"
 },
 "devDependencies": {
     "@babel/core": "^7.7.7",
