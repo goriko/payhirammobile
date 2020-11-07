@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Style from './Style.js';
-import { View, Image, TouchableHighlight, Text, ScrollView, FlatList, TextInput, Picker} from 'react-native';
+import { View, Image, TouchableHighlight, Text, ScrollView, FlatList, TextInput } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { Spinner, ImageUpload } from 'components';
 import Api from 'services/api/index.js';
@@ -11,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Dimensions } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+
 import RNPickerSelect from 'react-native-picker-select';
 const height = Math.round(Dimensions.get('window').height);
 const gender = [{
@@ -23,8 +25,8 @@ const gender = [{
   title: 'Others',
   value: 'others'
 }]
-class Profile extends Component{
-  constructor(props){
+class Profile extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
@@ -43,13 +45,13 @@ class Profile extends Component{
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.retrieve()
   }
 
   retrieve = () => {
     const { user } = this.props.state;
-    if(user === null){
+    if (user === null) {
       return
     }
     let parameter = {
@@ -60,12 +62,12 @@ class Profile extends Component{
       }]
     }
     this.setState({
-      isLoading: true, 
+      isLoading: true,
       showDatePicker: false
     })
     Api.request(Routes.accountInformationRetrieve, parameter, response => {
-      this.setState({isLoading: false})
-      if(response.data.length > 0){
+      this.setState({ isLoading: false })
+      if (response.data.length > 0) {
         let data = response.data[0]
         this.setState({
           id: data.id,
@@ -77,13 +79,13 @@ class Profile extends Component{
           address: data.address,
           birthDate: data.birth_date
         })
-        if(data.birth_date != null){
+        if (data.birth_date != null) {
           this.setState({
             dateFlag: true,
             birthDateLabel: data.birth_date
           })
         }
-      }else{
+      } else {
         this.setState({
           id: null,
           firstName: null,
@@ -100,7 +102,7 @@ class Profile extends Component{
 
   validate = () => {
     const { user } = this.props.state;
-    if(user === null){
+    if (user === null) {
       return
     }
     let parameter = {
@@ -114,12 +116,12 @@ class Profile extends Component{
       address: this.state.address,
       birth_date: this.state.birthDate
     }
-    this.setState({isLoading: true})
+    this.setState({ isLoading: true })
     console.log('accountInformationUpdate', parameter)
     Api.request(Routes.accountInformationUpdate, parameter, response => {
-      this.setState({isLoading: false})
+      this.setState({ isLoading: false })
       console.log(response)
-      if(response.data == true){
+      if (response.data == true) {
         this.retrieve()
       }
     }, error => {
@@ -129,7 +131,7 @@ class Profile extends Component{
 
   reloadProfile = () => {
     const { user, token } = this.props.state;
-    if(user == null){
+    if (user == null) {
       return
     }
     let parameter = {
@@ -139,25 +141,25 @@ class Profile extends Component{
         column: 'id'
       }]
     }
-    this.setState({isLoading: true})
+    this.setState({ isLoading: true })
     Api.request(Routes.accountRetrieve, parameter, response => {
-      this.setState({isLoading: false})
+      this.setState({ isLoading: false })
       const { updateUser } = this.props;
       updateUser(response.data[0])
     });
   }
   updateProfile = (url) => {
     const { user } = this.props.state;
-    if(user == null){
+    if (user == null) {
       return
     }
     let parameter = {
       account_id: user.id,
       url: url
     }
-    this.setState({isLoading: true})
+    this.setState({ isLoading: true })
     Api.request(Routes.accountProfileCreate, parameter, response => {
-      this.setState({isLoading: false})
+      this.setState({ isLoading: false })
       this.reloadProfile()
     }, error => {
       console.log(error)
@@ -178,13 +180,13 @@ class Profile extends Component{
     const { showDatePicker, birthDate } = this.state;
     return (
       <View>
-        { showDatePicker && <DateTimePicker value={new Date()}
-            mode={'date'}
-            display="default"
-            date={new Date()}
-            onCancel={() => this.setState({showDatePicker: false})}
-            onConfirm={this.setDate} 
-            onChange={this.setDate} />
+        {showDatePicker && <DateTimePicker value={new Date()}
+          mode={'date'}
+          display="default"
+          date={new Date()}
+          onCancel={() => this.setState({ showDatePicker: false })}
+          onConfirm={this.setDate}
+          onChange={this.setDate} />
         }
       </View>
     );
@@ -194,11 +196,11 @@ class Profile extends Component{
     const { userLedger, user, location } = this.props.state;
     const { errorMessage } = this.state;
     const iOSGender = gender.map((item, index) => {
-                      return {
-                        label: item.title,
-                        value: item.value
-                      };
-                    });
+      return {
+        label: item.title,
+        value: item.value
+      };
+    });
     return (
       <View>
         <View>
@@ -206,7 +208,7 @@ class Profile extends Component{
           }}>First Name</Text>
           <TextInput
             style={BasicStyles.formControlCreate}
-            onChangeText={(firstName) => this.setState({firstName})}
+            onChangeText={(firstName) => this.setState({ firstName })}
             value={this.state.firstName}
             placeholder={'Enter first name'}
           />
@@ -216,7 +218,7 @@ class Profile extends Component{
           }}>Middle Name</Text>
           <TextInput
             style={BasicStyles.formControlCreate}
-            onChangeText={(middleName) => this.setState({middleName})}
+            onChangeText={(middleName) => this.setState({ middleName })}
             value={this.state.middleName}
             placeholder={'Enter middle name'}
           />
@@ -226,7 +228,7 @@ class Profile extends Component{
           }}>Last Name</Text>
           <TextInput
             style={BasicStyles.formControlCreate}
-            onChangeText={(lastName) => this.setState({lastName})}
+            onChangeText={(lastName) => this.setState({ lastName })}
             value={this.state.lastName}
             placeholder={'Enter last name'}
           />
@@ -237,26 +239,28 @@ class Profile extends Component{
           {
             Platform.OS == 'android' && (
               <Picker selectedValue={this.state.sex}
-                onValueChange={(sex) => this.setState({sex})}
+                onValueChange={(sex) => this.setState({ sex })}
                 style={BasicStyles.pickerStyleCreate}
-                >
-                  {
-                    gender.map((item, index) => {
-                      return (
-                        <Picker.Item
+              >
+               
+                {
+
+                  gender.map((item, index) => {
+                    return (
+                      <Picker.Item
                         key={index}
-                        label={item.title} 
-                        value={item.value}/>
-                      );
-                    })
-                  }
-                </Picker>
+                        label={item.title}
+                        value={item.value} />
+                    );
+                  })
+                }
+              </Picker>
             )
           }
           {
             Platform.OS == 'ios' && (
               <RNPickerSelect
-                onValueChange={(sex) => this.setState({sex})}
+                onValueChange={(sex) => this.setState({ sex })}
                 items={iOSGender}
                 style={BasicStyles.pickerStyleIOSNoMargin}
                 placeholder={{
@@ -264,7 +268,7 @@ class Profile extends Component{
                   value: null,
                   color: Color.primary
                 }}
-                />
+              />
             )
           }
         </View>
@@ -273,21 +277,21 @@ class Profile extends Component{
             paddingTop: 10
           }}>Bith Date</Text>
           <TouchableHighlight style={{
-                height: 50,
-                backgroundColor: Color.secondary,
-                width: '100%',
-                marginBottom: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 5,
-              }}
-              onPress={() => {this.setState({showDatePicker: true})}}
-              underlayColor={Color.gray}
-                >
-              <Text style={{
-                color: Color.white,
-                textAlign: 'center',
-              }}>{this.state.dateFlag == false ? 'Click to add date' : this.state.birthDateLabel}</Text>
+            height: 50,
+            backgroundColor: Color.secondary,
+            width: '100%',
+            marginBottom: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+          }}
+            onPress={() => { this.setState({ showDatePicker: true }) }}
+            underlayColor={Color.gray}
+          >
+            <Text style={{
+              color: Color.white,
+              textAlign: 'center',
+            }}>{this.state.dateFlag == false ? 'Click to add date' : this.state.birthDateLabel}</Text>
           </TouchableHighlight>
         </View>
         <View>
@@ -295,7 +299,7 @@ class Profile extends Component{
           }}>Cellular Number</Text>
           <TextInput
             style={BasicStyles.formControlCreate}
-            onChangeText={(cellularNumber) => this.setState({cellularNumber})}
+            onChangeText={(cellularNumber) => this.setState({ cellularNumber })}
             value={this.state.cellularNumber}
             placeholder={'Enter cellular number'}
           />
@@ -305,7 +309,7 @@ class Profile extends Component{
           }}>Address</Text>
           <TextInput
             style={BasicStyles.formControlCreate}
-            onChangeText={(address) => this.setState({address})}
+            onChangeText={(address) => this.setState({ address })}
             value={this.state.address}
             placeholder={'Enter address'}
           />
@@ -314,22 +318,22 @@ class Profile extends Component{
           marginBottom: 100,
         }}>
           <TouchableHighlight style={{
-                height: 50,
-                backgroundColor: Color.primary,
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 5,
-              }}
-              onPress={() => {
-                this.validate()
-              }}
-              underlayColor={Color.gray}
-                >
-              <Text style={{
-                color: Color.white,
-                textAlign: 'center',
-              }}>Update</Text>
+            height: 50,
+            backgroundColor: Color.primary,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+          }}
+            onPress={() => {
+              this.validate()
+            }}
+            underlayColor={Color.gray}
+          >
+            <Text style={{
+              color: Color.white,
+              textAlign: 'center',
+            }}>Update</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -343,33 +347,33 @@ class Profile extends Component{
       <ScrollView
         style={Style.ScrollView}
         onScroll={(event) => {
-          if(event.nativeEvent.contentOffset.y <= 0) {
-            if(this.state.isLoading == false){
+          if (event.nativeEvent.contentOffset.y <= 0) {
+            if (this.state.isLoading == false) {
               this.retrieve()
             }
           }
         }}
-        >
+      >
         <View style={[Style.MainContainer, {
         }]}>
           {
             user != null && (
-               <View style={Style.sectionHeadingStyle}>
+              <View style={Style.sectionHeadingStyle}>
                 <TouchableHighlight
                   onPress={() => {
-                    this.setState({isImageUpload: true})
+                    this.setState({ isImageUpload: true })
                   }}
                   underlayColor={Color.white}>
                   <View>
                     {
                       user.account_profile != null && user.account_profile.url != null && (
                         <Image
-                          source={{uri: Config.BACKEND_URL  + user.account_profile.url}}
+                          source={{ uri: Config.BACKEND_URL + user.account_profile.url }}
                           style={[BasicStyles.profileImageSize, {
                             height: 100,
                             width: 100,
                             borderRadius: 50
-                          }]}/>
+                          }]} />
                       )
                     }
 
@@ -385,7 +389,7 @@ class Profile extends Component{
                       )
                     }
 
-                    <Text  style={{
+                    <Text style={{
                       fontSize: 11,
                       textAlign: 'center'
                     }}>
@@ -394,7 +398,7 @@ class Profile extends Component{
                   </View>
                 </TouchableHighlight>
 
-                <Text  style={{
+                <Text style={{
                   color: Color.primary,
                   fontWeight: 'bold',
                   fontSize: 16
@@ -408,17 +412,17 @@ class Profile extends Component{
             this._inputs()
           }
         </View>
-        {isLoading ? <Spinner mode="overlay"/> : null }
-        {isImageUpload ? 
+        {isLoading ? <Spinner mode="overlay" /> : null}
+        {isImageUpload ?
           <ImageUpload
             visible={isImageUpload}
             onSelect={(url) => {
-              this.setState({isImageUpload: false, isLoading: false})
+              this.setState({ isImageUpload: false, isLoading: false })
               this.updateProfile(url)
             }}
             onCLose={() => {
-              this.setState({isImageUpload: false, isLoading: false})
-            }}/> : null}
+              this.setState({ isImageUpload: false, isLoading: false })
+            }} /> : null}
         {this._datePicker()}
       </ScrollView>
     );

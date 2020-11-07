@@ -155,12 +155,12 @@ const Billing_StackNavigator = createStackNavigator({
 });
 
 const Drawer = createDrawerNavigator({
-  Requests: {
-    screen: Requests_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Requests',
-    },
-  },
+  // Requests: {
+  //   screen: Requests_StackNavigator,
+  //   navigationOptions: {
+  //     drawerLabel: 'Requests',
+  //   },
+  // },
   Dashboard: {
     screen: Dashboard_StackNavigator,
     navigationOptions: {
