@@ -15,6 +15,9 @@ import CreateRequestStack from '../modules/request/createRequest/CreateRequestDr
 import AccountSettingsStack from 'modules/accountSettings/AccountSettingsDrawer.js';
 import SettingsStack from 'modules/settings/SettingsDrawer.js';
 import OtpStack from 'modules/otp/OtpDrawer.js';
+import RequestItemStack from 'modules/request/requestItem/requestItemDrawer.js';
+import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
+import TransactionsStack from 'modules/transactions/transactionsDrawer.js';
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -67,6 +70,9 @@ const PrimaryNav = createStackNavigator(
     accountSettingsStack: {screen: AccountSettingsStack},
     settingsStack: {screen: SettingsStack},
     otpStack: {screen: OtpStack},
+    requestItemStack: {screen: RequestItemStack},
+    editProfileStack: {screen: EditProfileStack},
+    transactionsStack: {screen: TransactionsStack}
   },
   {
     // Default config for all screens
