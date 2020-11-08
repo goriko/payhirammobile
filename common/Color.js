@@ -3,6 +3,7 @@ export default {
   primary: '#3F0050',
   danger: '#ff0000',
   warning: '#ffc107',
+  warning: '#F2994A',
   secondary: '#22B173',
   white: '#ffffff',
   gray: '#cccccc',
@@ -10,5 +11,5 @@ export default {
   darkGray: '#555555',
   normalGray: '#999',
   black: '#000',
-  success: '#22B173'
+  success: '#22B173',
 }

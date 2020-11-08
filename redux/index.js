@@ -26,6 +26,7 @@ const types = {
   SET_SELECTED_PRODUCT_ID: 'SET_SELECTED_PRODUCT_ID',
   SET_PRODUCT: 'SET_PRODUCT',
   nav: null,
+  QRCODE_MODAL: 'QRCODE_MODAL'
 }
 
 export const actions = {
@@ -38,65 +39,68 @@ export const actions = {
   updateUser: (user) => {
     return { type: types.UPDATE_USER, user };
   },
-  setNotifications(unread, notifications){
-    return { type: types.SET_NOTIFICATIONS, unread, notifications};
-  }, 
-  setMessenger(unread, messages){
-    return { type: types.SET_MESSAGES, unread, messages};
+  setNotifications(unread, notifications) {
+    return { type: types.SET_NOTIFICATIONS, unread, notifications };
   },
-  setLedger(ledger){
-    return { type: types.SET_LEDGER, ledger};
+  setMessenger(unread, messages) {
+    return { type: types.SET_MESSAGES, unread, messages };
   },
-  setUserLedger(userLedger){
-    return { type: types.SET_USER_LEDGER, userLedger};
+  setLedger(ledger) {
+    return { type: types.SET_LEDGER, ledger };
   },
-  setMessengerGroup(messengerGroup){
-    return { type: types.SET_MESSENGER_GROUP, messengerGroup};
+  setUserLedger(userLedger) {
+    return { type: types.SET_USER_LEDGER, userLedger };
   },
-  updateMessengerGroup(messengerGroup){
-    return { type: types.UPDATE_MESSENGER_GROUP, messengerGroup}
+  setMessengerGroup(messengerGroup) {
+    return { type: types.SET_MESSENGER_GROUP, messengerGroup };
   },
-  updateMessagesOnGroupByPayload(messages){
-    return { type: types.UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD, messages}
+  updateMessengerGroup(messengerGroup) {
+    return { type: types.UPDATE_MESSENGER_GROUP, messengerGroup }
   },
-  setMessagesOnGroup(messagesOnGroup){
-    return { type: types.SET_MESSAGES_ON_GROUP, messagesOnGroup};
+  updateMessagesOnGroupByPayload(messages) {
+    return { type: types.UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD, messages }
   },
-  updateMessagesOnGroup(message){
-    return { type: types.UPDATE_MESSAGES_ON_GROUP, message};
+  setMessagesOnGroup(messagesOnGroup) {
+    return { type: types.SET_MESSAGES_ON_GROUP, messagesOnGroup };
   },
-  updateMessageByCode(message){
-    return { type: types.UPDATE_MESSAGE_BY_CODE, message}
+  updateMessagesOnGroup(message) {
+    return { type: types.UPDATE_MESSAGES_ON_GROUP, message };
   },
-  setLocation(location){
-    return { type: types.SET_LOCATION, location};
+  updateMessageByCode(message) {
+    return { type: types.UPDATE_MESSAGE_BY_CODE, message }
   },
-  updateNotifications(unread, notification){
-    return { type: types.UPDATE_NOTIFICATIONS, unread, notification};
+  setLocation(location) {
+    return { type: types.SET_LOCATION, location };
   },
-  setSearchParameter(searchParameter){
-    return { type: types.SET_SEARCH_PARAMETER, searchParameter};
+  updateNotifications(unread, notification) {
+    return { type: types.UPDATE_NOTIFICATIONS, unread, notification };
   },
-  setRequests(requests){
-    return { type: types.SET_REQUESTS, requests}
+  setSearchParameter(searchParameter) {
+    return { type: types.SET_SEARCH_PARAMETER, searchParameter };
   },
-  updateRequests(requests){
-    return { type: types.UPDATE_REQUESTS, requests}
+  setRequests(requests) {
+    return { type: types.SET_REQUESTS, requests }
   },
-  setPinFlag(pinFlag){
-    return { type: types.SET_PIN_FLAG, pinFlag}
+  updateRequests(requests) {
+    return { type: types.UPDATE_REQUESTS, requests }
   },
-  setSystemNotification(systemNotification){
-    return { type: types.SET_SYSTEM_NOTIFICATION, systemNotification}
+  setPinFlag(pinFlag) {
+    return { type: types.SET_PIN_FLAG, pinFlag }
   },
-  setProduct(product){
+  setSystemNotification(systemNotification) {
+    return { type: types.SET_SYSTEM_NOTIFICATION, systemNotification }
+  },
+  setProduct(product) {
     return { type: types.SET_PRODUCT, product }
   },
-  setSelectedProductId(productId){
+  setSelectedProductId(productId) {
     return {
       type: types.SET_SELECTED_PRODUCT_ID, productId
     }
-  }
+  },
+  setQRCodeModal(isVisible) {
+    return { type: types.QRCODE_MODAL, isVisible }
+  },
 };
 
 const initialState = {
@@ -118,7 +122,8 @@ const initialState = {
   pinFlag: false,
   systemNotification: null,
   product: null,
-  productId: null
+  productId: null,
+  qrCodeModal: false
 }
 
 storeData = async (key, value) => {
@@ -137,6 +142,7 @@ const reducer = (state = initialState, action) => {
   const { searchParameter, requests } = action;
   const { systemNotification } = action;
   const { product, productId } = action;
+  const { isVisible } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -163,30 +169,30 @@ const reducer = (state = initialState, action) => {
       }
     case types.UPDATE_NOTIFICATIONS:
       let updatedNotifications = null
-      if(state.notifications == null){
+      if (state.notifications == null) {
         let temp = []
         temp.push(notification)
         updatedNotifications = {
           unread,
           notifications: temp
         }
-      }else{
+      } else {
         let oldNotif = state.notifications
-        if(oldNotif.notifications == null){
+        if (oldNotif.notifications == null) {
           let temp = []
           temp.push(notification)
           updatedNotifications = {
             unread,
             notifications: temp
           }
-        }else{
-          if(parseInt(notification.id) != parseInt(oldNotif.notifications[oldNotif.notifications.length - 1].id)){
+        } else {
+          if (parseInt(notification.id) != parseInt(oldNotif.notifications[oldNotif.notifications.length - 1].id)) {
             oldNotif.notifications.unshift(notification)
             updatedNotifications = {
               unread: oldNotif.unread + unread,
               notifications: oldNotif.notifications
             }
-          }else{
+          } else {
             updatedNotifications = {
               unread: oldNotif.unread + unread,
               notifications: oldNotif.notifications
@@ -208,7 +214,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         messenger
       }
-    case types.SET_USER_LEDGER: 
+    case types.SET_USER_LEDGER:
       let userLedger = {
         currency: 'PHP',
         amount: action.userLedger
@@ -245,28 +251,28 @@ const reducer = (state = initialState, action) => {
       }
     case types.UPDATE_MESSAGES_ON_GROUP:
       let updatedMessagesOnGroup = null
-      if(state.messagesOnGroup != null){
+      if (state.messagesOnGroup != null) {
         let oldMessages = state.messagesOnGroup.messages;
-        if(oldMessages == null){
+        if (oldMessages == null) {
           let temp = []
           temp.push(message)
           updatedMessagesOnGroup = {
             ...state.messagesOnGroup,
             messages: temp
-          } 
-        }else{
-          if(parseInt(message.id) != parseInt(oldMessages[oldMessages.length - 1].id)){
+          }
+        } else {
+          if (parseInt(message.id) != parseInt(oldMessages[oldMessages.length - 1].id)) {
             updatedMessagesOnGroup = {
               ...state.messagesOnGroup,
               messages: oldMessages.push(message)
             }
-          }else{
+          } else {
             updatedMessagesOnGroup = {
               ...state.messagesOnGroup
             }
           }
-        }        
-      }else{
+        }
+      } else {
         let temp = []
         temp.push(message);
         updatedMessagesOnGroup = {
@@ -280,8 +286,8 @@ const reducer = (state = initialState, action) => {
       }
     case types.UPDATE_MESSAGE_BY_CODE:
       let newMessagesOnGroup = state.messagesOnGroup.messages.map((item, index) => {
-        if(typeof item.code != undefined || typeof item.code != 'undefined'){
-          if(parseInt(item.code) == parseInt(message.code)){
+        if (typeof item.code != undefined || typeof item.code != 'undefined') {
+          if (parseInt(item.code) == parseInt(message.code)) {
             return message;
           }
         }
@@ -296,7 +302,7 @@ const reducer = (state = initialState, action) => {
       }
     case types.UPDATE_MESSAGES_ON_GROUP_BY_PAYLOAD:
       let tempMessages = state.messagesOnGroup.messages.map((item, index) => {
-        if(parseInt(item.id) == parseInt(action.messages[index].id) && item.payload_value != null){
+        if (parseInt(item.id) == parseInt(action.messages[index].id) && item.payload_value != null) {
           return action.messages[index];
         }
         return item;
@@ -324,11 +330,11 @@ const reducer = (state = initialState, action) => {
         requests
       }
     case types.UPDATE_REQUESTS:
-    state.requests.push(...requests)
-    return {
-      ...state,
-      requests: state.requests
-    }
+      state.requests.push(...requests)
+      return {
+        ...state,
+        requests: state.requests
+      }
     case types.SET_PIN_FLAG:
       return {
         ...state,
@@ -345,12 +351,18 @@ const reducer = (state = initialState, action) => {
         product
       }
     case types.SET_SELECTED_PRODUCT_ID:
-      return{
+      return {
         ...state,
         productId
       }
+    case types.QRCODE_MODAL:
+
+      return {
+        ...state,
+        qrCodeModal: isVisible.isVisible
+      }
     default:
-      return {...state, nav: state.nav};
+      return { ...state, nav: state.nav };
   }
 }
 export default reducer;

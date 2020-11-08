@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   CardContainer: {
     marginTop: '2%',
-    height: '25%',
+    height: '30%',
     width: '98%',
     borderRadius: 10,
     justifyContent: 'flex-start',

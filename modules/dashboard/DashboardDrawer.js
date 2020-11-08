@@ -1,17 +1,20 @@
-import React, {Component} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faQrcode} from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
+import { createStackNavigator } from 'react-navigation-stack';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faQrcode } from '@fortawesome/free-solid-svg-icons';
 import Dashboard from 'modules/dashboard';
-import {NavigationActions} from 'react-navigation';
-import {BasicStyles} from 'common';
-import {connect} from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import { BasicStyles } from 'common';
 
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isVisible: false
+    }
   }
+
   back = () => {
     const navigateAction = NavigationActions.navigate({
       routeName: 'Dashboard',
@@ -20,7 +23,7 @@ class HeaderOptions extends Component {
   };
   render() {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity onPress={this.back.bind(this)}>
           {/*Donute Button Image */}
           <FontAwesomeIcon
@@ -34,17 +37,11 @@ class HeaderOptions extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({state: state});
-
-const mapDispatchToProps = (dispatch) => {
-  const {actions} = require('@redux');
-  return {};
-};
 
 const DashboardStack = createStackNavigator({
   dashboardScreen: {
     screen: Dashboard,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: 'Dashboard',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
       drawerLabel: 'Dashboard',
@@ -53,10 +50,10 @@ const DashboardStack = createStackNavigator({
       },
       headerTintColor: '#4c4c4c',
       headerRight: (
-        <FontAwesomeIcon icon={faQrcode} size={20} style={{color: 'black'}} />
+        <FontAwesomeIcon icon={faQrcode} size={20} style={{ color: 'black' }} />
       ),
     }),
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardStack);
+export default DashboardStack;
