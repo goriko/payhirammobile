@@ -4,8 +4,23 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import CustomButton from 'modules/otp/CustomButton.js';
 import styles from 'modules/otp/Styles.js';
+import OneTimePin from 'modules/otp/OneTimePin.js';
 
 class OTP extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      otp: '',
+    };
+  }
+
+  pinHandler = (pin) => {
+    this.setState({
+      otp: pin,
+    });
+    console.log('Pin handler', this.state.otp);
+  };
+
   render() {
     return (
       <View style={styles.Container}>
@@ -15,11 +30,9 @@ class OTP extends Component {
               Please type the one time pass code sent to 00000000000
             </Text>
           </View>
-          <OTPInputView
-            pinCount={6}
-            style={styles.OTPFieldContainer}
-            codeInputFieldStyle={{borderRadius: 10}}
-          />
+          <View style={styles.OTPContainer}>
+            <OneTimePin fieldCount={6} pinHandler={this.pinHandler} />
+          </View>
           <TouchableOpacity style={styles.ResendContainer} onPress={() => {}}>
             <Text style={styles.ResendTextStyle}>
               Didn't receive a code? Click to resend.
