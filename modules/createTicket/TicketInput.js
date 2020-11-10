@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 
+import styles from 'modules/createTicket/Styles.js';
+
 class TicketInput extends Component {
   render() {
     return (
@@ -18,24 +20,4 @@ class TicketInput extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  TicketInputInputContainer: {
-    marginTop: '2%',
-    width: '100%',
-  },
-  TicketInputTitleContainer: {},
-  TicketInputTitleTextStyle: {
-    fontSize: 15,
-  },
-  TextInputContainer: {
-    height: 60,
-    marginTop: '2%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 12,
-  },
-});
 export default TicketInput;

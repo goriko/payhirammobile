@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
+
 import TicketInput from 'modules/createTicket/TicketInput';
 import TicketButton from 'modules/createTicket/TicketButton.js';
+import styles from 'modules/createTicket/Styles.js';
 class CreateTicket extends Component {
   render() {
     return (
@@ -28,25 +30,4 @@ class CreateTicket extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  CreateTicketContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingHorizontal: '7%',
-    marginTop: '4%',
-  },
-  InputContainer: {
-    width: '100%',
-    paddingBottom: '5%',
-  },
-  TicketButtonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 30,
-    paddingBottom: 10,
-  },
-});
 export default CreateTicket;

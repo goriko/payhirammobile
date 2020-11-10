@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 
+import styles from 'modules/createTicket/Styles.js';
+
 class TicketButton extends Component {
   constructor(props) {
     super(props);
@@ -32,19 +34,5 @@ class TicketButton extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  CustomButtonContainer: {
-    borderRadius: 10,
-  },
-  ButtonTextContainer: {
-    paddingVertical: '5%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ButtonTextStyle: {
-    textAlign: 'center',
-  },
-});
 
 export default TicketButton;
