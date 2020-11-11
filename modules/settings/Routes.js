@@ -17,7 +17,7 @@ const navigation = [
   },
   {
     title: 'Display',
-    route: '',
+    route: 'displayStackStack',
   },
 ];
 
