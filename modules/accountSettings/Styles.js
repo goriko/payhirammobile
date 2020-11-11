@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: '7%',
-    marginTop: '6%',
   },
   UsernameContainer: {},
   EmailAddressContainer: {},
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
   ConfirmPasswordContainer: {},
   ChangePasswordButtonContainer: {},
   AccountSettingsInputContainer: {
-    marginTop: '2%',
+    marginTop: '1%',
     width: '100%',
   },
   InputTitleContainer: {},
