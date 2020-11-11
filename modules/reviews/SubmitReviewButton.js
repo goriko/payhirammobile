@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 
+import styles from 'modules/reviews/Styles.js';
+
 class SubmitReview extends Component {
   constructor(props) {
     super(props);
@@ -33,17 +35,4 @@ class SubmitReview extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  CustomButtonContainer: {
-    borderRadius: 10,
-  },
-  ButtonTextContainer: {
-    paddingVertical: '4%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ButtonTextStyle: {
-    textAlign: 'center',
-  },
-});
 export default SubmitReview;

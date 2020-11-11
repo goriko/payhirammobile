@@ -10,6 +10,8 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faStar as Solid} from '@fortawesome/free-solid-svg-icons';
 import {faStar as Regular} from '@fortawesome/free-regular-svg-icons';
+
+import styles from 'modules/reviews/Styles.js';
 import SubmitReview from './SubmitReviewButton';
 
 class Reviews extends Component {
@@ -23,10 +25,10 @@ class Reviews extends Component {
   renderStars = () => {
     const starsNumber = [1, 2, 3, 4, 5];
     return starsNumber.map((star, index) => {
-      return this.state.selectedStar > star ? (
+      return this.state.selectedStar > index ? (
         <TouchableOpacity
           onPress={() => {
-            this.setState({selectedStar: star});
+            this.setState({selectedStar: index + 1});
           }}
           key={index}
           style={styles.StarContainer}>
@@ -42,7 +44,7 @@ class Reviews extends Component {
       ) : (
         <TouchableOpacity
           onPress={() => {
-            this.setState({selectedStar: star});
+            this.setState({selectedStar: index + 1});
           }}
           key={index}
           style={styles.StarContainer}>
@@ -102,58 +104,5 @@ class Reviews extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  ReviewsContainer: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: '100%',
-  },
-  AvatarContainer: {
-    paddingVertical: 10,
-  },
-  NameContainer: {
-    paddingVertical: 10,
-  },
-  NameTextStyle: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  RatingTitleContainer: {
-    paddingVertical: 25,
-  },
-  RatingTitleTextStyle: {
-    fontSize: 16,
-  },
-  RatingContainer: {
-    flexDirection: 'row',
-  },
-  StarContainer: {
-    paddingHorizontal: 8,
-  },
-  ExperienceTextContainer: {
-    paddingVertical: 10,
-  },
-  ExperienceTextStyle: {
-    fontSize: 16,
-  },
-  CommentContainer: {
-    height: 80,
-    marginTop: '2%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 12,
-    width: '80%',
-  },
-  CommentTextStyle: {},
-  ButtonContainer: {
-    width: '90%',
-    alignItems: 'center',
-    marginTop: '50%',
-  },
-});
 
 export default Reviews;
