@@ -18,6 +18,10 @@ import OtpStack from 'modules/otp/OtpDrawer.js';
 import RequestItemStack from 'modules/request/requestItem/requestItemDrawer.js';
 import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
 import TransactionsStack from 'modules/transactions/transactionsDrawer.js';
+import CreateTicketStack from 'modules/createTicket/CreateTicketDrawer.js';
+import DisplayStack from 'modules/display/DisplayDrawer.js';
+import ReviewsStack from 'modules/reviews/ReviewsDrawer.js';
+
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -72,7 +76,10 @@ const PrimaryNav = createStackNavigator(
     otpStack: {screen: OtpStack},
     requestItemStack: {screen: RequestItemStack},
     editProfileStack: {screen: EditProfileStack},
-    transactionsStack: {screen: TransactionsStack}
+    transactionsStack: {screen: TransactionsStack},
+    createTicketStack: {screen: CreateTicketStack},
+    displayStackStack: {screen: DisplayStack},
+    reviewsStack: {screen: ReviewsStack},
   },
   {
     // Default config for all screens

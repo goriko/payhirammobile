@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-import OTPInputView from '@twotalltotems/react-native-otp-input';
 import CustomButton from 'modules/otp/CustomButton.js';
 import styles from 'modules/otp/Styles.js';
 import OneTimePin from 'modules/otp/OneTimePin.js';
