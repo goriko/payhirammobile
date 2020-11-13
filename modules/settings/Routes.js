@@ -13,7 +13,7 @@ const navigation = [
   },
   {
     title: 'Notifications',
-    route: '',
+    route: 'notificationSettingsStack',
   },
   {
     title: 'Display',
