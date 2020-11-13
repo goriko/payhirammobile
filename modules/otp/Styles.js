@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   },
   OTPContainer: {
     marginTop: '10%',
-    marginBottom: '80%',
+    marginBottom: '10%',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flex: 1,
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   ResendContainer: {
+    paddingBottom: '90%',
     width: '70%',
   },
   ResendTextStyle: {

@@ -1,21 +1,23 @@
-import React, {Component} from 'react';
-import {View, TouchableOpacity, Dimensions} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createDrawerNavigator} from 'react-navigation-drawer';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faBars, faQrcode} from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faBars, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import Slider from 'components/Slider';
-import {Color, BasicStyles} from 'common';
+import { Color, BasicStyles } from 'common';
 import Requests from 'modules/request';
 import Dashboard from 'modules/dashboard';
 import Messenger from 'modules/messenger';
 import Notification from 'modules/notification';
 import Profile from 'modules/profile';
 import Settings from 'modules/settings';
-import {Product, Marketplace, Checkout} from 'components';
+import { Product, Marketplace, Checkout } from 'components';
 import Billing from 'modules/profile/Billing.js';
 import OptionRight from './OptionRight';
 import Style from './Style.js';
+import { connect } from 'react-redux'
+
 const width = Math.round(Dimensions.get('window').width);
 class MenuDrawerStructure extends Component {
   constructor(props) {
@@ -38,10 +40,36 @@ class MenuDrawerStructure extends Component {
   }
 }
 
+class QRCode extends Component {
+  render() {
+    return (
+      <TouchableOpacity onPress={() => {
+        this.props.setQRCodeModal(true)
+      }}>
+        <View style={{ paddingRight: 8 }} >
+          <FontAwesomeIcon icon={faQrcode} size={50} style={{ color: 'black' }} />
+        </View>
+      </TouchableOpacity>
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({ state: state });
+
+const mapDispatchToProps = (dispatch) => {
+  const { actions } = require('@redux');
+  return {
+    setQRCodeModal: (isVisible) => {
+      dispatch(actions.setQRCodeModal({ isVisible: isVisible }))
+    },
+  };
+};
+
+const QRCodeButton = connect(mapStateToProps, mapDispatchToProps)(QRCode)
 const Requests_StackNavigator = createStackNavigator({
   Requests: {
     screen: Requests,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -54,13 +82,11 @@ const Requests_StackNavigator = createStackNavigator({
 const Dashboard_StackNavigator = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <OptionRight navigationProps={navigation} />,
       headerRight: (
-        <View style={{paddingRight: 8}}>
-          <FontAwesomeIcon icon={faQrcode} size={50} style={{color: 'black'}} />
-        </View>
+        <QRCodeButton />
       ),
       headerStyle: Style.headerStyle,
       headerTintColor: Color.primary,
@@ -71,7 +97,7 @@ const Dashboard_StackNavigator = createStackNavigator({
 const Notification_StackNavigator = createStackNavigator({
   Notification: {
     screen: Notification,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -84,7 +110,7 @@ const Notification_StackNavigator = createStackNavigator({
 const Messenger_StackNavigator = createStackNavigator({
   Messenger: {
     screen: Messenger,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -97,7 +123,7 @@ const Messenger_StackNavigator = createStackNavigator({
 const Profile_StackNavigator = createStackNavigator({
   Profile: {
     screen: Profile,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -110,7 +136,7 @@ const Profile_StackNavigator = createStackNavigator({
 const Marketplace_StackNavigator = createStackNavigator({
   Marketplace: {
     screen: Marketplace,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -123,7 +149,7 @@ const Marketplace_StackNavigator = createStackNavigator({
 const Product_StackNavigator = createStackNavigator({
   Product: {
     screen: Product,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -136,7 +162,7 @@ const Product_StackNavigator = createStackNavigator({
 const Checkout_StackNavigator = createStackNavigator({
   Checkout: {
     screen: Checkout,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -149,7 +175,7 @@ const Checkout_StackNavigator = createStackNavigator({
 const Billing_StackNavigator = createStackNavigator({
   Billing: {
     screen: Billing,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
@@ -162,7 +188,7 @@ const Billing_StackNavigator = createStackNavigator({
 const Settings_StackNavigator = createStackNavigator({
   Settings: {
     screen: Settings,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
