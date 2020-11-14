@@ -9,7 +9,7 @@ const navigation = [
   },
   {
     title: 'Payment Methods',
-    route: '',
+    route: 'addPaymentStack',
   },
   {
     title: 'Notifications',

@@ -22,6 +22,7 @@ import NotificationSettingsStack from 'modules/notification/settings/Notificatio
 import CreateTicketStack from 'modules/createTicket/CreateTicketDrawer.js';
 import DisplayStack from 'modules/display/DisplayDrawer.js';
 import ReviewsStack from 'modules/reviews/ReviewsDrawer.js';
+import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
 
 // login stack
 const LoginStack = createStackNavigator(
@@ -82,6 +83,7 @@ const PrimaryNav = createStackNavigator(
     createTicketStack: {screen: CreateTicketStack},
     displayStackStack: {screen: DisplayStack},
     reviewsStack: {screen: ReviewsStack},
+    addPaymentStack: {screen: AddPaymentStack}
   },
   {
     // Default config for all screens
