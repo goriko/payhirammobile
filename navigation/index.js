@@ -15,6 +15,15 @@ import CreateRequestStack from '../modules/request/createRequest/CreateRequestDr
 import AccountSettingsStack from 'modules/accountSettings/AccountSettingsDrawer.js';
 import SettingsStack from 'modules/settings/SettingsDrawer.js';
 import OtpStack from 'modules/otp/OtpDrawer.js';
+import RequestItemStack from 'modules/request/requestItem/requestItemDrawer.js';
+import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
+import TransactionsStack from 'modules/transactions/transactionsDrawer.js';
+import NotificationSettingsStack from 'modules/notification/settings/NotificationSettingsDrawer.js';
+import CreateTicketStack from 'modules/createTicket/CreateTicketDrawer.js';
+import DisplayStack from 'modules/display/DisplayDrawer.js';
+import ReviewsStack from 'modules/reviews/ReviewsDrawer.js';
+import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
+
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -67,6 +76,14 @@ const PrimaryNav = createStackNavigator(
     accountSettingsStack: {screen: AccountSettingsStack},
     settingsStack: {screen: SettingsStack},
     otpStack: {screen: OtpStack},
+    requestItemStack: {screen: RequestItemStack},
+    editProfileStack: {screen: EditProfileStack},
+    transactionsStack: {screen: TransactionsStack},
+    notificationSettingsStack: {screen: NotificationSettingsStack},
+    createTicketStack: {screen: CreateTicketStack},
+    displayStackStack: {screen: DisplayStack},
+    reviewsStack: {screen: ReviewsStack},
+    addPaymentStack: {screen: AddPaymentStack}
   },
   {
     // Default config for all screens

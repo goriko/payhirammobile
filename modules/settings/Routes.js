@@ -9,15 +9,15 @@ const navigation = [
   },
   {
     title: 'Payment Methods',
-    route: '',
+    route: 'addPaymentStack',
   },
   {
     title: 'Notifications',
-    route: '',
+    route: 'notificationSettingsStack',
   },
   {
     title: 'Display',
-    route: '',
+    route: 'displayStackStack',
   },
 ];
 

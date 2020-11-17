@@ -22,8 +22,8 @@ export default {
       route: 'Dashboard',
     },
     {
-      title: 'Messages',
-      route: 'Messenger',
+      title: 'Circle',
+      route: 'Circle',
     },
     {
       title: 'Settings',
