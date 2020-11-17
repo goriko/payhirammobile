@@ -14,6 +14,7 @@ import Profile from 'modules/profile';
 import Settings from 'modules/settings';
 import { Product, Marketplace, Checkout } from 'components';
 import Billing from 'modules/profile/Billing.js';
+import Circle from 'modules/circle/circleDrawer.js';
 import OptionRight from './OptionRight';
 import Style from './Style.js';
 import { connect } from 'react-redux'
@@ -69,6 +70,16 @@ const QRCodeButton = connect(mapStateToProps, mapDispatchToProps)(QRCode)
 const Requests_StackNavigator = createStackNavigator({
   Requests: {
     screen: Requests,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary,
+    }),
+  },
+  Circle: {
+    screen: Circle,
     navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
@@ -204,6 +215,12 @@ const Drawer = createDrawerNavigator(
       screen: Requests_StackNavigator,
       navigationOptions: {
         drawerLabel: 'Requests',
+      },
+    },
+    Circle: {
+      screen: Requests_StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Circle',
       },
     },
     Dashboard: {

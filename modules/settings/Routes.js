@@ -9,11 +9,11 @@ const navigation = [
   },
   {
     title: 'Payment Methods',
-    route: 'createTicketStack',
+    route: 'addPaymentStack',
   },
   {
     title: 'Notifications',
-    route: 'reviewsStack',
+    route: 'notificationSettingsStack',
   },
   {
     title: 'Display',
