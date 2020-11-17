@@ -47,7 +47,7 @@ class QRCode extends Component {
         this.props.setQRCodeModal(true)
       }}>
         <View style={{ paddingRight: 8 }} >
-          <FontAwesomeIcon icon={faQrcode} size={50} style={{ color: 'black' }} />
+          <FontAwesomeIcon icon={faQrcode} size={BasicStyles.iconSize+5} style={{ color: 'black' , marginRight:10 }} />
         </View>
       </TouchableOpacity>
     )

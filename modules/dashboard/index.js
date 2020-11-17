@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Style from './Style.js';
 import {
   View,
@@ -9,13 +9,13 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import {Routes, Color, Helper, BasicStyles} from 'common';
-import {Spinner, Empty, SystemNotification} from 'components';
+import { Routes, Color, Helper, BasicStyles } from 'common';
+import { Spinner, Empty, SystemNotification } from 'components';
 import Api from 'services/api/index.js';
 import Currency from 'services/Currency.js';
-import {NavigationActions} from 'react-navigation';
-import {connect} from 'react-redux';
-import {Dimensions} from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { Dimensions } from 'react-native';
 import BalanceCard from './BalanceCard.js';
 import DashboardSubheader from './DashboardSubheader.js';
 import TransactionCard from './TransactionCard.js';
@@ -32,10 +32,10 @@ class Dashboard extends Component {
   }
 
   // componentDidMount() {
-    // const {user} = this.props.state;
-    // if (user != null) {
-    //   this.retrieveSummaryLedger();
-    // }
+  // const {user} = this.props.state;
+  // if (user != null) {
+  //   this.retrieveSummaryLedger();
+  // }
   // }
 
   redirect = (route) => {
@@ -50,8 +50,8 @@ class Dashboard extends Component {
   };
 
   retrieveSummaryLedger = () => {
-    const {user} = this.props.state;
-    const {setLedger, setUserLedger} = this.props;
+    const { user } = this.props.state;
+    const { setLedger, setUserLedger } = this.props;
     if (user == null) {
       return;
     }
@@ -66,9 +66,9 @@ class Dashboard extends Component {
       value: '%',
       column: 'created_at',
     };
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     Api.request(Routes.ledgerSummaryRetrieve, parameter, (response) => {
-      this.setState({isLoading: false});
+      this.setState({ isLoading: false });
       if (response != null) {
         setLedger(response);
         setUserLedger(response.ledger.ledger);
@@ -108,7 +108,7 @@ class Dashboard extends Component {
   };
 
   _accountBalance = () => {
-    const {userLedger} = this.props.state;
+    const { userLedger } = this.props.state;
     return (
       <View
         style={[
@@ -150,7 +150,7 @@ class Dashboard extends Component {
               onPress={() => {
                 this.withdrawal();
               }}
-              style={[Style.btn, {backgroundColor: Color.secondary}]}
+              style={[Style.btn, { backgroundColor: Color.secondary }]}
               underlayColor={Color.gray}>
               <Text
                 style={{
@@ -170,7 +170,7 @@ class Dashboard extends Component {
                 this.deposit();
               }}
               underlayColor={Color.gray}
-              style={[Style.btn, {backgroundColor: Color.warning}]}>
+              style={[Style.btn, { backgroundColor: Color.warning }]}>
               <Text
                 style={{
                   color: Color.white,
@@ -185,7 +185,7 @@ class Dashboard extends Component {
   };
 
   _requests = () => {
-    const {ledger} = this.props.state;
+    const { ledger } = this.props.state;
     return (
       <View
         style={[
@@ -251,7 +251,7 @@ class Dashboard extends Component {
   };
 
   _myTotalRequest = () => {
-    const {ledger} = this.props.state;
+    const { ledger } = this.props.state;
     return (
       <View
         style={[
@@ -320,7 +320,7 @@ class Dashboard extends Component {
   };
 
   _availableFunds = () => {
-    const {ledger} = this.props.state;
+    const { ledger } = this.props.state;
     return (
       <View
         style={[
@@ -364,7 +364,7 @@ class Dashboard extends Component {
   };
 
   _approvedRequest = () => {
-    const {ledger} = this.props.state;
+    const { ledger } = this.props.state;
     return (
       <View
         style={[
@@ -408,7 +408,7 @@ class Dashboard extends Component {
   };
 
   _pendingWithdrawal = () => {
-    const {ledger} = this.props.state;
+    const { ledger } = this.props.state;
     return (
       <ScrollView horizontal={true} style={Style.ScrollView}>
         <View
@@ -496,8 +496,8 @@ class Dashboard extends Component {
   };
 
   _summary = () => {
-    const {ledger} = this.props.state;
-    const {selected} = this.state;
+    const { ledger } = this.props.state;
+    const { selected } = this.state;
     return (
       <View
         style={{
@@ -525,7 +525,7 @@ class Dashboard extends Component {
           data={ledger.data}
           extraData={selected}
           ItemSeparatorComponent={this.FlatListItemSeparator}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <View>
               <TouchableHighlight
                 onPress={() => {
@@ -671,14 +671,14 @@ class Dashboard extends Component {
           cardColor="#22B173"
           availableBalance={'PHP 25,000.00'}
           currentBalance={'PHP 52,000.00'}
-          />
+        />
         <DashboardSubheader />
         {/*Iterate through list of transactions here*/}
         <TransactionCard />
         <TransactionCard />
         <TransactionCard />
         <TransactionCard />
-        <QRCodeModal/>
+        <QRCodeModal />
       </View>
     );
   }
@@ -690,10 +690,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-const mapStateToProps = (state) => ({state: state});
+const mapStateToProps = (state) => ({ state: state });
 
 const mapDispatchToProps = (dispatch) => {
-  const {actions} = require('@redux');
+  const { actions } = require('@redux');
   return {
     setLedger: (ledger) => dispatch(actions.setLedger(ledger)),
     setUserLedger: (userLedger) => dispatch(actions.setUserLedger(userLedger)),
