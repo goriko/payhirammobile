@@ -5,15 +5,15 @@ const navigation = [
   },
   {
     title: 'Profile',
-    route: '',
+    route: 'otpStack',
   },
   {
     title: 'Payment Methods',
-    route: '',
+    route: 'createTicketStack',
   },
   {
     title: 'Notifications',
-    route: '',
+    route: 'reviewsStack',
   },
   {
     title: 'Display',
