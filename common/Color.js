@@ -12,4 +12,5 @@ export default {
   normalGray: '#999',
   black: '#000',
   success: '#22B173',
+  info:'#0066FF'
 }
