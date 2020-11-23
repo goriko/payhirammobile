@@ -67,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const QRCodeButton = connect(mapStateToProps, mapDispatchToProps)(QRCode)
-const Requests_StackNavigator = createStackNavigator({
+const _StackNavigator = createStackNavigator({
   Requests: {
     screen: Requests,
     navigationOptions: ({ navigation }) => ({
@@ -88,9 +88,6 @@ const Requests_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Dashboard_StackNavigator = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
     navigationOptions: ({ navigation }) => ({
@@ -103,9 +100,6 @@ const Dashboard_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Notification_StackNavigator = createStackNavigator({
   Notification: {
     screen: Notification,
     navigationOptions: ({ navigation }) => ({
@@ -116,9 +110,6 @@ const Notification_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Messenger_StackNavigator = createStackNavigator({
   Messenger: {
     screen: Messenger,
     navigationOptions: ({ navigation }) => ({
@@ -129,9 +120,6 @@ const Messenger_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Profile_StackNavigator = createStackNavigator({
   Profile: {
     screen: Profile,
     navigationOptions: ({ navigation }) => ({
@@ -142,9 +130,6 @@ const Profile_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Marketplace_StackNavigator = createStackNavigator({
   Marketplace: {
     screen: Marketplace,
     navigationOptions: ({ navigation }) => ({
@@ -155,9 +140,6 @@ const Marketplace_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Product_StackNavigator = createStackNavigator({
   Product: {
     screen: Product,
     navigationOptions: ({ navigation }) => ({
@@ -168,9 +150,6 @@ const Product_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Checkout_StackNavigator = createStackNavigator({
   Checkout: {
     screen: Checkout,
     navigationOptions: ({ navigation }) => ({
@@ -181,9 +160,6 @@ const Checkout_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Billing_StackNavigator = createStackNavigator({
   Billing: {
     screen: Billing,
     navigationOptions: ({ navigation }) => ({
@@ -194,9 +170,6 @@ const Billing_StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
-});
-
-const Settings_StackNavigator = createStackNavigator({
   Settings: {
     screen: Settings,
     navigationOptions: ({ navigation }) => ({
@@ -212,67 +185,67 @@ const Settings_StackNavigator = createStackNavigator({
 const Drawer = createDrawerNavigator(
   {
     Requests: {
-      screen: Requests_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Requests',
       },
     },
     Circle: {
-      screen: Requests_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Circle',
       },
     },
     Dashboard: {
-      screen: Dashboard_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Dashboard',
       },
     },
     Messenger: {
-      screen: Messenger_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Messages',
       },
     },
     Profile: {
-      screen: Profile_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Profile',
       },
     },
     Notification: {
-      screen: Notification_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Notification',
       },
     },
     Marketplace: {
-      screen: Marketplace_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Marketplace',
       },
     },
     Product: {
-      screen: Product_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Product',
       },
     },
     Checkout: {
-      screen: Checkout_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Checkout',
       },
     },
     Billing: {
-      screen: Billing_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Billing',
       },
     },
     Settings: {
-      screen: Settings_StackNavigator,
+      screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Settings',
       },
