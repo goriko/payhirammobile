@@ -678,7 +678,7 @@ class Dashboard extends Component {
         <TransactionCard />
         <TransactionCard />
         <TransactionCard />
-        <QRCodeModal />
+        <QRCodeModal redirect={this.redirect} />
       </View>
     );
   }

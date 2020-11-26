@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faQrcode, faBars} from '@fortawesome/free-solid-svg-icons';
-import Settings from 'modules/settings';
+import TermsAndConditions from 'modules/termsAndConditions';
 import {NavigationActions} from 'react-navigation';
 import {BasicStyles} from 'common';
 import {connect} from 'react-redux';
@@ -14,7 +14,7 @@ class HeaderOptions extends Component {
   }
   back = () => {
     const navigateAction = NavigationActions.navigate({
-      routeName: 'Settings',
+      routeName: 'Terms and Conditions',
     });
     this.props.navigationProps.dispatch(navigateAction);
   };
@@ -41,13 +41,13 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-const SettingsStack = createStackNavigator({
-  settingsScreen: {
-    screen: Settings,
+const TermsAndConditionsStack = createStackNavigator({
+  termsAndConditionsScreen: {
+    screen: TermsAndConditions,
     navigationOptions: ({navigation}) => ({
-      title: 'Settings',
+      title: 'Terms And Conditions',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
-      drawerLabel: 'Settings',
+      drawerLabel: 'Terms And Conditions',
       headerStyle: {
         backgroundColor: 'white',
       },
@@ -56,4 +56,7 @@ const SettingsStack = createStackNavigator({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsStack);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TermsAndConditionsStack);
