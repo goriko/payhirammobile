@@ -61,11 +61,15 @@ export default StyleSheet.create({
         flexDirection: "row"
     },
     col: {
-        width: width / 2, 
+        width: width / 2,
     },
     rows: {
-        height: 215,
+        marginBottom: 20,
         flexDirection: "row",
         flex: 1,
+    },
+    buttonContainer: {
+        padding: 5,
+        width: width / 2,
     }
 });

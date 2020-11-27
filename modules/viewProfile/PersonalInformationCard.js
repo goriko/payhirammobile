@@ -10,7 +10,7 @@ class PersonalInformationCard extends Component {
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                 <FontAwesomeIcon icon={icon} style={{ marginRight: 5 }} size={20} />
-                <Text style={[{ fontWeight: 'bold', margin: 2, fontSize: 14 }]}>{text}</Text>
+                <Text style={[{ fontWeight: 'bold', margin: 2, fontSize: BasicStyles.standardFontSize }]}>{text}</Text>
             </View>
         )
     }
@@ -19,7 +19,7 @@ class PersonalInformationCard extends Component {
         return (
             <View>
                 <View style={styles.cardHeader}>
-                    <Text style={styles.cardHeaderText}>Personal Information</Text>
+                    <Text style={[{ fontSize: BasicStyles.standardFontSize }, styles.cardHeaderText]}>Personal Information</Text>
                 </View>
                 <View style={styles.rowContainer}>
                     <View style={styles.rows}>

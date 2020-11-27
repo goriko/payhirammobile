@@ -16,6 +16,8 @@ import { Product, Marketplace, Checkout } from 'components';
 import Billing from 'modules/profile/Billing.js';
 import Circle from 'modules/circle/circleDrawer.js';
 import OptionRight from './OptionRight';
+import TermsAndConditions from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
+
 import Style from './Style.js';
 import { connect } from 'react-redux'
 
@@ -48,7 +50,7 @@ class QRCode extends Component {
         this.props.setQRCodeModal(true)
       }}>
         <View style={{ paddingRight: 8 }} >
-          <FontAwesomeIcon icon={faQrcode} size={BasicStyles.iconSize+5} style={{ color: 'black' , marginRight:10 }} />
+          <FontAwesomeIcon icon={faQrcode} size={BasicStyles.iconSize + 5} style={{ color: 'black', marginRight: 10 }} />
         </View>
       </TouchableOpacity>
     )
@@ -68,6 +70,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const QRCodeButton = connect(mapStateToProps, mapDispatchToProps)(QRCode)
 const _StackNavigator = createStackNavigator({
+
   Requests: {
     screen: Requests,
     navigationOptions: ({ navigation }) => ({
@@ -180,6 +183,16 @@ const _StackNavigator = createStackNavigator({
       headerTintColor: Color.primary,
     }),
   },
+  TermsAndConditions: {
+    screen: TermsAndConditions,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerStyle: Style.headerStyle,
+      headerTintColor: Color.primary,
+    }),
+  },
 });
 
 const Drawer = createDrawerNavigator(
@@ -248,6 +261,12 @@ const Drawer = createDrawerNavigator(
       screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Settings',
+      },
+    },
+    TermsAndConditions: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Terms and Condition',
       },
     },
   },
