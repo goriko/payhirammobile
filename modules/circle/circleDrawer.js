@@ -7,6 +7,7 @@ import {Color, BasicStyles} from 'common';
 import {connect} from 'react-redux';
 import Circle from './index.js';
 
+
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +46,6 @@ const CircleStack = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: 'Circle',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
-
       headerTintColor: BasicStyles.headerTintColor,
       headerTitleContainerStyle: BasicStyles.headerTitleContainerStyle,
       headerTitleStyle: BasicStyles.headerTitleStyle,

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {View, TouchableOpacity, Text, Platform, Dimensions} from 'react-native';
-import {NavigationActions} from 'react-navigation';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Text, Platform, Dimensions } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faEnvelope,
   faBell,
@@ -11,10 +11,10 @@ import {
   faCaretSquareRight,
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
-import {faCopy} from '@fortawesome/free-regular-svg-icons';
-import {Color, BasicStyles} from 'common';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { Color, BasicStyles } from 'common';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 const width = Math.round(Dimensions.get('window').width);
 class NavigationDrawerStructureRight extends Component {
   constructor(props) {
@@ -36,9 +36,12 @@ class NavigationDrawerStructureRight extends Component {
   };
 
   render() {
-    const {messenger, notifications} = this.props.state;
+    const { messenger, notifications } = this.props.state;
     return (
-      <View style={{flexDirection: 'row', width: width}}>
+      <View style={{ flexDirection: 'row', width: width }}>
+        <TouchableOpacity
+          onPress={this.toggleDrawer.bind(this)}
+        >
         <View
           style={{
             height: 50,
@@ -50,29 +53,31 @@ class NavigationDrawerStructureRight extends Component {
             marginLeft: 10,
           }}>
           <TouchableOpacity
-            onPress={this.toggleDrawer.bind(this)}
+            disabled
             style={{
               width: '16.5%',
               alignItems: 'center',
               marginLeft: '0.5%',
+              
             }}>
             {/*Donute Button Image */}
             <FontAwesomeIcon
               icon={faBars}
               size={25}
-              style={{color: '#FFFFFF'}}
+              style={{ color: '#FFFFFF' }}
             />
           </TouchableOpacity>
         </View>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
-const mapStateToProps = (state) => ({state: state});
+const mapStateToProps = (state) => ({ state: state });
 
 const mapDispatchToProps = (dispatch) => {
-  const {actions} = require('@redux');
+  const { actions } = require('@redux');
   return {
     removeProduct: () => dispatch(actions.removeProduct()),
   };

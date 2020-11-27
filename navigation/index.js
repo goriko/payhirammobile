@@ -23,7 +23,9 @@ import CreateTicketStack from 'modules/createTicket/CreateTicketDrawer.js';
 import DisplayStack from 'modules/display/DisplayDrawer.js';
 import ReviewsStack from 'modules/reviews/ReviewsDrawer.js';
 import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
+import ViewProfileStack from 'modules/viewProfile/ViewProfileDrawer.js';
 import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
+import QRCodeScannerStack from 'modules/qrCodeScanner/qrCodeScannerDrawer.js';
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -84,7 +86,9 @@ const PrimaryNav = createStackNavigator(
     displayStackStack: {screen: DisplayStack},
     reviewsStack: {screen: ReviewsStack},
     addPaymentStack: {screen: AddPaymentStack},
+    viewProfileStack: {screen: ViewProfileStack},
     termsAndConditionsStack: {screen: TermsAndConditionsStack},
+    qrCodeScannerStack: {screen: QRCodeScannerStack},
   },
   {
     // Default config for all screens
