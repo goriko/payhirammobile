@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faCheck} from '@fortawesome/free-solid-svg-icons';
-
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { BasicStyles } from 'common';
 import styles from 'modules/display/Styles.js';
 import ColorCircle from 'modules/display/ColorCircle';
 
@@ -30,12 +30,15 @@ class ThemeSettingTile extends Component {
         }}>
         <View style={styles.ThemeDetailsContainer}>
           <View style={styles.ThemeTitleContainer}>
-            <Text style={styles.ThemeTitleTextStyle}>
+            <Text style={[styles.ThemeTitleTextStyle, {
+              fontSize: BasicStyles.standardFontSize
+            }]}>
               {this.props.themeTitle}
             </Text>
           </View>
           <View style={styles.ThemeColorsContainer}>
-            <Text style={styles.ThemeColorsTextStyle}>{this.props.colors}</Text>
+            <Text style={[
+              styles.ThemeColorsTextStyle, { fontSize: BasicStyles.standardFontSize }]}>{this.props.colors}</Text>
           </View>
           <View style={styles.ColorsContainer}>
             {this.displayColorCirles()}
@@ -45,7 +48,7 @@ class ThemeSettingTile extends Component {
           <FontAwesomeIcon
             icon={faCheck}
             size={30}
-            style={{color: this.props.selectedTile ? '#3DBB85' : '#FFFFFF'}}
+            style={{ color: this.props.selectedTile ? '#3DBB85' : '#FFFFFF' }}
           />
         </View>
       </TouchableOpacity>

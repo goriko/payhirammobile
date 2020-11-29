@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   Circle: {
-    height: 50,
-    width: 50,
+    height: 50-(50*0.25),
+    width: 50-(50*0.25),
     borderRadius: 50,
   },
   SettingTileContainer: {
