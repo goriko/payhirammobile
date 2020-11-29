@@ -5,18 +5,23 @@ import AccountSettingsButton from 'modules/accountSettings/AccountSettingsButton
 import styles from 'modules/accountSettings/Styles.js';
 class AccountSettings extends Component {
   render() {
+    let user = {
+      email :"johndoe@gmail.com",
+      username:"johndoe"
+    }
+
     return (
       <View style={styles.AccountSettingsContainer}>
-        <AccountSettingsInput inputTitle="Username" />
-        <AccountSettingsInput inputTitle="Email Address" />
+        <AccountSettingsInput inputTitle="Username" value={user.username}/>
+        <AccountSettingsInput inputTitle="Email Address" value={user.email}/>
         <AccountSettingsButton
           onPress={() => {}}
           buttonText="Update Email"
           buttonColor="#22B173"
           textColor="#FFFFFF"
         />
-        <AccountSettingsInput inputTitle="Password" />
-        <AccountSettingsInput inputTitle="ConfirmPassword" />
+        <AccountSettingsInput inputTitle="Password" placeholder="Password" />
+        <AccountSettingsInput inputTitle="ConfirmPassword" placeholder="Confirm Password" />
         <AccountSettingsButton
           onPress={() => {}}
           buttonText="Change Password"

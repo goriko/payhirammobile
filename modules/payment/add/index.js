@@ -39,7 +39,7 @@ class AddPayment extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={[styles.AccountSettingsInputContainer], {padding: 10}}>
+          <View style={[styles.AccountSettingsInputContainer, {padding: 10}]}>
             <View style={styles.InputTitleContainer}>
               <Text style={styles.InputTitleTextStyle}>Card Number</Text>
             </View>
@@ -48,7 +48,7 @@ class AddPayment extends Component {
             </View>
           </View>
           <View style={{flexDirection: 'row', padding: 10}}>
-            <View style={[styles.AccountSettingsInputContainer], {width: '50%', paddingRight: 5}}>
+            <View style={[styles.AccountSettingsInputContainer, {width: '50%', paddingRight: 5}]}>
               <View style={styles.InputTitleContainer}>
                 <Text style={styles.InputTitleTextStyle}>Expiration Date</Text>
               </View>
@@ -56,7 +56,7 @@ class AddPayment extends Component {
                 <TextInput />
               </View>
             </View>
-            <View style={[styles.AccountSettingsInputContainer], {width: '50%', paddingLeft: 5}}>
+            <View style={[styles.AccountSettingsInputContainer,{width: '50%', paddingLeft: 5}]}>
               <View style={styles.InputTitleContainer}>
                 <Text style={styles.InputTitleTextStyle}>CVV</Text>
               </View>
@@ -65,7 +65,7 @@ class AddPayment extends Component {
               </View>
             </View>
           </View>
-          <View style={[styles.AccountSettingsInputContainer], {padding: 10}}>
+          <View style={[styles.AccountSettingsInputContainer,{padding: 10}]}>
             <View style={styles.InputTitleContainer}>
               <Text style={styles.InputTitleTextStyle}>Card Holder Name</Text>
             </View>
@@ -73,7 +73,7 @@ class AddPayment extends Component {
               <TextInput />
             </View>
           </View>
-          <View style={[styles.AccountSettingsInputContainer], {padding: 10}}>
+          <View style={[styles.AccountSettingsInputContainer,{padding: 10}]}>
             <View style={styles.InputTitleContainer}>
               <Text style={styles.InputTitleTextStyle}>Address</Text>
             </View>
@@ -82,7 +82,7 @@ class AddPayment extends Component {
             </View>
           </View>
           <TouchableOpacity style={[ styles.AccountSettingsButtonContainer, {backgroundColor: Color.secondary, padding: 10}, ]}>
-            <Text style={[styles.AccountSettingsButtonTextStyle, {color: 'white'},]}>Add Payment</Text>
+            <Text style={[styles.AccountSettingsButtonTextStyle, {color: 'white'}]}>Add Payment</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

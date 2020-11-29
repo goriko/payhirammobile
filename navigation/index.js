@@ -1,4 +1,4 @@
-import {createStackNavigator} from 'react-navigation-stack';
+import { createStackNavigator } from 'react-navigation-stack';
 import Login from 'modules/basics/Login';
 import ForgotPassword from 'modules/basics/ForgotPassword';
 import Register from 'modules/basics/Register';
@@ -26,10 +26,11 @@ import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
 import ViewProfileStack from 'modules/viewProfile/ViewProfileDrawer.js';
 import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
 import QRCodeScannerStack from 'modules/qrCodeScanner/qrCodeScannerDrawer.js';
+import PaymentMethodsStack from 'modules/payment/PaymentMethodsDrawer.js';
 // login stack
 const LoginStack = createStackNavigator(
   {
-    loginScreen: {screen: Login},
+    loginScreen: { screen: Login },
   },
   {
     headerMode: 'none',
@@ -40,7 +41,7 @@ const LoginStack = createStackNavigator(
 // Forgot Password stack
 const ForgotPasswordStack = createStackNavigator(
   {
-    forgotPasswordScreen: {screen: ForgotPassword},
+    forgotPasswordScreen: { screen: ForgotPassword },
   },
   {
     headerMode: 'none',
@@ -51,7 +52,7 @@ const ForgotPasswordStack = createStackNavigator(
 // Forgot Password stack
 const RegisterStack = createStackNavigator(
   {
-    registerScreen: {screen: Register},
+    registerScreen: { screen: Register },
   },
   {
     headerMode: 'none',
@@ -62,33 +63,34 @@ const RegisterStack = createStackNavigator(
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator(
   {
-    loginStack: {screen: LoginStack},
-    forgotPasswordStack: {screen: ForgotPasswordStack},
-    registerStack: {screen: RegisterStack},
-    drawerStack: {screen: Drawer},
-    notificationStack: {screen: NotificationStack},
-    messagesStack: {screen: MessagesStack},
-    ledgerStack: {screen: LedgerStack},
-    createRequestStack: {screen: CreateRequestStack},
-    locationStack: {screen: LocationStack},
-    createBorrowStack: {screen: CreateBorrowRequestStack},
-    circleStack: {screen: CircleStack},
-    requestStack: {screen: RequestStack},
-    dashboardStack: {screen: DashboardStack},
-    accountSettingsStack: {screen: AccountSettingsStack},
-    settingsStack: {screen: SettingsStack},
-    otpStack: {screen: OtpStack},
-    requestItemStack: {screen: RequestItemStack},
-    editProfileStack: {screen: EditProfileStack},
-    transactionsStack: {screen: TransactionsStack},
-    notificationSettingsStack: {screen: NotificationSettingsStack},
-    createTicketStack: {screen: CreateTicketStack},
-    displayStackStack: {screen: DisplayStack},
-    reviewsStack: {screen: ReviewsStack},
-    addPaymentStack: {screen: AddPaymentStack},
-    viewProfileStack: {screen: ViewProfileStack},
-    termsAndConditionsStack: {screen: TermsAndConditionsStack},
-    qrCodeScannerStack: {screen: QRCodeScannerStack},
+    loginStack: { screen: LoginStack },
+    forgotPasswordStack: { screen: ForgotPasswordStack },
+    registerStack: { screen: RegisterStack },
+    drawerStack: { screen: Drawer },
+    notificationStack: { screen: NotificationStack },
+    messagesStack: { screen: MessagesStack },
+    ledgerStack: { screen: LedgerStack },
+    createRequestStack: { screen: CreateRequestStack },
+    locationStack: { screen: LocationStack },
+    createBorrowStack: { screen: CreateBorrowRequestStack },
+    circleStack: { screen: CircleStack },
+    requestStack: { screen: RequestStack },
+    dashboardStack: { screen: DashboardStack },
+    accountSettingsStack: { screen: AccountSettingsStack },
+    settingsStack: { screen: SettingsStack },
+    otpStack: { screen: OtpStack },
+    requestItemStack: { screen: RequestItemStack },
+    editProfileStack: { screen: EditProfileStack },
+    transactionsStack: { screen: TransactionsStack },
+    notificationSettingsStack: { screen: NotificationSettingsStack },
+    createTicketStack: { screen: CreateTicketStack },
+    displayStackStack: { screen: DisplayStack },
+    reviewsStack: { screen: ReviewsStack },
+    addPaymentStack: { screen: AddPaymentStack },
+    viewProfileStack: { screen: ViewProfileStack },
+    termsAndConditionsStack: { screen: TermsAndConditionsStack },
+    qrCodeScannerStack: { screen: QRCodeScannerStack },
+    paymentMethodsStack: { screen: PaymentMethodsStack },
   },
   {
     // Default config for all screens

@@ -8,7 +8,7 @@ import { Color, BasicStyles } from 'common';
 import { connect } from 'react-redux';
 
 class HeaderOptions extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
   back = () => {
@@ -19,9 +19,9 @@ class HeaderOptions extends Component {
       <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity onPress={this.back.bind(this)}>
           {/*Donute Button Image */}
-          <FontAwesomeIcon icon={ faChevronLeft } size={BasicStyles.iconSize} style={[BasicStyles.iconStyle], {
+          <FontAwesomeIcon icon={faChevronLeft} size={BasicStyles.iconSize} style={[BasicStyles.iconStyle, {
             color: Color.white
-          }}/>
+          }]} />
         </TouchableOpacity>
       </View>
     );
@@ -41,7 +41,7 @@ const mapDispatchToProps = dispatch => {
 
 const CreateBorrowRequestStack = createStackNavigator({
   createBorrowRequestScreen: {
-    screen: CreateBorrowRequest, 
+    screen: CreateBorrowRequest,
     navigationOptions: ({ navigation }) => ({
       title: 'Create Borrow Request',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
