@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 
 import AddressTile from 'modules/addLocation/AddressTile.js';
-
+import styles from 'modules/addLocation/Style.js';
 const dummyData = [
   {
     addressType: 'Home',
@@ -74,30 +74,6 @@ class AddLocation extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  AddLocationContainer: {
-    height: '100%',
-    width: '100%',
-    justifyContent: 'flex-start',
-  },
-  ButtonContainer: {
-    backgroundColor: '#22B173',
-    position: 'absolute',
-    bottom: 0,
-    height: 60,
-    width: '95%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-    borderRadius: 10,
-  },
-  ButtonTextStyle: {
-    fontSize: 15,
-    color: '#FFFFFF',
-  },
-});
 
 const mapStateToProps = (state) => ({state: state});
 

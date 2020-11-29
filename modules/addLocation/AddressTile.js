@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import styles from 'modules/addLocation/Style.js';
 
 class AddressTile extends Component {
   constructor(props) {
@@ -40,25 +41,5 @@ class AddressTile extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  AddressTileContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: 80,
-    paddingLeft: 20,
-    elevation: 1,
-    borderBottomWidth: 0.5,
-    borderColor: '#E8E8E8',
-  },
-  AddressTypeContainer: {},
-  AddressTypeTextStyle: {},
-  AddressContainer: {},
-  AddressTextStyle: {
-    fontSize: 15,
-  },
-  CountryContainer: {},
-  CountryTextStyle: {},
-});
 
 export default AddressTile;
