@@ -26,6 +26,9 @@ import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
 import ViewProfileStack from 'modules/viewProfile/ViewProfileDrawer.js';
 import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
 import QRCodeScannerStack from 'modules/qrCodeScanner/qrCodeScannerDrawer.js';
+import AddLocationStack from 'modules/addLocation/AddLocationDrawer.js';
+import LocationWithMap from 'components/Location/LocationWithMap';
+
 // login stack
 const LoginStack = createStackNavigator(
   {
@@ -52,6 +55,15 @@ const ForgotPasswordStack = createStackNavigator(
 const RegisterStack = createStackNavigator(
   {
     registerScreen: {screen: Register},
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {},
+  },
+);
+const LocationWithMapStack = createStackNavigator(
+  {
+    LocationWithMapScreen: {screen: LocationWithMap},
   },
   {
     headerMode: 'none',
@@ -89,6 +101,8 @@ const PrimaryNav = createStackNavigator(
     viewProfileStack: {screen: ViewProfileStack},
     termsAndConditionsStack: {screen: TermsAndConditionsStack},
     qrCodeScannerStack: {screen: QRCodeScannerStack},
+    addLocationStack: {screen: AddLocationStack},
+    locationWithMapStack: {screen: LocationWithMapStack},
   },
   {
     // Default config for all screens
