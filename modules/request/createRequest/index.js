@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, ScrollView, TextInput} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faStar, faAsterisk} from '@fortawesome/free-solid-svg-icons';
 import {Picker} from '@react-native-community/picker';
+import {connect} from 'react-redux';
 
 import FullfilmentCard from 'modules/request/createRequest/FullfilmentCard';
 import BalanceCard from 'modules/dashboard/BalanceCard';
@@ -16,6 +17,11 @@ class CreateRequest extends Component {
       currency: 'Philippine Peso - PHP',
     };
   }
+
+  redirect = (route) => {
+    this.props.navigation.navigate(route);
+  };
+
   render() {
     return (
       <View style={styles.CreateRequestContainer}>
@@ -161,7 +167,11 @@ class CreateRequest extends Component {
             />
           </View>
           <View style={styles.TextInputContainer}>
-            <TextInput />
+            <TextInput
+              onFocus={() => {
+                this.redirect('addLocationStack');
+              }}
+            />
           </View>
           <View
             style={[
@@ -245,5 +255,14 @@ class CreateRequest extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({state: state});
 
-export default CreateRequest;
+const mapDispatchToProps = (dispatch) => {
+  const {actions} = require('@redux');
+  return {
+    // updateUser: (user) => dispatch(actions.updateUser(user)),
+    setLocation: (location) => dispatch(actions.setLocation(location)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateRequest);
