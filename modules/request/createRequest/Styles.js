@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-
+import {BasicStyles} from 'common';
 const styles = StyleSheet.create({
   CreateRequestContainer: {
     flex: 1,
@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
   },
   FillInDetailsTextStyle: {
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: BasicStyles.titleText.fontSize,
   },
   SelectFullfilmentContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop: '8%',
+    paddingTop: 20,
     paddingRight: '48%',
     paddingLeft: '4%',
   },
@@ -34,15 +34,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   TextInputContainer: {
+    paddingLeft: 12,
     marginTop: '3%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     borderRadius: 5,
     borderWidth: 1,
-    width: '88%',
+    width: '100%',
     borderColor: '#E0E0E0',
-    marginLeft: '8%',
-    borderRadius: 12,
+    borderRadius: BasicStyles.btn.borderRadius,
   },
   AmountContainer: {
     flexDirection: 'row',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   AmountTextStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.titleText.fontSize,
   },
   AmountDetailsContainer: {
     justifyContent: 'center',
@@ -81,13 +81,12 @@ const styles = StyleSheet.create({
   },
   ButtonContainer: {
     height: 50,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '4%',
+    borderRadius: BasicStyles.btn.borderRadius,
+    justifyContent: BasicStyles.btn.justifyContent,
+    alignItems: BasicStyles.btn.alignItems,
   },
   ButtonTextStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.titleText.fontSize,
     color: '#ffffff',
     textAlign: 'center',
   },
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginHorizontal: '2%',
+    marginHorizontal: 10,
     paddingHorizontal: '1.5%',
   },
   FullfilmentTypeContainer: {

@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 import OTP from 'modules/otp';
 import {connect} from 'react-redux';
-
+import {BasicStyles} from 'common';
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +35,7 @@ class HeaderOptions extends Component {
           {/*Donute Button Image */}
           <FontAwesomeIcon
             icon={faChevronLeft}
-            size={30}
+            size={BasicStyles.iconSize}
             style={{color: '#3F0050'}}
           />
         </TouchableOpacity>
