@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 
 import styles from './Styles';
-
+import {BasicStyles} from 'common';
 class CustomButton extends Component {
   render() {
     return (

@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   CardContainer: {
     marginTop: '2%',
-    height: '30%',
+    height: 190,
     width: '98%',
     borderRadius: 10,
     justifyContent: 'flex-start',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   TransactionCardContainer: {
     marginTop: 17,
     width: '95%',
-    height: '12%',
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderWidth: 0.1,
