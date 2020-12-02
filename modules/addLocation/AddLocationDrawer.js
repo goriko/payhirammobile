@@ -3,9 +3,9 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
-import OTP from 'modules/otp';
+import AddLocation from 'modules/addLocation';
 import {connect} from 'react-redux';
-import {BasicStyles} from 'common';
+import LocationWithMap from 'components/Location/LocationWithMap.js';
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +35,7 @@ class HeaderOptions extends Component {
           {/*Donute Button Image */}
           <FontAwesomeIcon
             icon={faChevronLeft}
-            size={BasicStyles.iconSize}
+            size={30}
             style={{color: '#3F0050'}}
           />
         </TouchableOpacity>
@@ -53,12 +53,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const OtpStack = createStackNavigator({
-  otpScreen: {
-    screen: OTP,
+const AddLocationStack = createStackNavigator({
+  addLocationScreen: {
+    screen: AddLocation,
     navigationOptions: ({navigation}) => ({
-      title: 'OTP Code',
-      drawerLabel: 'OTP',
+      title: 'ADDRESS',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: 'white',
@@ -67,10 +66,11 @@ const OtpStack = createStackNavigator({
       },
       headerTintColor: '#4c4c4c',
       headerTitleStyle: {
-        fontSize: 20,
+        fontSize: 15,
+        fontWeight: 'bold',
       },
     }),
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OtpStack);
+export default connect(mapStateToProps, mapDispatchToProps)(AddLocationStack);

@@ -4,13 +4,15 @@ import { UserImage, Rating } from 'components';
 import { Color } from 'common';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
 class Circle extends Component{
   constructor(props){
     super(props);
   }
 
   redirect = () => {
-    console.log("Here")
+    const { user } = this.props.state
+    this.props.navigation.push("viewProfileStack", { user })
   }
   render() {
     return (
@@ -96,37 +98,9 @@ class Circle extends Component{
           </TouchableHighlight>
         </ScrollView>
       </View>
-
-
-
-      
-      // <ScrollView>
-      //   <View>
-      //   <View style={{
-      //     marginBottom: 100,
-      //   }}>
-      //     <TouchableHighlight style={{
-      //           height: 50,
-      //           backgroundColor: Color.primary,
-      //           width: '100%',
-      //           alignItems: 'center',
-      //           justifyContent: 'center',
-      //           borderRadius: 5,
-      //         }}
-      //         onPress={() => {
-      //           this.redirect()
-      //         }}
-      //         underlayColor={Color.gray}
-      //           >
-      //         <Text style={{
-      //           color: Color.white,
-      //           textAlign: 'center',
-      //         }}>Update</Text>
-      //     </TouchableHighlight>
-      //   </View>
-      // </View>
-      // </ScrollView>
     );
   }
 }
-export default Circle;
+const mapStateToProps = state => ({ state: state });
+
+export default connect(mapStateToProps)(Circle);

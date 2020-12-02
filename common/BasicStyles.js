@@ -85,6 +85,9 @@ export default {
   btnWarning: {
     backgroundColor: Color.warning
   },
+  btnDanger: {
+    backgroundColor: Color.danger
+  },
   textWhite: {
     color: Color.white
   },

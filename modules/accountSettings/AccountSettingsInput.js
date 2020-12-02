@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -18,7 +18,7 @@ class AccountSettingsInput extends Component {
           </Text>
         </View>
         <View style={styles.TextInputContainer}>
-          <TextInput />
+          <TextInput placeholder={this.props.placeholder} value={this.props.value || ""} />
         </View>
       </View>
     );

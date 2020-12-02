@@ -19,7 +19,7 @@ import {Dimensions} from 'react-native';
 import BalanceCard from './BalanceCard.js';
 import DashboardSubheader from './DashboardSubheader.js';
 import TransactionCard from './TransactionCard.js';
-import QRCodeModal from 'components/Modal/QRCode'
+import QRCodeModal from 'components/Modal/QRCode';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 class Dashboard extends Component {
@@ -32,10 +32,10 @@ class Dashboard extends Component {
   }
 
   // componentDidMount() {
-    // const {user} = this.props.state;
-    // if (user != null) {
-    //   this.retrieveSummaryLedger();
-    // }
+  // const {user} = this.props.state;
+  // if (user != null) {
+  //   this.retrieveSummaryLedger();
+  // }
   // }
 
   redirect = (route) => {
@@ -666,20 +666,22 @@ class Dashboard extends Component {
     //   </ScrollView>
     // );
     return (
-      <View style={styles.MainContainer}>
-        <BalanceCard
-          cardColor="#22B173"
-          availableBalance={'PHP 25,000.00'}
-          currentBalance={'PHP 52,000.00'}
+      <ScrollView>
+        <View style={styles.MainContainer}>
+          <BalanceCard
+            cardColor="#22B173"
+            availableBalance={'PHP 25,000.00'}
+            currentBalance={'PHP 52,000.00'}
           />
-        <DashboardSubheader />
-        {/*Iterate through list of transactions here*/}
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <QRCodeModal/>
-      </View>
+          <DashboardSubheader />
+          {/*Iterate through list of transactions here*/}
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <QRCodeModal redirect={this.redirect} />
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -688,6 +690,7 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     alignItems: 'center',
+    paddingBottom: 10,
   },
 });
 const mapStateToProps = (state) => ({state: state});

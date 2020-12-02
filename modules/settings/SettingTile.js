@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import styles from 'modules/settings/Styles.js';
+import {BasicStyles} from 'common';
 
 class SettingTile extends Component {
   render() {
@@ -11,10 +12,10 @@ class SettingTile extends Component {
         style={styles.SettingTileContainer}
         onPress={() => this.props.onPress()}>
         <View style={styles.SettingTextContainer}>
-          <Text style={styles.SettingTextStyle}>{this.props.settingText}</Text>
+          <Text style={BasicStyles.titleText}>{this.props.settingText}</Text>
         </View>
         <View style={styles.IconContainer}>
-          <FontAwesomeIcon icon={faChevronRight} size={30} />
+          <FontAwesomeIcon icon={faChevronRight} size={18} />
         </View>
       </TouchableOpacity>
     );
