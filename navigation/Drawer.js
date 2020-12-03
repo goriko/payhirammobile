@@ -14,7 +14,7 @@ import Profile from 'modules/profile';
 import Settings from 'modules/settings';
 import { Product, Marketplace, Checkout } from 'components';
 import Billing from 'modules/profile/Billing.js';
-import Circle from 'modules/circle/circleDrawer.js';
+import Circle from 'modules/circle/index.js';
 import OptionRight from './OptionRight';
 import TermsAndConditions from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
 
