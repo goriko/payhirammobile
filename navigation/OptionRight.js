@@ -41,6 +41,7 @@ class NavigationDrawerStructureRight extends Component {
       <View style={{ flexDirection: 'row', width: width }}>
         <TouchableOpacity
           onPress={this.toggleDrawer.bind(this)}
+          underlayColor={Color.secondary}
         >
         <View
           style={{
@@ -55,11 +56,11 @@ class NavigationDrawerStructureRight extends Component {
           }}>
           <TouchableOpacity
             disabled
+            underlayColor={Color.secondary}
             style={{
               width: '16.5%',
               alignItems: 'center',
               marginLeft: '0.5%',
-              
             }}>
             {/*Donute Button Image */}
             <FontAwesomeIcon
