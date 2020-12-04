@@ -51,6 +51,7 @@ class NavigationDrawerStructureRight extends Component {
             justifyContent: 'center',
             alignItems: 'center',
             marginLeft: 10,
+            marginTop: 10
           }}>
           <TouchableOpacity
             disabled
@@ -63,7 +64,7 @@ class NavigationDrawerStructureRight extends Component {
             {/*Donute Button Image */}
             <FontAwesomeIcon
               icon={faBars}
-              size={25}
+              size={20}
               style={{ color: '#FFFFFF' }}
             />
           </TouchableOpacity>

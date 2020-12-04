@@ -77,8 +77,7 @@ const _StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
   Circle: {
@@ -87,8 +86,7 @@ const _StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
   Dashboard: {
@@ -99,8 +97,7 @@ const _StackNavigator = createStackNavigator({
       headerRight: (
         <QRCodeButton />
       ),
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
   Notification: {
@@ -109,8 +106,7 @@ const _StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
   Messenger: {
@@ -119,8 +115,7 @@ const _StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
   Profile: {
@@ -179,8 +174,7 @@ const _StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
   TermsAndConditions: {
@@ -189,8 +183,7 @@ const _StackNavigator = createStackNavigator({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
-      headerStyle: Style.headerStyle,
-      headerTintColor: Color.primary,
+      headerTransparent: true
     }),
   },
 });
