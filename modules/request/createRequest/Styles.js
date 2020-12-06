@@ -2,9 +2,10 @@ import {StyleSheet} from 'react-native';
 import {BasicStyles} from 'common';
 const styles = StyleSheet.create({
   CreateRequestContainer: {
-    flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 6,
+    justifyContent: 'flex-start',
+    width: '95%',
+    height: '100%',
   },
   FillInDetailsContainer: {
     flexDirection: 'row',
@@ -13,22 +14,22 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 38,
     paddingBottom: 12,
-    paddingHorizontal: '2.5%',
   },
   FillInDetailsTextStyle: {
     fontWeight: 'bold',
     fontSize: BasicStyles.titleText.fontSize,
   },
-  SelectFullfilmentContainer: {
+  SelectFulfillmentContainer: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
     paddingTop: 20,
-    paddingRight: '48%',
-    paddingLeft: '4%',
   },
-  SelectFullfilmentTextStyle: {fontSize: 15, textAlign: 'left'},
-  FullfilmentContainer: {
+  SelectFulfillmentTextStyle: {
+    fontSize: BasicStyles.standardFontSize,
+    textAlign: 'left',
+  },
+  FulfillmentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -47,35 +48,35 @@ const styles = StyleSheet.create({
   AmountContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: '5%',
     paddingTop: '5%',
+    marginBottom: 15,
   },
   AmountTextContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   AmountTextStyle: {
-    fontSize: BasicStyles.titleText.fontSize,
+    fontSize: BasicStyles.standardFontSize,
   },
   AmountDetailsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   AmountDetailsStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.standardFontSize,
     fontWeight: 'bold',
   },
   ChangesContainer: {
     paddingVertical: '5%',
-    marginLeft: '5%',
     justifyContent: 'center',
   },
   ChangesTextStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.standardFontSize,
   },
   TotalContainer: {
     width: '100%',
-    borderWidth: 0.5,
+    borderTopWidth: 0.5,
     borderColor: '#D5D5D5',
     paddingBottom: 10,
   },
@@ -100,23 +101,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     paddingHorizontal: '1.5%',
   },
-  FullfilmentTypeContainer: {
+  FulfillmentTypeContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: '40%',
     paddingBottom: '10%',
   },
-  FullfilmentTypeTextStyle: {
-    fontSize: 12,
+  FulfillmentTypeTextStyle: {
+    fontSize: BasicStyles.standardFontSize,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  FullfilmentDescription: {
+  FulfillmentDescription: {
     alignItems: 'center',
     alignSelf: 'flex-end',
   },
-  FullfilmentDescriptionTextStyle: {
-    fontSize: 12,
+  FulfillmentDescriptionTextStyle: {
+    fontSize: BasicStyles.standardFontSize,
     fontStyle: 'italic',
     textAlign: 'center',
     color: '#FFFFFF',

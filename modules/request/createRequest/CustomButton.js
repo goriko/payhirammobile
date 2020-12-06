@@ -10,7 +10,11 @@ class CustomButton extends Component {
         style={[
           styles.ButtonContainer,
           {backgroundColor: this.props.buttonColor, width: this.props.width},
-        ]}>
+        ]}
+        onPress={() => {
+          console.log('Submitt');
+          this.props.onPress();
+        }}>
         <Text style={[styles.ButtonTextStyle]}>{this.props.buttonText}</Text>
       </TouchableOpacity>
     );

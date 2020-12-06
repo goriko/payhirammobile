@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import styles from './Styles';
 import {BasicStyles} from 'common';
-class FullfilmentCard extends Component {
+class FulfillmentCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,23 +11,26 @@ class FullfilmentCard extends Component {
   render() {
     return (
       <TouchableOpacity
-        style={[styles.CardContainer, {backgroundColor: this.props.cardColor}]}>
-        <View style={styles.FullfilmentTypeContainer}>
+        style={[styles.CardContainer, {backgroundColor: this.props.cardColor}]}
+        onPress={() => {
+          this.props.handleSelect(this.props.index);
+        }}>
+        <View style={styles.FulfillmentTypeContainer}>
           <Text
             style={[
-              styles.FullfilmentTypeTextStyle,
+              styles.FulfillmentTypeTextStyle,
               {fontSize: BasicStyles.titleText.fontSize},
             ]}>
-            {this.props.fullfilmentType}
+            {this.props.fulfillmentType}
           </Text>
         </View>
-        <View style={styles.FullfilmentDescription}>
+        <View style={styles.FulfillmentDescription}>
           <Text
             style={[
-              styles.FullfilmentDescriptionTextStyle,
+              styles.FulfillmentDescriptionTextStyle,
               {fontSize: BasicStyles.titleText.fontSize},
             ]}>
-            {this.props.fullfilmentDescription}
+            {this.props.fulfillmentDescription}
           </Text>
         </View>
       </TouchableOpacity>
@@ -35,4 +38,4 @@ class FullfilmentCard extends Component {
   }
 }
 
-export default FullfilmentCard;
+export default FulfillmentCard;
