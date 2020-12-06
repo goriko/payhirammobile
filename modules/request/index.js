@@ -618,7 +618,7 @@ class Requests extends Component {
             ItemSeparatorComponent={this.FlatListItemSeparator}
             renderItem={({item, index}) => (
               <View>
-                <TouchableOpacity onPress={() => this.redirect("requestStack")}>
+                <TouchableOpacity onPress={() => this.redirect("requestItemStack")}>
                 {this._header(item, 'amount')}
                 {this._subHeader(item)}
                 {this._body(item)}
