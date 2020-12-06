@@ -19,9 +19,9 @@ class HeaderOptions extends Component {
       <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity onPress={this.back.bind(this)}>
           {/*Donute Button Image */}
-          <FontAwesomeIcon icon={ faChevronLeft } size={BasicStyles.iconSize} style={[BasicStyles.iconStyle], {
+          <FontAwesomeIcon icon={ faChevronLeft } size={BasicStyles.iconSize} style={[BasicStyles.iconStyle, {
             color: Color.white
-          }}/>
+          }]}/>
         </TouchableOpacity>
       </View>
     );

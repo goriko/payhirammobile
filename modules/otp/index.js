@@ -29,16 +29,7 @@ class OTP extends Component {
               Please type the one time pass code sent to 00000000000
             </Text>
           </View>
-          <View
-            style={[
-              styles.OTPContainer,
-              {
-                marginHorizontal: 60,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingLeft: '24%',
-              },
-            ]}>
+          <View style={styles.OTPInputContainer}>
             <OneTimePin
               fieldCount={6}
               pinHandler={this.pinHandler}

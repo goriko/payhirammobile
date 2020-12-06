@@ -2,19 +2,29 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   Container: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   OTPContainer: {
     marginTop: '10%',
     marginBottom: '10%',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    flex: 1,
+    height: '100%',
+    width: '90%',
+  },
+  OTPInputContainer: {
+    width: '70%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
   },
   OTPTextContainer: {
     paddingBottom: '1%',
     marginBottom: 0,
-    width: '70%',
+    width: '75%',
   },
   OTPTextStyle: {
     textAlign: 'center',
@@ -26,7 +36,8 @@ const styles = StyleSheet.create({
   },
   ResendContainer: {
     paddingBottom: '90%',
-    width: '70%',
+    width: '75%',
+    marginTop: '10%',
   },
   ResendTextStyle: {
     textAlign: 'center',

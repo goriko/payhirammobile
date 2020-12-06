@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   SettingsContainer: {
     justifyContent: 'flex-start',
     height: '100%',
+    marginTop: 70,
   },
   SettingTileContainer: {
     left: -5,

@@ -5,7 +5,7 @@ const navigation = [
   },
   {
     title: 'Profile',
-    route: 'otpStack',
+    route: 'editProfileStack',
   },
   {
     title: 'Payment Methods',
