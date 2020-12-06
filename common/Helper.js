@@ -26,6 +26,10 @@ export default {
       route: 'Circle',
     },
     {
+      title: 'Messages',
+      route: 'Messenger'
+    }, 
+    {
       title: 'Settings',
       route: 'Settings',
     }
@@ -36,6 +40,10 @@ export default {
       value: 'PHP',
     },
   ],
+  currency: [{
+    title: 'Philippine Peso',
+    value: 'PHP'
+  }],
   request: {
     MINIMUM: 1000,
   },

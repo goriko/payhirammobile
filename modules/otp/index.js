@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-
+import {BasicStyles} from 'common';
 import CustomButton from 'modules/otp/CustomButton.js';
 import styles from 'modules/otp/Styles.js';
 import OneTimePin from 'modules/otp/OneTimePin.js';
@@ -9,7 +9,7 @@ class OTP extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      otp: '',
+      otp: '000000',
     };
   }
 
@@ -25,15 +25,19 @@ class OTP extends Component {
       <View style={styles.Container}>
         <View style={styles.OTPContainer}>
           <View style={styles.OTPTextContainer}>
-            <Text style={styles.OTPTextStyle}>
+            <Text style={[BasicStyles.standardFontSize, {textAlign: 'center'}]}>
               Please type the one time pass code sent to 00000000000
             </Text>
           </View>
-          <View style={styles.OTPContainer}>
-            <OneTimePin fieldCount={6} pinHandler={this.pinHandler} />
+          <View style={styles.OTPInputContainer}>
+            <OneTimePin
+              fieldCount={6}
+              pinHandler={this.pinHandler}
+              pin={this.state.otp}
+            />
           </View>
           <TouchableOpacity style={styles.ResendContainer} onPress={() => {}}>
-            <Text style={styles.ResendTextStyle}>
+            <Text style={[BasicStyles.standardFontSize, {textAlign: 'center'}]}>
               Didn't receive a code? Click to resend.
             </Text>
           </TouchableOpacity>

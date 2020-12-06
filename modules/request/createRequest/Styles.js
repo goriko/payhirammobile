@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
-
+import {BasicStyles} from 'common';
 const styles = StyleSheet.create({
   CreateRequestContainer: {
-    flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 6,
+    justifyContent: 'flex-start',
+    width: '95%',
+    height: '100%',
   },
   FillInDetailsContainer: {
     flexDirection: 'row',
@@ -13,81 +14,80 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 38,
     paddingBottom: 12,
-    paddingHorizontal: '2.5%',
   },
   FillInDetailsTextStyle: {
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: BasicStyles.titleText.fontSize,
   },
-  SelectFullfilmentContainer: {
-    justifyContent: 'center',
+  SelectFulfillmentContainer: {
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop: '8%',
-    paddingRight: '48%',
-    paddingLeft: '4%',
+    paddingTop: 20,
   },
-  SelectFullfilmentTextStyle: {fontSize: 15, textAlign: 'left'},
-  FullfilmentContainer: {
+  SelectFulfillmentTextStyle: {
+    fontSize: BasicStyles.standardFontSize,
+    textAlign: 'left',
+  },
+  FulfillmentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   TextInputContainer: {
+    paddingLeft: 12,
     marginTop: '3%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     borderRadius: 5,
     borderWidth: 1,
-    width: '88%',
+    width: '100%',
     borderColor: '#E0E0E0',
-    marginLeft: '8%',
-    borderRadius: 12,
+    borderRadius: BasicStyles.btn.borderRadius,
   },
   AmountContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: '5%',
     paddingTop: '5%',
+    marginBottom: 15,
   },
   AmountTextContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   AmountTextStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.standardFontSize,
   },
   AmountDetailsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   AmountDetailsStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.standardFontSize,
     fontWeight: 'bold',
   },
   ChangesContainer: {
     paddingVertical: '5%',
-    marginLeft: '5%',
     justifyContent: 'center',
   },
   ChangesTextStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.standardFontSize,
   },
   TotalContainer: {
     width: '100%',
-    borderWidth: 0.5,
+    borderTopWidth: 0.5,
     borderColor: '#D5D5D5',
     paddingBottom: 10,
   },
   ButtonContainer: {
     height: 50,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '4%',
+    borderRadius: BasicStyles.btn.borderRadius,
+    justifyContent: BasicStyles.btn.justifyContent,
+    alignItems: BasicStyles.btn.alignItems,
   },
   ButtonTextStyle: {
-    fontSize: 15,
+    fontSize: BasicStyles.titleText.fontSize,
     color: '#ffffff',
     textAlign: 'center',
   },
@@ -98,26 +98,26 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginHorizontal: '2%',
+    marginHorizontal: 10,
     paddingHorizontal: '1.5%',
   },
-  FullfilmentTypeContainer: {
+  FulfillmentTypeContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: '40%',
     paddingBottom: '10%',
   },
-  FullfilmentTypeTextStyle: {
-    fontSize: 12,
+  FulfillmentTypeTextStyle: {
+    fontSize: BasicStyles.standardFontSize,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  FullfilmentDescription: {
+  FulfillmentDescription: {
     alignItems: 'center',
     alignSelf: 'flex-end',
   },
-  FullfilmentDescriptionTextStyle: {
-    fontSize: 12,
+  FulfillmentDescriptionTextStyle: {
+    fontSize: BasicStyles.standardFontSize,
     fontStyle: 'italic',
     textAlign: 'center',
     color: '#FFFFFF',

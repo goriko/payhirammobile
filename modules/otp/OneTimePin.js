@@ -15,8 +15,10 @@ class OneTimePin extends Component {
     const {fields} = this.state;
     fields.splice(index, 1, value);
     this.props.pinHandler(fields);
-    if (index + 1 < this.state.fields.length) {
-      this.moveToNextField(index);
+    if (value) {
+      if (index + 1 < this.state.fields.length) {
+        this.moveToNextField(index);
+      }
     }
   };
 
@@ -30,6 +32,7 @@ class OneTimePin extends Component {
       fields.push(
         <View style={styles.OtpFieldContainer} key={i}>
           <TextInput
+            value={this.props.pin[i]}
             ref={(r) => (this.inputRefs[i] = r)}
             maxLength={1}
             style={styles.OtpFieldTextStyle}
@@ -71,15 +74,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
+    width: '75%',
   },
   OtpFieldContainer: {
-    height: 50,
-    width: 50,
+    height: 55,
+    width: 55,
     borderRadius: 5,
     borderWidth: 0.5,
     marginHorizontal: '2%',
     marginVertical: '1%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   OtpFieldTextStyle: {
     textAlign: 'center',
