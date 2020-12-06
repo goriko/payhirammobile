@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   CardContainer: {
     marginTop: '2%',
     height: 190,
-    width: '98%',
+    width: '100%',
     borderRadius: 10,
     justifyContent: 'flex-start',
   },
