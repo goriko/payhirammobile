@@ -42,8 +42,9 @@ const paymentMethodsStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title: 'Payment Methods',
                 headerLeft: <HeaderOptions navigationProps={navigation} />,
-                headerTintColor: BasicStyles.headerTintColor,
-                headerTitleStyle: BasicStyles.headerTitleStyle,
+                // headerTintColor: BasicStyles.headerTintColor,
+                // headerTitleStyle: BasicStyles.headerTitleStyle,
+                headerTransparent: true
             }),
 
         },

@@ -52,16 +52,17 @@ const AccountSettingsStack = createStackNavigator({
       title: 'Account Settings',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
       drawerLabel: 'Account Settings',
-      headerStyle: {
-        backgroundColor: 'white',
-        height: 80,
-        elevation: 0,
-      },
-      headerTintColor: '#4c4c4c',
-      headerTitleStyle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-      },
+      // headerStyle: {
+      //   backgroundColor: 'white',
+      //   height: 80,
+      //   elevation: 0,
+      // },
+      // headerTintColor: '#4c4c4c',
+      // headerTitleStyle: {
+      //   fontSize: 18,
+      //   fontWeight: 'bold',
+      // },
+      headerTransparent: true
     }),
   },
 });
