@@ -11,7 +11,7 @@ class DashboardSubheader extends Component {
             Transaction History
           </Text>
         </View>
-        <TouchableOpacity style={styles.ViewMoreContainer} onPress={() => {}}>
+        <TouchableOpacity style={styles.ViewMoreContainer} onPress={() => {this.props.nav("transactionsStack")}}>
           <Text style={styles.ViewMoreTextStyle}>View More</Text>
         </TouchableOpacity>
       </View>

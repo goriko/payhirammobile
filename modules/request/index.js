@@ -619,6 +619,7 @@ class Requests extends Component {
             ItemSeparatorComponent={this.FlatListItemSeparator}
             renderItem={({ item, index }) => (
               <View>
+                <TouchableOpacity onPress={() => this.redirect("requestItemStack")}>
                 {this._header(item, 'amount')}
                 {this._subHeader(item)}
                 {this._body(item)}
@@ -629,6 +630,7 @@ class Requests extends Component {
                 {item.account_id == user.id &&
                   item.peers.peers != null &&
                   this._peers(item.peers, item)}
+                </TouchableOpacity>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -693,8 +695,8 @@ class Requests extends Component {
             }
           }}>
           <SystemNotification></SystemNotification>
-          <View style={[Style.MainContainer, {}]}>
-            <View
+          <View style={[Style.MainContainer, {marginTop: 60}]}>
+            {/* <View
               style={{
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -746,7 +748,7 @@ class Requests extends Component {
                   View my requests
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
             {this._flatList()}
             {requests == null && isLoading == false && (
               <Empty refresh={true} onRefresh={() => this.onRefresh()} />
@@ -761,9 +763,9 @@ class Requests extends Component {
           <FontAwesomeIcon
             icon={faPlus}
             style={{
-              color: Color.white,
+              color: Color.white
             }}
-            size={BasicStyles.iconSize}
+            size={20}
           />
         </TouchableOpacity>
         {isLoading ? <Spinner mode="overlay" /> : null}

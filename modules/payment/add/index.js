@@ -14,7 +14,7 @@ class AddPayment extends Component {
       <View>
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={{flexDirection: 'row', padding: 10}}>
-            <View style={{width: width/3-10}}>
+            <View style={{width: width/2-10}}>
               <TouchableOpacity>
                 <View style={{alignItems: 'center', borderWidth:1, borderColor: Color.gray, borderRadius: 10, margin: 10}}>
                   <Image source={require('assets/credit-card.png')} />
@@ -22,19 +22,11 @@ class AddPayment extends Component {
                 </View>
               </TouchableOpacity>
             </View>
-            <View style={{width: width/3-10}}>
+            <View style={{width: width/2-10}}>
               <TouchableOpacity>
                 <View style={{alignItems: 'center', borderWidth:1, borderColor: Color.gray, borderRadius: 10, margin: 10}}>
                   <Image source={require('assets/debit-card.png')} />
                   <Text>Debit Card</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={{width: width/3-10}}>
-              <TouchableOpacity>
-                <View style={{alignItems: 'center', borderWidth:1, borderColor: Color.gray, borderRadius: 10, margin: 10}}>
-                  <Image source={require('assets/wallet.png')} />
-                  <Text>Cash</Text>
                 </View>
               </TouchableOpacity>
             </View>
