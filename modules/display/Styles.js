@@ -2,16 +2,16 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   Circle: {
-    height: 50-(50*0.25),
-    width: 50-(50*0.25),
+    height: 50-(50*0.30),
+    width: 50-(50*0.30),
     borderRadius: 50,
   },
   SettingTileContainer: {
-    height: 130,
+    // height: 130,
     width: '100%',
     flexDirection: 'row',
     paddingHorizontal: '3%',
-    paddingVertical: '3%',
+    paddingVertical: '2%',
     borderBottomWidth: 1,
     borderColor: '#E9E9E9',
   },
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: '17%',
     paddingRight: '3%',
+    marginTop: 10
   },
 });
 

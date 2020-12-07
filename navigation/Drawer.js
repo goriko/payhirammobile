@@ -16,7 +16,7 @@ import { Product, Marketplace, Checkout } from 'components';
 import Billing from 'modules/profile/Billing.js';
 import Circle from 'modules/circle/index.js';
 import OptionRight from './OptionRight';
-import TermsAndConditions from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
+import TermsAndConditions from 'modules/termsAndConditions';
 
 import Style from './Style.js';
 import { connect } from 'react-redux'
@@ -75,6 +75,16 @@ const _StackNavigator = createStackNavigator({
     screen: Requests,
     navigationOptions: ({ navigation }) => ({
       title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: <OptionRight navigationProps={navigation} />,
+      headerTransparent: true
+    }),
+  },
+
+  Terms: {
+    screen: TermsAndConditions,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Terms & condition',
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
       headerRight: <OptionRight navigationProps={navigation} />,
       headerTransparent: true

@@ -23,7 +23,10 @@ class BottomSheetContent extends Component {
 
     render() {
         return (
-            <View style={[styles.CreateRequestContainer, { paddingHorizontal: 0 }]}>
+            <View style={[styles.CreateRequestContainer, {
+                paddingHorizontal: 0, width: '100%',
+                height: '100%',
+            }]}>
                 <BalanceCard
                     cardColor="#22B173"
                     styles={{
@@ -127,7 +130,7 @@ class BottomSheetContent extends Component {
                                     <View style={{ flex: 1, marginHorizontal: 5, marginVertical: 5, }}>
                                         <Text style={[styles.SelectFullfilmentTextStyle, {
                                             textAlign: 'right',
-                                            fontWeight:'bold',
+                                            fontWeight: 'bold',
                                             marginRight: 25
                                         }]}>
                                             {this.state.processingFee ? `PHP ${(this.state.processingFee * txt.rate)}` : `${(txt.rate * 100)}%`}
