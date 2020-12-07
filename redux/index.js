@@ -26,7 +26,8 @@ const types = {
   SET_SELECTED_PRODUCT_ID: 'SET_SELECTED_PRODUCT_ID',
   SET_PRODUCT: 'SET_PRODUCT',
   nav: null,
-  QRCODE_MODAL: 'QRCODE_MODAL'
+  QRCODE_MODAL: 'QRCODE_MODAL',
+  SET_THEME: 'SET_THEME',
 }
 
 export const actions = {
@@ -101,6 +102,9 @@ export const actions = {
   setQRCodeModal(isVisible) {
     return { type: types.QRCODE_MODAL, isVisible }
   },
+  setTheme(theme){
+    return { type: types.SET_THEME, theme };
+  },
 };
 
 const initialState = {
@@ -143,6 +147,7 @@ const reducer = (state = initialState, action) => {
   const { systemNotification } = action;
   const { product, productId } = action;
   const { isVisible } = action;
+  const { theme } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -360,6 +365,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         qrCodeModal: isVisible.isVisible
+      }
+    case types.SET_THEME:
+      console.log('tertiary', theme.tertiary)
+      storeData('primary', theme.primary);
+      storeData('secondary', theme.secondary);
+      storeData('tertiary', theme.tertiary);
+      Color.setPrimary(theme.primary);
+      Color.setSecondary(theme.secondary);
+      Color.setTertiary(theme.tertiary);
+      return{
+        ...state,
+        theme
       }
     default:
       return { ...state, nav: state.nav };
