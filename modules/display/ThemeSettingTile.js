@@ -14,7 +14,9 @@ class ThemeSettingTile extends Component {
   displayColorCirles = () => {
     return this.props.circles.map((color, index) => {
       return (
-        <View style={styles.ColorContainer} key={index}>
+        <View style={[styles.ColorContainer, {
+          marginTop: 10
+        }]} key={index}>
           <ColorCircle color={color} />
         </View>
       );
@@ -47,8 +49,8 @@ class ThemeSettingTile extends Component {
         <View style={styles.IconContainer}>
           <FontAwesomeIcon
             icon={faCheck}
-            size={30}
-            style={{ color: this.props.selectedTile ? '#3DBB85' : '#FFFFFF' }}
+            size={20}
+            style={{ color: this.props.selectedTile ? '#3DBB85' : '#FFFFFF', }}
           />
         </View>
       </TouchableOpacity>
