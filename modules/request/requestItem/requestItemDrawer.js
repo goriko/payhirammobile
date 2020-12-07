@@ -45,10 +45,10 @@ const RequestItemStack = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: 'Request Item',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
-
-      headerTintColor: BasicStyles.headerTintColor,
-      headerTitleContainerStyle: BasicStyles.headerTitleContainerStyle,
-      headerTitleStyle: BasicStyles.headerTitleStyle,
+      headerTransparent: true
+      // headerTintColor: BasicStyles.headerTintColor,
+      // headerTitleContainerStyle: BasicStyles.headerTitleContainerStyle,
+      // headerTitleStyle: BasicStyles.headerTitleStyle,
     }),
   },
 });

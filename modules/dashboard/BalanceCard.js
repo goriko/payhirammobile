@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import styles from './Styles';
 
 class BalanceCard extends Component {
@@ -10,7 +10,7 @@ class BalanceCard extends Component {
   render() {
     return (
       <View
-        style={[styles.CardContainer, {backgroundColor: this.props.cardColor}]}>
+        style={[styles.CardContainer, { backgroundColor: this.props.cardColor ,...this.props.styles}, ]}>
         <View style={styles.AvailableBalanceContainer}>
           <Text style={styles.AvailableBalanceTextStyle}>
             Available Balance

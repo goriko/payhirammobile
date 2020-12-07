@@ -29,7 +29,7 @@ class HeaderOptions extends Component {
           {/*Donute Button Image */}
           <FontAwesomeIcon
             icon={faChevronLeft}
-            size={30}
+            size={BasicStyles.iconSize}
             style={{ color: '#572066' }}
           />
         </TouchableOpacity>
@@ -51,17 +51,8 @@ const AddPaymentStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       title: 'Add Payment Method',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
-      drawerLabel: 'Add Payment Method',
-      headerStyle: {
-        backgroundColor: 'white',
-        height: 80,
-        elevation: 0,
-      },
-      headerTintColor: '#4c4c4c',
-      headerTitleStyle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-      },
+      headerTintColor: BasicStyles.headerTintColor,
+      headerTitleStyle: BasicStyles.headerTitleStyle,
     }),
   },
 });

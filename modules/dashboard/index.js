@@ -20,6 +20,7 @@ import BalanceCard from './BalanceCard.js';
 import DashboardSubheader from './DashboardSubheader.js';
 import TransactionCard from './TransactionCard.js';
 import QRCodeModal from 'components/Modal/QRCode';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 class Dashboard extends Component {
@@ -600,7 +601,7 @@ class Dashboard extends Component {
               justifyContent: 'center',
               marginLeft: '20%',
             }}
-            onPress={() => this.redirect('ledgerStack')}
+            onPress={() => this.redirect('transactionsStack')}
             underlayColor={Color.gray}>
             <Text
               style={{
@@ -667,13 +668,13 @@ class Dashboard extends Component {
     // );
     return (
       <ScrollView>
-        <View style={styles.MainContainer}>
+        <View style={[styles.MainContainer, {marginTop: 60}]}>
           <BalanceCard
             cardColor="#22B173"
             availableBalance={'PHP 25,000.00'}
             currentBalance={'PHP 52,000.00'}
           />
-          <DashboardSubheader />
+          <DashboardSubheader nav={(route) => this.redirect(route)}/>
           {/*Iterate through list of transactions here*/}
           <TransactionCard />
           <TransactionCard />

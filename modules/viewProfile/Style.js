@@ -71,5 +71,12 @@ export default StyleSheet.create({
     buttonContainer: {
         padding: 5,
         width: width / 2,
-    }
+    },
+    BottomContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: Color.white
+      },
 });

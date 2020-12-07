@@ -45,10 +45,10 @@ const EditProfileStack = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: 'Edit Profile',
       headerLeft: <HeaderOptions navigationProps={navigation} />,
-
-      headerTintColor: BasicStyles.headerTintColor,
-      headerTitleContainerStyle: BasicStyles.headerTitleContainerStyle,
-      headerTitleStyle: BasicStyles.headerTitleStyle,
+      // headerTintColor: BasicStyles.headerTintColor,
+      // headerTitleContainerStyle: BasicStyles.headerTitleContainerStyle,
+      // headerTitleStyle: BasicStyles.headerTitleStyle,
+      headerTransparent: true
     }),
   },
 });

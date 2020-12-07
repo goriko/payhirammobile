@@ -50,18 +50,19 @@ class ViewProfile extends Component {
             </View>
         }
         return (
-            <ScrollView >
-                <View style={styles.container}>
-                    <View style={styles.headerContainer}>
-                        <View style={styles.headerButton}>
-                            <TouchableOpacity onPress={this.goBack}>
-                                <FontAwesomeIcon icon={faChevronLeft} color={Color.white} size={BasicStyles.iconSize} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.imageContainer}>
-                        </View>
-                        <View style={styles.sectionHeadingStyle}>
-                            {/* {
+            <>
+                <ScrollView >
+                    <View style={styles.container}>
+                        <View style={styles.headerContainer}>
+                            <View style={styles.headerButton}>
+                                <TouchableOpacity onPress={this.goBack}>
+                                    <FontAwesomeIcon icon={faChevronLeft} color={Color.white} size={BasicStyles.iconSize} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.imageContainer}>
+                            </View>
+                            <View style={styles.sectionHeadingStyle}>
+                                {/* {
                                user &&  user.account_profile != null && user.account_profile.url != null && (
                                     <Image
                                         source={{ uri: Config.BACKEND_URL + user.account_profile.url }}
@@ -70,85 +71,88 @@ class ViewProfile extends Component {
                                         }]} />
                                 )
                             } */}
-                            {
-                                // && user.account_profile == null || (user.account_profile != null && user.account_profile.url == null)
-                                ((!user)) && (
+                                {
+                                    // && user.account_profile == null || (user.account_profile != null && user.account_profile.url == null)
+                                    ((!user)) && (
+                                        <FontAwesomeIcon
+                                            icon={faUserCircle}
+                                            size={100}
+                                            style={{
+                                                color: Color.white
+                                            }}
+                                        />
+                                    )
+                                }
+                            </View>
+                            <Text style={styles.username}>Kennette Canales</Text>
+                            <View style={[styles.ratings, { flexDirection: 'row', alignItems: 'center', alignContent: 'center' }]}>
+                                {stars}
+                            </View>
+                            <View style={[styles.verifiedContainer, { marginRight: 20, }]}>
+                                <Text style={styles.verifiedText}>
                                     <FontAwesomeIcon
-                                        icon={faUserCircle}
-                                        size={100}
+                                        icon={faCheckCircle}
+                                        size={16}
                                         style={{
-                                            color: Color.white
+                                            backgroundColor: Color.white,
+                                            color: Color.info,
+                                            borderRadius: 20,
+
                                         }}
                                     />
-                                )
-                            }
+                                    <Text style={{ fontSize: 16 }}>{' '}Verified</Text>
+                                </Text>
+                            </View>
                         </View>
-                        <Text style={styles.username}>Kennette Canales</Text>
-                        <View style={[styles.ratings, { flexDirection: 'row', alignItems: 'center', alignContent: 'center' }]}>
-                            {stars}
+                    </View>
+                    <PersonalInformationCard />
+                    <EducationalBackgroundCard />
+                    <View style={styles.cardHeader}>
+                        <Text style={[{ fontSize: BasicStyles.standardFontSize }, styles.cardHeaderText]}>ID's</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, paddingTop: 20 }}>
+                        <View>
+                            <FontAwesomeIcon
+                                icon={faAddressCard}
+                                size={100}
+                                style={{ marginHorizontal: 25 }}
+                            />
                         </View>
-                        <View style={[styles.verifiedContainer, { marginRight: 20, }]}>
-                            <Text style={styles.verifiedText}>
-                                <FontAwesomeIcon
-                                    icon={faCheckCircle}
-                                    size={16}
-                                    style={{
-                                        backgroundColor: Color.white,
-                                        color: Color.info,
-                                        borderRadius: 20,
+                        <View>
+                            <FontAwesomeIcon
+                                icon={faAddressCardOutline}
+                                size={100}
+                                style={{ marginHorizontal: 25 }}
+                            />
+                        </View>
+                    </View>
+                </ScrollView>
+                <View style={{ borderTopColor: Color.lightGray, borderTopWidth: 1 }}>
+                    {
+                        this.state.accepted ? removeButton() :
 
-                                    }}
-                                />
-                                <Text style={{ fontSize: 16 }}>{' '}Verified</Text>
-                            </Text>
-                        </View>
-                    </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 5, paddingTop: 20 }}>
+                                <TouchableHighlight
+                                    onPress={this.toggle}
+                                    style={[BasicStyles.btn, BasicStyles.btnDanger, { width: '45%' }]}
+                                    underlayColor={Color.gray}>
+                                    <Text style={BasicStyles.textWhite}>
+                                        Decline
+                 </Text>
+                                </TouchableHighlight>
+                                <View style={{ width: "2%" }}></View>
+                                <TouchableHighlight
+                                    onPress={this.toggle}
+                                    style={[BasicStyles.btn, BasicStyles.btnSecondary, { width: '45%' }]}
+                                    underlayColor={Color.gray}>
+                                    <Text style={BasicStyles.textWhite}>
+                                        Accept
+                 </Text>
+                                </TouchableHighlight>
+                            </View>
+                    }
                 </View>
-                <PersonalInformationCard />
-                <EducationalBackgroundCard />
-                <View style={styles.cardHeader}>
-                    <Text style={[{ fontSize: BasicStyles.standardFontSize }, styles.cardHeaderText]}>ID's</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, paddingTop: 20 }}>
-                    <View>
-                        <FontAwesomeIcon
-                            icon={faAddressCard}
-                            size={100}
-                            style={{ marginHorizontal: 25 }}
-                        />
-                    </View>
-                    <View>
-                        <FontAwesomeIcon
-                            icon={faAddressCardOutline}
-                            size={100}
-                            style={{ marginHorizontal: 25 }}
-                        />
-                    </View>
-                </View>
-                {
-                    this.state.accepted ? removeButton() :
-                        <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 5, paddingTop: 20 }}>
-                            <TouchableHighlight
-                                onPress={this.toggle}
-                                style={[BasicStyles.btn, BasicStyles.btnDanger, { width: '45%' }]}
-                                underlayColor={Color.gray}>
-                                <Text style={BasicStyles.textWhite}>
-                                    Decline
-                        </Text>
-                            </TouchableHighlight>
-                            <View style={{ width: "2%" }}></View>
-                            <TouchableHighlight
-                                onPress={this.toggle}
-                                style={[BasicStyles.btn, BasicStyles.btnSecondary, { width: '45%' }]}
-                                underlayColor={Color.gray}>
-                                <Text style={BasicStyles.textWhite}>
-                                    Accept
-                        </Text>
-                            </TouchableHighlight>
-                        </View>
-                }
-
-            </ScrollView>
+            </>
         );
     }
 }

@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { BasicStyles } from 'common'
 
 class TermsAndConditions extends Component {
   render() {
@@ -33,7 +34,7 @@ class TermsAndConditions extends Component {
               </Text>
             </View>
           </View>
-          <View style={styles.SectionContainer}>
+          <View style={[styles.SectionContainer, { marginTop: 25 }]}>
             <View style={styles.SectionTitleContainer}>
               <Text style={styles.SectionTitleTextStyle}>Privacy Policy</Text>
             </View>
@@ -82,7 +83,6 @@ const styles = StyleSheet.create({
   },
   SectionDescriptionContainer: {},
   SectionDescriptionTextStyle: {
-    fontSize: 18,
     textAlign: 'justify',
   },
 });

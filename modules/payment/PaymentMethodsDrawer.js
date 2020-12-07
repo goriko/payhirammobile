@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack';
 import PaymentMethodsScreen from './index.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { BasicStyles } from 'common'
 
 const styles = StyleSheet.create({
@@ -25,9 +25,9 @@ class HeaderOptions extends Component {
                 <TouchableOpacity onPress={this.back.bind(this)}>
                     {/*Donute Button Image */}
                     <FontAwesomeIcon
-                        icon={faArrowLeft}
+                        icon={faChevronLeft}
                         size={BasicStyles.iconSize}
-                        style={styles.iconStyle}
+                        style={{ color: '#572066' }}
                     />
                 </TouchableOpacity>
             </View>
@@ -42,9 +42,9 @@ const paymentMethodsStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title: 'Payment Methods',
                 headerLeft: <HeaderOptions navigationProps={navigation} />,
-                headerTintColor: BasicStyles.headerTintColor,
-                headerTitleContainerStyle: BasicStyles.headerTitleContainerStyle,
-                headerTitleStyle: BasicStyles.headerTitleStyle,
+                // headerTintColor: BasicStyles.headerTintColor,
+                // headerTitleStyle: BasicStyles.headerTitleStyle,
+                headerTransparent: true
             }),
 
         },
