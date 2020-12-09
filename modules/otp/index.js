@@ -51,7 +51,7 @@ class OTP extends Component {
 
   validateOTP = () => {
     const {user} = this.props.state;
-    const {setIsValidOtp, sendRequest} = this.props;
+    const {setIsValidOtp} = this.props;
     let parameters = [
       {
         condition: [
