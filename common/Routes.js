@@ -9,6 +9,7 @@ export default {
   accountRetrieve: apiUrl + 'accounts/retrieve',
   accountUpdate: apiUrl + 'accounts/update',
   accountCreate: apiUrl + 'accounts/create',
+  accountUpdatePassword: apiUrl + 'accounts/update_password',
   notificationsRetrieve: apiUrl + 'notifications/retrieve',
   notificationUpdate: apiUrl + 'notifications/update',
   messagesRetrieve: apiUrl + 'messenger_groups/retrieve_summary_payhiram',
@@ -20,12 +21,14 @@ export default {
   requestManageByThread: apiUrl + 'requests/manage_request_by_thread',
   customMessengerGroupRetrieve: apiUrl + 'custom_messenger_groups/retrieve',
   customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
-  customMessengerGroupRetrieveByParams: apiUrl + 'custom_messenger_groups/retrieve_by_params',
+  customMessengerGroupRetrieveByParams:
+    apiUrl + 'custom_messenger_groups/retrieve_by_params',
   customMessengerGroupCreate: apiUrl + 'custom_messenger_groups/create',
   messengerMessagesCreate: apiUrl + 'messenger_messages/create',
   messengerMessagesRetrieve: apiUrl + 'messenger_messages/retrieve',
   messengerMessagesUpdate: apiUrl + 'messenger_messages/update_by_status',
-  mmCreateWithImageWithoutPayload: apiUrl + 'messenger_messages/create_with_image_without_payload',
+  mmCreateWithImageWithoutPayload:
+    apiUrl + 'messenger_messages/create_with_image_without_payload',
   mmCreateWithImage: apiUrl + 'messenger_messages/create_with_images',
   ratingsCreate: apiUrl + 'ratings/create',
   notificationSettingsRetrieve: apiUrl + 'notification_settings/retrieve',
@@ -49,5 +52,5 @@ export default {
   systemNotificationRetrieve: apiUrl + 'system_notifications/retrieve',
   couponsValidate: apiUrl + 'coupons/validate',
   productsRetrieve: apiUrl + 'products/retrieve',
-  productsRetrieveBasic: apiUrl + 'products/retrieve_basic'
-}
+  productsRetrieveBasic: apiUrl + 'products/retrieve_basic',
+};
