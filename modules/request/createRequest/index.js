@@ -76,10 +76,10 @@ class CreateRequest extends Component {
     this.setState({maximumProcessingCharge: maximumProcessingCharge});
   };
 
-  createRequest = () => {
+  createRequest = async () => {
     const {user} = this.props.state;
-    let parameter = {
-      account_id: user.id,
+    let parameters = {
+      account_id: user.account_information.account_id,
       money_type: this.state.money_type,
       currency: this.state.currency,
       type: this.state.fulfillmentType,
@@ -101,10 +101,17 @@ class CreateRequest extends Component {
       comaker: '',
       coupon: '',
     };
+    this.props.setRequestInput(parameters);
+    this.props.navigation.navigate('otpStack', {
+      performTransaction: this.sendRequest,
+    });
+  };
+
+  sendRequest = () => {
     this.setState({isLoading: true});
     Api.request(
       Routes.requestCreate,
-      parameter,
+      this.props.state.requestInput,
       (response) => {
         console.log('RESPONSE', response);
         this.setState({isLoading: false});
@@ -385,6 +392,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // updateUser: (user) => dispatch(actions.updateUser(user)),
     setLocation: (location) => dispatch(actions.setLocation(location)),
+    setRequestInput: (requestInput) =>
+      dispatch(actions.setRequestInput(requestInput)),
   };
 };
 

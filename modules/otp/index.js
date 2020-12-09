@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import CustomButton from 'modules/otp/CustomButton.js';
 import styles from 'modules/otp/Styles.js';
 import OneTimePin from 'modules/otp/OneTimePin.js';
@@ -25,12 +25,10 @@ class OTP extends Component {
     this.setState({
       otp: pin,
     });
-    console.log('Pin handler', this.state.otp);
   };
 
   generateOTP = () => {
     const {user} = this.props.state;
-    console.log('USERRRRRRRR', user.account_information.account_id);
     let parameters = {
       account_id: user.account_information.account_id,
     };
@@ -52,6 +50,8 @@ class OTP extends Component {
   validateOTP = () => {
     const {user} = this.props.state;
     const {setIsValidOtp} = this.props;
+    const {performTransaction} = this.props.navigation.state.params;
+
     let parameters = [
       {
         condition: [
@@ -74,7 +74,9 @@ class OTP extends Component {
       (data) => {
         console.log('OTP DATA', data);
         setIsValidOtp(true);
-        this.props.navigation.pop();
+        performTransaction();
+        alert('Success!');
+        this.props.navigationProps.navigate('drawerStack');
       },
       (error) => {
         if (error) {
