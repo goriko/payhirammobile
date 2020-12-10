@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 import {Color, BasicStyles} from 'common';
 import {connect} from 'react-redux';
 import Transactions from './index.js';
@@ -20,9 +20,10 @@ class HeaderOptions extends Component {
         <TouchableOpacity onPress={this.back.bind(this)}>
           {/*Donute Button Image */}
           <FontAwesomeIcon
-            icon={faArrowLeft}
+            icon={faChevronLeft}
             size={BasicStyles.iconSize}
             style={styles.iconStyle}
+            color={Color.primary}
           />
         </TouchableOpacity>
       </View>

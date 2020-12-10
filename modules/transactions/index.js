@@ -34,9 +34,9 @@ class Transactions extends Component {
         <ScrollView showsHorizontalScrollIndicator={false}>           
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
@@ -44,9 +44,9 @@ class Transactions extends Component {
           </View>
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
@@ -54,9 +54,9 @@ class Transactions extends Component {
           </View>
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
@@ -64,9 +64,9 @@ class Transactions extends Component {
           </View>
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
@@ -74,9 +74,9 @@ class Transactions extends Component {
           </View>
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
@@ -84,9 +84,9 @@ class Transactions extends Component {
           </View>
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
@@ -94,84 +94,14 @@ class Transactions extends Component {
           </View>
           <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
             <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>August 9, 2020 5:00 PM</Text>
+              <Text style={{fontSize: 15}}>This is a test</Text>
+              <Text style={{fontSize: BasicStyles.standardFontSize}}>via ****561</Text>
             </View>
             <View>
               <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
             </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', flex: 1, borderWidth: 1, borderColor: Color.gray, borderRadius: 5, padding: 10, margin: 10, alignItems: 'center'}}>
-            <View style={{flexGrow: 1}}>
-              <Text>August 9, 2020 5:00 PM</Text>
-              <Text style={{fontSize: 20}}>This is a test</Text>
-              <Text>via ****561</Text>
-            </View>
-            <View>
-              <Text style={{color: Color.secondary, fontSize: 25, fontWeight: 'bold'}}>+ PHP 200.00</Text>
-            </View>
-          </View>
+          </View>          
         </ScrollView>
       </View>
     );

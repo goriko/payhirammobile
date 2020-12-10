@@ -50,6 +50,8 @@ class Messages extends Component{
         groupId: messengerGroup.id
       })
     })
+    
+    console.log(messengerGroup)
   }
 
   retrieveGroup = (flag = null) => {
@@ -432,13 +434,13 @@ class Messages extends Component{
       <View style={{
         width: '100%'
       }}>
-        {messengerGroup.request.status == 2 && (
+        {/* {messengerGroup.request.status == 2 && (
           <Review 
             refresh={() => {
               this.retrieveGroup()
             }}></Review>
-        )}
-        { 
+        )} */}
+        {/* { 
           messengerGroup.account_id == user.id &&
           (messengerGroup.request.type == 1 || messengerGroup.request.type == 4) && 
           messengerGroup.validations &&
@@ -446,8 +448,8 @@ class Messages extends Component{
           messengerGroup.request.status < 2 && (
             <AddRequirements onFinish={() => this.setState({keyRefresh: this.state.keyRefresh + 1})}></AddRequirements>
           )
-        }
-        {
+        } */}
+        {/* {
           messengerGroup.account_id == user.id &&
           (messengerGroup.request.type == 1 || messengerGroup.request.type == 4) &&
           messengerGroup.request.status < 2 &&
@@ -464,8 +466,8 @@ class Messages extends Component{
               }}
             ></Transfer>
           )
-        }
-        {
+        } */}
+        {/* {
           messengerGroup.account_id != user.id &&
           messengerGroup.request.type == 3 &&
           messengerGroup.request.status < 2 && (
@@ -481,8 +483,8 @@ class Messages extends Component{
               }
             ></Transfer>
           )
-        }
-        {
+        } */}
+        {/* {
           messengerGroup.account_id == user.id &&
           messengerGroup.request.type == 2 &&
           messengerGroup.request.status < 2 && (
@@ -498,8 +500,8 @@ class Messages extends Component{
               }
             ></Transfer>
           )
-        }
-        {
+        } */}
+        {/* {
           messengerGroup.account_id != user.id &&
           (messengerGroup.request.type == 1 || messengerGroup.request.type == 4) &&
           messengerGroup.request.status < 2 &&
@@ -513,7 +515,7 @@ class Messages extends Component{
               }}
             ></SendRequirements>
           )
-        }
+        } */}
       </View>
     );
   }
@@ -642,7 +644,7 @@ class Messages extends Component{
           borderTopWidth: 1,
           backgroundColor: Color.white
         }}>
-          {messengerGroup != null && messengerGroup.request.status < 2 && (this._footer())}
+          {/* {messengerGroup != null && messengerGroup.request.status < 2 && (this._footer())} */}
         </View>
         <ImageModal
           visible={isImageModal}

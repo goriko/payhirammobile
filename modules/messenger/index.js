@@ -140,17 +140,17 @@ class Groups extends Component{
                 textAlign:'right',
                 width: '60%'
               }}>
-                {Currency.display((item.request.amount + item.peer.charge).toFixed(2), item.request.currency)}
+                {/* {Currency.display((item.request.amount + item.peer.charge).toFixed(2), item.request.currency)} */}
               </Text>
             </View>
             <View style={{
               paddingLeft: 10,
               paddingRight: 10
             }}>
-              <Text style={[Style.dateTextLeft, {
+              {/* <Text style={[Style.dateTextLeft, {
                 color: item.request.status < 2 ? Color.danger : Color.normalGray,
                 paddingBottom: 0
-              }]}>{item.request.status < 2 ? 'Transaction is on going' : 'Transaction completed'}</Text>
+              }]}>{item.request.status < 2 ? 'Transaction is on going' : 'Transaction completed'}</Text> */}
             </View>
             <View style={{
               marginBottom: 5,
@@ -162,11 +162,11 @@ class Groups extends Component{
                 width: '40%',
                 paddingTop: 2
               }]}>{item.created_at_human}</Text>
-              <Text style={[Style.dateTextLeft, {
+              {/* <Text style={[Style.dateTextLeft, {
                 width: '60%',
                 textAlign: 'right',
                 paddingTop: 2
-              }]}>{Helper.showRequestType(item.request.type)} - {item.thread.substring(24, 32)}</Text>
+              }]}>{Helper.showRequestType(item.request.type)} - {item.thread.substring(24, 32)}</Text> */}
             </View>
           </View>
         </TouchableHighlight>
